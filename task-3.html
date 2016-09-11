@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <title>ДЗ 3 - Web-технологии</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+
+        <h1 class="text-center">Домашнее задание 3</h1>
+        <h2 class="text-center">Обработка HTTP запросов</h2>
+
+        <div>Целью домашнего задания является:</div>
+        <ul>
+            <li>создание основных view сайта (отображающих “рыбу”)</li>
+            <li>настройка маршрутизации URL</li>
+            <li>использование шаблонизатора для генерации HTML</li>
+            <li>постраничное отображение (пагинация)</li>
+        </ul>
+
+        <h3>1. Отображение данных</h3>
+        <div>Разработать view для отображения следующих страниц:</div>
+        <ul>
+            <li>cписок новых вопросов (главная страница) (URL = <b>/</b>)</li>
+            <li>cписок “лучших” вопросов (URL = <b>/hot/</b>)</li>
+            <li>cписок вопросов по тэгу (URL = <b>/tag/blablabla/</b>)</li>
+            <li>cтраница одного вопроса со списком ответов (URL = <b>/question/35/</b>)</li>
+            <li>форма логина  (URL = <b>/login/</b>)</li>
+            <li>форма регистрации (URL = <b>/signup/</b>)</li>
+            <li>форма создания вопроса (URL = <b>/ask/</b>)</li>
+        </ul>
+        <p>На данном этапе view не обязаны выбирать данные из базы, их задача - подготовить данные-заглушки (“рыбу”) и передать на отрисовку в соответсвующий шаблнон. Например таким образом:</p>
+        <pre><code>
+        questions = []
+        for i in xrange(1,30):
+            questions.append({
+                ‘title’: ‘title ‘ + str(i),
+                ‘id’: i,
+                ‘text’: ‘text’ + str(i),
+            })
+        </code></pre>
+        <p>Далее список questions можно будет легко заменить на выборку из базы данных. Вьюшки отображающие формы (например форму логина) - могут просто вызывать шаблон.</p>
+
+        <h3>2. Маршрутизация URL</h3>
+        <p>Для всех вышеперечисленных view нужно прописать маршруты в urls.py.  Маршруты должны быть именованными.</p>
+
+        <h3>3. Шаблонизация</h3>
+        <p>Для каждой из вышеперчисленных view нужно создать отдельный шаблон, отрисовывающий HTML данной страницы. В шаблонах <b>не должно быть</b> дублирования HTML - для этого следует использовать наследование шаблонов и подшаблоны (<a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/templates/builtins/#include">include</a>). В шаблонах должны быть прописаны гиперссылки для переходов на другие страницы. URL <b>не хардкодить</b>, вместо этого использовать тэг <a href="https://docs.djangoproject.com/en/1.10/ref/templates/builtins/#url" target="_blank">url</a>.</p>
+
+        <h3>4. Функция пагинации</h3>
+        <p>Общим функционалом для этих страниц является пагинация. Поэтому функционал пагинации следует вынести в отдельную функцию, которая будет принимать список объектов (или query-set), объект запроса (request) и будет возвращать нужную страницу и данные для шаблона пагинатора. Некорректные параметры пагинации нужно заменять на значения по-умолчанию.  Примерная сигнатура функции такова:</p>
+        <pre><code>
+        def paginate(objects_list, request):
+            # do smth with Paginator, etc…
+            return objects_page, paginator
+        </code></pre>
+
+        <h3>5. Полезные ссылки</h3>
+        <ul>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/intro/tutorial03/">Туториал по Django Views</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/templates/language/">Документация по шаблонам</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/templates/language/#template-inheritance">Наследование шаблонов</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/topics/pagination/">Постраничный вывод (пагинация)</a></li>
+        </ul>
+    </div>
+</body>
+</html>

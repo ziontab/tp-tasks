@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <title>ДЗ 1 - Web-технологии</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+
+        <h1 class="text-center">Домашнее задание 1</h1>
+        <h2 class="text-center">Верстка статического сайта</h2>
+
+        <p>Целью домашнего задания является подготовка статический верстки сайта (так называемой «рыбы»). Верстку можно размещать в обычных html файлах, в директории public, но рекомендуется сразу размещать верстку в шаблонах Django. Во втором случае поднадобится создать примитивные view и роутинг в urls.py</p>
+
+        <h3>1. Верстка общего вида (layout) страницы</h3>
+        <p>В файле <b>base.html</b> нужно создать основную верстку (любой) страницы. Для упрощения задачи нужно скачать и использовать CSS библиотеку <a target="_blank" href="http://getbootstrap.com/getting-started/">Twitter Bootstrap</a>. Файлы (как свои CSS стили так и файлы Bootstrap) нужно разместить в директории <b>static</b>.</p>
+        <p>При верстке страницы важно обратить внимание на:</p>
+        <ul>
+            <li>Терпимые отступы (padding/margin) между блоками</li>
+            <li>Юзерблок в шапке (для авторизованного и неавторизованного пользователя)</li>
+            <li>Поисковая строка и логотип</li>
+            <li>Блоки в правой колонке</li>
+        </ul>
+
+        <h3>2. Верстка списка вопросов на главной странице</h3>
+        <p>B файле <b>index.html</b> нужно создать верстку для списка вопросов. Основную верстку (layout) можно просто скопировать из <b>base.html</b>. При использовании шаблонизатора - вам необходимо унаследовать (<a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/templates/builtins/#std:templatetag-extends">extends</a>) шаблон от базового.</p>
+        <p>Обратить внимание на:</p>
+        <ul>
+            <li>Терпимые отступы (padding/margin) между блоками</li>
+            <li>Аватарки</li>
+            <li>Кнопки лайков</li>
+            <li>Тэги, счетчики ответов, остальные ссылки</li>
+            <li>Пагинатор (список номеров страниц)</li>
+        </ul>
+
+        <h3>3. Верстка страницы одного вопроса</h3>
+        <p>HTML разместить в файле <b>question.html</b></p>
+        <p>Обратить внимание на:</p>
+        <ul>
+            <li>Список тегов у вопроса</li>
+            <li>Листинг ответов по верстки аналогичен листингу вопросов</li>
+        </ul>
+
+        <h3>4. Верстка формы добавления вопроса</h3>
+        <p>HTML разместить в файле <b>ask.html</b>.</p>
+        <p>Обратить внимание на:</p>
+        <ul>
+            <li>Вывод сообщения об ошибках формы и подсказок к полям</li>
+            <li>Ширину полей ввода</li>
+            <li>Максимальную длинну полей ввода</li>
+        </ul>
+
+        <h3>5. Верстка форм логина и регистрации</h3>
+        <p>HTML разместить в файлах <b>login.html</b> и <b>signup.html</b> соответсвенно.</p>
+        <p>Обратить внимание на:</p>
+        <ul>
+            <li>Вывод сообщения об ошибках формы и подсказок к полям</li>
+            <li>Ширину полей ввода</li>
+            <li>Максимальную длинну полей ввода</li>
+        </ul>
+
+        <h3>6. Примерный внешний вид страниц</h3>
+        <ul>
+            <li>
+                <span>Страница листинга вопросов</span>
+                <img src="img/main.png" class="img-responsive">
+            </li>
+            <li>
+                <span>Страница добавления вопроса</span>
+                <img src="img/ask.png" class="img-responsive">
+            </li>
+            <li>
+                <span>Страница одного вопроса</span>
+                <img src="img/single.png" class="img-responsive">
+            </li>
+            <li>
+                <span>Страница листинга вопросов по тегу</span>
+                <img src="img/tags.png" class="img-responsive">
+            </li>
+            <li>
+                <span>Страница пользователя с настройками</span>
+                <img src="img/settings.png" class="img-responsive">
+            </li>
+            <li>
+                <span>Форма авторизации</span>
+                <img src="img/login.png" class="img-responsive">
+            </li>
+            <li>
+                <span>Форма регистрации</span>
+                <img src="img/reg.png" class="img-responsive">
+            </li>
+            <li>
+                Подробное описание страниц и блоков в <a target="_blank" href="technical_details.html">техническом задании</a>
+            </li>
+        </ul>
+
+        <h3>7. Полезные ссылки.</h3>
+        <ul>
+            <li><a target="_blank" href="http://getbootstrap.com/css/#grid">Общая информация про Bootstrap</a></li>
+            <li><a target="_blank" href="http://getbootstrap.com/components/">Готовые блоки в Bootstrap</a></li>
+            <li><a target="_blank" href="http://getbootstrap.com/css/#forms">Верстка форм в Bootstrap</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/templates/language/">Основы шаблонизатора Django</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/topics/http/shortcuts/#render">Как отрисовать шаблон</a></li>
+        </ul>
+    </div>
+</body>
+</html>

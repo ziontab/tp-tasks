@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <title>ДЗ 6 - Web-технологии</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+
+        <h1 class="text-center">Домашнее задание 6</h1>
+        <h2 class="text-center">Загрузка картинок и обработка AJAX запросов</h2>
+
+        <p>Целью домашнего задания является добавления функционала аватарок (загрузка картинок) и обработка AJAX запросов (лайки).</p>
+
+        <h3>1. Загрузка картинок.</h3>
+        <p>Для хранения картинок нужно использовать встроенные инструмены Django, а именно <a href="https://docs.djangoproject.com/en/1.10/ref/models/fields/#imagefield">django.db.models.ImageField</a> для хранения URL картинки в моделе и <a href="https://docs.djangoproject.com/en/1.10/ref/forms/fields/#imagefield">django.forms.ImageField</a> для описания поля в форме. Django хранит загруженные файлы на диске в директории <b>settings.MEDIA_ROOT</b>. В нашем случае в настройке <b>settings.MEDIA_URL</b> и в конфиге nginx должен быть прописать путь к директории <b>uploads</b> вашего проекте. Для отображения аватарки пользователя достаточно будет вставить в тэг img <b>src="{{ MEDIA_URL }}{{ user.avatar }}"</b></p>
+
+        <h3>2. Необходимыe AJAX запросы</h3>
+        <ul>
+            <li>Лайк (дизлайк) вопроса.  На сервер передаются параметры: id вопроса, тип (лайк / дизлайк). Возвращается: новый рейтинг вопроса или код ошибки.</li>
+            <li>Галочка правильный ответ. На сервер передается ID вопроса и ID правильного ответа. Необходимо проверить что только автор вопроса может выбирать правильный ответ.</li>
+        </ul>
+
+        <h3>3. Обработка AJAX запросов</h3>
+        <p>Так как отображение ошибок при AJAX запросах затруднительно, желательно не дать (на уровне интерфейса) возможности пользователю делать неправильные запросы. Например, если пользователь уже лайкал данный вопрос - то скрыть или отключить кнопку лайка. Скрыть выбор правильного ответа для не авторов.</p>
+        <p>В отличие от остальных страниц, в ответ на AJAX запрос сервер должен возвращать JSON документ. Для этого необходимо создавать объект <b>django.http.HttpResponse</b> самостоятельно с <b>Content-Type: 'application/json'</b> и соответсвующим телом ответа, либо воспользоваться вспомогательным объектом <a href="https://docs.djangoproject.com/en/1.10/ref/request-response/#jsonresponse-objects">django.http.JsonResponse</a>.</p>
+        <p>Для отправки AJAX запросов в браузере можно использовать jQuery, воспользовавшись <a target="_blank" href="http://jquery.page2page.ru/index.php5/Ajax_%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81_%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%BE%D0%BC_POST">каким-либо туториалом</a>. Необходимо учесть, что Django ожидает получить с каждым запросом <a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/csrf/#ajax">csrf_token</a>, поэтому необходимо добавить его данные каждого AJAX запроса.</p>
+
+        <h3>4. Полезные ссылки</h3>
+        <ul>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/forms/fields/#imagefield">Документациия по загрузке файлов в Django</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/howto/static-files/">Документациия по работе со статическими файлам в Django</a></li>
+            <li><a target="_blank" href="https://realpython.com/blog/python/django-and-ajax-form-submissions/">Неплохой туториал по связке django + jquery + ajax</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/csrf/">Про CSRF в Django</a></li>
+        </ul>
+    </div>
+</body>
+</html>

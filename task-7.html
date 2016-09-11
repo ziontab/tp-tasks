@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <title>ДЗ 7 - Web-технологии</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+
+        <h1 class="text-center">Домашнее задание 7</h1>
+        <h2 class="text-center">Дополнительные функции</h2>
+
+        <p>Целью домашнего задания является исследование технологии Comet и механизма кэширования данных.</p>
+
+        <h3>1. Real-time сообщения</h3>
+        <p>Необходимо реализовать рассылку мгновенных сообщений о новых ответах всем пользователям, находящимся на странице определенного вопроса. Допустим есть два пользователя A и B.  Оба находятся на странице одного вопроса, например <b>/question/33</b>. Пользователь A добавляет ответ на этот вопрос, пользователь B должен увидеть ответ без перезагрузки страницы.</p>
+        <div>Для этого необходимо:</div>
+        <ul>
+            <li>Настроить <a href="https://www.nginx.com/resources/wiki/modules/push_stream/" target="_blank">nginx-push-stream-module</a> в nginx (comet). Обратите внимание что этот модуль не относиться к стандартным. Nginx c этим модулем придется <a href="https://www.nginx.com/resources/wiki/modules/push_stream/#installation">собирать самостоятельно</a>.</li>
+            <li>На странице вопроса добавить JavaScript опрашивающий comet сервер.</li>
+            <li>В форме добавления ответа добавить код, отправляющий сообщения в comet, например с помощью библиотеки requests.</li>
+        </ul>
+
+        <h3>2. Кэширование и фоновый запуск</h3>
+        <p>Необходимо подготовить и вывести данные для правой колонки (лучшие пользователи, популярные тэги).  Популярные тэги - это 10 тэгов с самым большим количеством вопросов за последние 3 месяца. Лучшие пользователи - это пользователи с самым большим количеством вопросов + ответов за последние 3 месяца. </p>
+        <p>Так как запросы на предполагаются тяжелыми, необходимо кэшировать данные на диске или memcached. Вьюшки не должны запускать эти запросы, а только брать данные из кэша. Для кэширования можно использовать встроенные механизмы Django.</p>
+        <p>Так как данные необходимы на каждой страницы, их придется загружать в каждой вьюшке, либо можно расширить шаблонизатор своими (inclusion) тэгами. Наполнять кэш данными необходимо с помощью <a href="https://docs.djangoproject.com/en/1.10/howto/custom-management-commands/">Management команды</a>, запускаемой из Cron.</p>
+
+        <h3>3. Полезные ссылки</h3>
+        <ul>
+            <li><a target="_blank" href="https://www.nginx.com/resources/wiki/modules/push_stream/">Документация по nginx-push-stream-module</a></li>
+            <li><a target="_blank" href="http://docs.python-requests.org/en/latest/">Библиотека requests для python</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/#inclusion-tags">Inclusion tags в Django</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/es/1.10/topics/cache/#filesystem-caching">Настройка кэширования в Django</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/es/1.10/topics/cache/#the-low-level-cache-api">Использование кэшей в Django</a></li>
+            <li><a target="_blank" href="https://www.google.ru/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8&amp;client=ubuntu#q=cron">И, наконец, cron</a></li>
+        </ul>
+    </div>
+</body>
+</html>
