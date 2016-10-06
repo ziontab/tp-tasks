@@ -27,13 +27,18 @@
         <p>Так как запросы на предполагаются тяжелыми, необходимо кэшировать данные на диске или memcached. Вьюшки не должны запускать эти запросы, а только брать данные из кэша. Для кэширования можно использовать встроенные механизмы Django.</p>
         <p>Так как данные необходимы на каждой страницы, их придется загружать в каждой вьюшке, либо можно расширить шаблонизатор своими (inclusion) тэгами. Наполнять кэш данными необходимо с помощью <a href="https://docs.djangoproject.com/en/1.10/howto/custom-management-commands/">Management команды</a>, запускаемой из Cron.</p>
 
-        <h3>3. Полезные ссылки</h3>
+        <h3>3. Полнотекстовый поиск</h3>
+        <p>Необходимо реализовать поиск по заголовкам и содержимому вопросов. Пользователь вводит текст в поисковой строке, которая находиться в шапке. По введеному тексту СУБД должна находить совпадения, используя полнотекстовые индексы. Результаты поиска отображются пользователю в виде поисковых подсказок (выпадающий спискок под поисковой строкой).</p>
+        <p>Запрос должен отправляться автоматически по мере ввода пользователем частей текста. Необходимо удостовериться, что мы не перегружаем сервер лишними запросами, отправляя запрос на каждый новый введеный символ во время печати.</p>
+
+        <h3>4. Полезные ссылки</h3>
         <ul>
             <li><a target="_blank" href="https://www.nginx.com/resources/wiki/modules/push_stream/">Документация по nginx-push-stream-module</a></li>
             <li><a target="_blank" href="http://docs.python-requests.org/en/latest/">Библиотека requests для python</a></li>
             <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/#inclusion-tags">Inclusion tags в Django</a></li>
             <li><a target="_blank" href="https://docs.djangoproject.com/es/1.10/topics/cache/#filesystem-caching">Настройка кэширования в Django</a></li>
             <li><a target="_blank" href="https://docs.djangoproject.com/es/1.10/topics/cache/#the-low-level-cache-api">Использование кэшей в Django</a></li>
+            <li><a target="_blank" href="http://www.mysql.ru/docs/man/Fulltext_Search.html">Полнотекстовый поиск в MySQL</a></li>
             <li><a target="_blank" href="https://www.google.ru/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8&amp;client=ubuntu#q=cron">И, наконец, cron</a></li>
         </ul>
     </div>
