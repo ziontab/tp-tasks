@@ -46,7 +46,7 @@
         <p>Для всех вышеперечисленных view нужно прописать маршруты в urls.py.  Маршруты должны быть именованными.</p>
 
         <h3>3. Шаблонизация</h3>
-        <p>Для каждой из вышеперчисленных view нужно создать отдельный шаблон, отрисовывающий HTML данной страницы. В шаблонах <b>не должно быть</b> дублирования HTML - для этого следует использовать наследование шаблонов и подшаблоны (<a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/templates/builtins/#include">include</a>). В шаблонах должны быть прописаны гиперссылки для переходов на другие страницы. URL <b>не хардкодить</b>, вместо этого использовать тэг <a href="https://docs.djangoproject.com/en/1.10/ref/templates/builtins/#url" target="_blank">url</a>.</p>
+        <p>Для каждой из вышеперчисленных view нужно создать отдельный шаблон, отрисовывающий HTML данной страницы. В шаблонах <b>не должно быть</b> дублирования HTML - для этого следует использовать наследование шаблонов и подшаблоны (<a target="_blank" href="https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#include">include</a>). В шаблонах должны быть прописаны гиперссылки для переходов на другие страницы. URL <b>не хардкодить</b>, вместо этого использовать тэг <a href="https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#url" target="_blank">url</a>.</p>
 
         <h3>4. Функция пагинации</h3>
         <p>Общим функционалом для этих страниц является пагинация. Поэтому функционал пагинации следует вынести в отдельную функцию, которая будет принимать список объектов (или query-set), объект запроса (request) и будет возвращать нужную страницу и данные для шаблона пагинатора. Некорректные параметры пагинации нужно заменять на значения по-умолчанию.  Примерная сигнатура функции такова:</p>
@@ -58,10 +58,10 @@
 
         <h3>5. Полезные ссылки</h3>
         <ul>
-            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/intro/tutorial03/">Туториал по Django Views</a></li>
-            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/templates/language/">Документация по шаблонам</a></li>
-            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/ref/templates/language/#template-inheritance">Наследование шаблонов</a></li>
-            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/topics/pagination/">Постраничный вывод (пагинация)</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/2.0/intro/tutorial03/">Туториал по Django Views</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/2.0/ref/templates/language/">Документация по шаблонам</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/2.0/ref/templates/language/#template-inheritance">Наследование шаблонов</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/2.0/topics/pagination/">Постраничный вывод (пагинация)</a></li>
         </ul>
     </div>
 </body>

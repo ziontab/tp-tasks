@@ -14,7 +14,7 @@
         <p>Целью домашнего задания является проектирование модели базы данных, наполнение ее тестовыми данными и и отображение этих данных на сайте. Таким образом будет создана read-only версия сайта.</p>
 
         <h2>1. Проектирование модели</h2>
-        <p>Используя Django Models спроектировать схему вашего приложения. Создать модели для основных сущностей:  вопрос, ответ, тэг, профиль пользователя, лайк. Важно использовать правильные типы данных и проставить необходимые связи (<a href="https://docs.djangoproject.com/en/1.10/ref/models/fields/#foreignkey" target="_blank">ForeignKey</a>) в моделях.  Для вопросов создать свой Model Manager, в котором определить типичные выборки (“лучшие” и “новые” вопросы).</p>
+        <p>Используя Django Models спроектировать схему вашего приложения. Создать модели для основных сущностей:  вопрос, ответ, тэг, профиль пользователя, лайк. Важно использовать правильные типы данных и проставить необходимые связи (<a href="https://docs.djangoproject.com/en/2.0/ref/models/fields/#foreignkey" target="_blank">ForeignKey</a>) в моделях.  Для вопросов создать свой Model Manager, в котором определить типичные выборки (“лучшие” и “новые” вопросы).</p>
         <p>Поскольку мы будем использовать встроенную авторизацию Django (<b>django.contrib.auth</b>) - у нас будет готовая модель пользователя (<b>django.contrib.auth.models.User</b>), но необходимо создать дополнительную модель (Profile) в которую разместить дополнительные поля, например avatar. Модель Profile и User должны быть связаны один к одному.</p>
 
         <h2>2. ModelManager и методы моделей</h2>
@@ -45,9 +45,9 @@
 
         <h2>5. Полезные ссылки</h2>
         <ul>
-            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/intro/tutorial02/">Туториал по проектированию моделей в Django</a></li>
-            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/topics/db/models/">Подробная документация по моделям</a></li>
-            <li><a target="_blank" href="https://docs.djangoproject.com/en/1.10/howto/custom-management-commands/">Скрипты - Management Commands</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/2.0/intro/tutorial02/">Туториал по проектированию моделей в Django</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/2.0/topics/db/models/">Подробная документация по моделям</a></li>
+            <li><a target="_blank" href="https://docs.djangoproject.com/en/2.0/howto/custom-management-commands/">Скрипты - Management Commands</a></li>
         </ul>
     </div>
 </body>
