@@ -9,6 +9,7 @@
 ответ без перезагрузки страницы.
 
 Для этого необходимо:
+
 - Настроить [nginx-push-stream-module](https://www.nginx.com/resources/wiki/modules/push_stream/) в nginx (comet). Обратите внимание: этот модуль не относиться к стандартным. Nginx c этим модулем придется [собирать самостоятельно](https://www.nginx.com/resources/wiki/modules/push_stream/#installation).
 - На странице вопроса добавить JavaScript опрашивающий comet сервер.
 - В форме добавления ответа добавить код, отправляющий сообщения в comet, например с помощью библиотеки requests.
