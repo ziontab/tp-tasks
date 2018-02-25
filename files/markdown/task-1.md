@@ -78,8 +78,8 @@ HTML разместить в файлах **login.html** и **signup.html** со
 Подробное описание страниц и блоков в [техническом задании](technical_details.pdf).
 
 ### 7. Полезные ссылки
-- Общая информация про Bootstrap (https://getbootstrap.com/css/#grid);
-- Готовые блоки в Bootstrap (https://getbootstrap.com/components);
-- Верстка форм в Bootstrap (https://getbootstrap.com/css/#forms);
-- Основы шаблонизатора Django (https://docs.djangoproject.com/en/2.0/ref/templates/language);
-- Как отрисовать шаблон (https://docs.djangoproject.com/en/2.0/topics/http/shortcuts/#render).
+- Общая информация про [Bootstrap](https://getbootstrap.com/css/#grid);
+- [Готовые блоки в Bootstrap](https://getbootstrap.com/components);
+- [Верстка форм в Bootstrap](https://getbootstrap.com/css/#forms);
+- [Основы шаблонизатора Django](https://docs.djangoproject.com/en/2.0/ref/templates/language);
+- [Как отрисовать шаблон](https://docs.djangoproject.com/en/2.0/topics/http/shortcuts/#render).
