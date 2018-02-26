@@ -5,7 +5,7 @@
 Целью домашнего задания является добавления функционала аватарок (загрузка картинок) и обработка AJAX запросов (лайки).
 
 ### 1. Загрузка картинок
-Для хранения картинок нужно использовать встроенные инструмены Django, а именно [django.db.models.ImageField](https://docs.djangoproject.com/en/2.0/ref/models/fields/#imagefield) для хранения URL картинки в моделе и [django.forms.ImageField](https://docs.djangoproject.com/en/2.0/ref/forms/fields/#imagefield) для описания поля в форме. Django хранит загруженные файлы на диске в директории **settings.MEDIA_ROOT**. В нашем случае в настройке **settings.MEDIA_URL** и в конфиге nginx должен быть прописать путь к директории **uploads** вашего проекте. Для отображения аватарки пользователя достаточно будет вставить в тэг img **src="{{ MEDIA_URL }}{{ user.avatar }}"**.
+Для хранения картинок нужно использовать встроенные инструменты Django, а именно [django.db.models.ImageField](https://docs.djangoproject.com/en/2.0/ref/models/fields/#imagefield) для хранения URL картинки в модели и [django.forms.ImageField](https://docs.djangoproject.com/en/2.0/ref/forms/fields/#imagefield) для описания поля в форме. Django хранит загруженные файлы на диске в директории **settings.MEDIA_ROOT**. В нашем случае в настройке **settings.MEDIA_URL** и в конфиге nginx должен быть прописать путь к директории **uploads** вашего проекте. Для отображения аватарки пользователя достаточно будет вставить в тег img **src="{{ MEDIA_URL }}{{ user.avatar }}"**.
 
 ### 2. Необходимыe AJAX запросы
 - Лайк (дизлайк) вопроса. На сервер передаются параметры: id вопроса, тип (лайк / дизлайк). Возвращается: новый рейтинг вопроса или код ошибки.
@@ -21,7 +21,7 @@
 данные каждого AJAX запроса.
 
 ### 4. Полезные ссылки
-- Документациия по [загрузке файлов в Django](https://docs.djangoproject.com/en/2.0/ref/forms/fields/#imagefield);
-- Документациия по [работе со статическими файлам в Django](https://docs.djangoproject.com/en/2.0/howto/static-files/);
+- Документация по [загрузке файлов в Django](https://docs.djangoproject.com/en/2.0/ref/forms/fields/#imagefield);
+- Документация по [работе со статическими файлам в Django](https://docs.djangoproject.com/en/2.0/howto/static-files/);
 - Неплохой туториал по [связке django + jquery + ajax](https://realpython.com/blog/python/django-and-ajax-form-submissions/);
 - Про [CSRF в Django](https://docs.djangoproject.com/en/2.0/ref/csrf/).
