@@ -8,7 +8,7 @@
   </a>
 </p>
 
-## Технопарк Mail.ru / 1й семестр / Web-технологии
+## Технопарк Mail.ru / Курс Web-технологии
 - Техническое задание ([Markdown](files/markdown/technical_details.md), [PDF](files/pdf/technical_details.pdf))
 - Домашнее задание 1 ([Markdown](files/markdown/task-1.md), [PDF](files/pdf/task-1.pdf))
 - Домашнее задание 2 ([Markdown](files/markdown/task-2.md), [PDF](files/pdf/task-2.pdf))
