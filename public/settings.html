@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <title>askme</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/faicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/site.webmanifest">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/my.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar  my-nav">
+        <div class="container-fluid">
+            <div class="col-2">
+                <img class="brand" src="../static/img/brand.svg">
+                <span class="brand-text">me</span>
+            </div>
+            <div class="col-2">
+                <a class="nav-link font-30" href="#">Home</a>
+            </div>
+            <div class="col-4">
+                <form class="d-flex">
+                    <input class="form-control me-2 nav-link font-30 search" maxlength="200" placeholder="Search" name="search">
+                    <button class="btn my-btn" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-1 ">
+                <img class="avatar" src="../static/img/avatar.png">
+            </div>
+            <div class="col-1 font-30 nick">
+                Natalia
+            </div>
+            <div class=col-1>
+                <div>
+                    <a class="nav-link font-20" href="#">settings</a>
+                </div>
+                <div>
+                    <a class="nav-link font-20" href="#">log out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid mgt-50">
+        <div class="row">
+            <div class="col-8">
+                <h2 class="my-header">Settings</h2>
+                <form class="was-validated row question-form col-6 mx-auto">
+                    <div class="row mt-3 mx-auto">
+                        <div class="col-12 mx-auto form-floating">
+                            <input type="email" class="form-control" name="email" maxlength="100" id="email-input" placeholder="name@example.com" value="nataliSkv@mail.ru" required>
+                            <div class="requirements">Invalid email. Example is "name@example.com".</div>
+                            <label for="email-input">Your new email address</label>
+                        </div>
+                    </div>
+                    <div class="row mt-3 mx-auto">
+                        <div class="col-12 mx-auto form-floating">
+                            <input type="text" class="form-control" name="nick" maxlength="100" id="nick-input" placeholder="NiCk_NaMe123" pattern="^\w+$" value="nataliSkv25">
+                            <div class="requirements">Invalid nick. Example is "Natati_Skv123". <br> It cannot be empty or consist only of spaces. <br> Nick name can consist of one word containing only letters of the Latin alphabet, numbers, underscore.</div>
+                            <label for="nick-input">Your new nick name</label>
+                        </div>
+                    </div>
+                    <div class="row mt-3 mx-auto">
+                        <div class="col-12 mx-auto form-floating">
+                            <input type="password" name="password" maxlength="100" class="form-control" id="password-input" placeholder="Password" pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$">
+                            <label for="password-input">Your new password</label>
+                            <div class="requirements">Invalid password. it must contain one upper and one lowercase letter and at least one number and be at least 6 characters long <br> Example is "aA1fera".</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 mx-auto">
+                        <div class="col-12 mx-auto form-floating">
+                            <input type="password" name="password-mach" maxlength="100" class="form-control" id="password-match-input" placeholder="Password" pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$">
+                            <label for="password-mach-input">Repeat password</label>
+                            <div class="requirements">The password does not match.</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 mb-3 mx-auto">
+                        <input type="file" name="avatar" accept="image/*" class=" form-control" id="avatar-input" required>
+                        <label id="avatar-label" class="w-50 input-group-text mx-auto btn my-btn border-3 link" for="avatar-input">Upload new avatar</label>
+                        <div id="avatar-input-error" class="requirements text-center ">Naw avatar was not uploaded.</div>
+                    </div>
+                    <div class="row mb-1 mx-auto">
+                        <div class="col-8">
+                            <div class="error-msg text-end">
+                                Sorry, this email address allready registred...
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn my-btn link border-3 w-100 m-0" type="submit">Save!</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4">
+                <div>
+                    <h2 class="my-header">Popular tags</h2>
+                    <div class="tags-holder">
+                        <a class="tag" href="#"> adf </a>
+                        <a class="tag" href="#"> Somdfaddf </a>
+                        <a class="tag" href="#"> vsfSome </a>
+                        <a class="tag" href="#"> Somad </a>
+                        <a class="tag" href="#"> Sotag </a>
+                        <a class="tag" href="#"> Sofdme </a>
+                        <a class="tag" href="#"> Somesag </a>
+                        <a class="tag" href="#"> Some </a>
+                        <a class="tag" href="#"> Some_tag </a>
+                        <a class="tag" href="#"> Some </a>
+                        <a class="tag" href="#"> Some_tag </a>
+                        <a class="tag" href="#"> Some_tag </a>
+                        <a class="tag" href="#"> Some_tag </a>
+                    </div>
+                </div>
+                <div class="mgt-50">
+                    <h2 class="my-header ">Best members</h2>
+                    <div class="tags-holder">
+                        <a class="tag" href="#"> My </a>
+                        <a class="tag" href="#"> sdfg </a>
+                        <a class="tag" href="#"> Memberwertwerq </a>
+                        <a class="tag" href="#"> wqweer </a>
+                        <a class="tag" href="#"> Membrter </a>
+                        <a class="tag" href="#"> My </a>
+                        <a class="tag" href="#"> sdfg </a>
+                        <a class="tag" href="#"> wqweer </a>
+                        <a class="tag" href="#"> wqweer </a>
+                        <a class="tag" href="#"> wqweer </a>
+                        <a class="tag" href="#"> wqweer </a>
+                        <a class="tag" href="#"> Membrter </a>
+                        <a class="tag" href="#"> My </a>
+                        <a class="tag" href="#"> Membrter </a>
+                        <a class="tag" href="#"> My </a>
+                        <a class="tag" href="#"> Membrter </a>
+                        <a class="tag" href="#"> My </a>
+                        <a class="tag" href="#"> Membrter </a>
+                        <a class="tag" href="#"> My </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
