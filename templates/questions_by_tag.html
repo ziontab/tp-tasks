@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %} Tag {% endblock %}
+{% block content %}
+    <div class="row">
+        <h2 class="my-header">Questions by tag {{ tag_name }}</h2>
+    </div>
+
+    {% for question in questions %}
+        {% include 'include/question_preview.html' %}
+    {% endfor %}
+
+    {% include 'include/paginator.html'%}
+{% endblock %}

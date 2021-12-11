@@ -1,0 +1,43 @@
+{% load static %}
+<div class="answer">
+    <div class="row">
+        <div class="col-2">
+            <div class="my-header font-20">
+                {{ answer.author }}
+            </div>
+            <div class="text-center ">
+                <img class="question-avatar"  src="{% static "img/avatar.png" %}" alt="avatar">
+            </div>
+            <div class="like-dislike w-75 mx-auto">
+                <div class="btn-group " role="group">
+                    <button type="button" class="btn my-btn border-2">+</button>
+                    <button type="button" class="btn my-btn border-2">-</button>
+                </div>
+                <div class="like-counter text-center ">{{ answer.like_count }}</div>
+            </div>
+        </div>
+        <div class="col-10">
+            <p class="font-20 align-middle">
+                {{ answer.text }}
+            </p>
+            <div class="form-check">
+                {% if answer.correct and question.author == user.nick %}
+                    <input type="checkbox" name="is-right-checkbox-1" value="" id="is-right-checkbox-1" checked>
+                {% elif answer.correct and question.author != user.nick %}
+                    <input type="checkbox" name="is-right-checkbox-1" value="" id="is-right-checkbox-1" checked
+                           disabled>
+                {% elif not answer.correct and question.author == user.nick %}
+                    <input type="checkbox" name="is-right-checkbox-1" value="" id="is-right-checkbox-1">
+                {% elif not answer.correct and question.author != user.nick %}
+                    <input type="checkbox" name="is-right-checkbox-1" value="" id="is-right-checkbox-1"
+                           disabled>
+                {% endif %}
+                <label for="is-right-checkbox-1">
+                    correct
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+{

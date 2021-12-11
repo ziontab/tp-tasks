@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %} Settings {% endblock %}
+{% block content %}
+    <h2 class="my-header">Settings</h2>
+    <form class="was-validated row question-form col-6 mx-auto">
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                <input type="email" class="form-control" name="email" maxlength="100" id="email-input"
+                       placeholder="name@example.com" value={{ user.email }}>
+                <div class="requirements">Invalid email. Example is "name@example.com".</div>
+                <label for="email-input">Your new email address</label>
+            </div>
+        </div>
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                <input type="text" class="form-control" name="nick" maxlength="100" id="nick-input"
+                       placeholder="NiCk_NaMe123" pattern="^\w+$" value="{{ user.nick }}">
+                <div class="requirements">Invalid nick. Example is "Natati_Skv123". <br> It cannot be empty or
+                    consist only of spaces. <br> Nick name can consist of one word containing only letters of the
+                    Latin alphabet, numbers, underscore.
+                </div>
+                <label for="nick-input">Your new nick name</label>
+            </div>
+        </div>
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                <input type="password" name="password" maxlength="100" class="form-control" id="password-input"
+                       placeholder="Password" pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$">
+                <label for="password-input">Your new password</label>
+                <div class="requirements">Invalid password. it must contain one upper and one lowercase letter and
+                    at least one number and be at least 6 characters long <br> Example is "aA1fera".
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                <input type="password" name="password-mach" maxlength="100" class="form-control"
+                       id="password-match-input" placeholder="Password" pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$">
+                <label for="password-mach-input">Repeat password</label>
+                <div class="requirements">The password does not match.</div>
+            </div>
+        </div>
+        <div class="row mt-3 mb-3 mx-auto">
+            <input type="file" name="avatar" accept="image/*" class=" form-control" id="avatar-input" required>
+            <label id="avatar-label" class="w-50 input-group-text mx-auto btn my-btn border-3 link"
+                   for="avatar-input">Upload new avatar</label>
+            <div id="avatar-input-error" class="requirements text-center ">Naw avatar was not uploaded.</div>
+        </div>
+        <div class="row mb-1 mx-auto">
+            <div class="col-8">
+                <div class="error-msg text-end">
+                    Sorry, this email address already register...
+                </div>
+            </div>
+            <div class="col-4">
+                <button class="btn my-btn link border-3 w-100 m-0" type="submit">Save!</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
