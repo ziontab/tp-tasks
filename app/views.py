@@ -1,7 +1,10 @@
 from django.core.paginator import Paginator
-from django.http import HttpResponse
 from django.shortcuts import render
+from app.models import *
 
+def paginate(objects_list, request, limit):
+    paginator = Paginator(objects_list, limit)
+    return paginator.get_page(request.GET.get('page'))
 
 class User:
     def __init__(self, id, nick, login, email, avatar_src):
