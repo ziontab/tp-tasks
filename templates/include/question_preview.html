@@ -3,18 +3,18 @@
     <div class="row">
         <div class="col-2">
             <div class="my-header font-20">
-                {{ question.author }}
+                {{ question.profile_id }}
             </div>
             <div class="text-center ">
-                <img class="question-avatar" src="{% static "img/avatar.png" %}" alt="avatar">
+                <img class="question-avatar" src="{{ question.profile_id.avatar.url }}" alt="avatar">
             </div>
-            <div class="like-dislike w-75 mx-auto">
+            <div class="like-dislike w-100 mx-auto text-center">
                 <div class="btn-group " role="group">
                     <button type="button" class="btn my-btn border-2">+</button>
                     <button type="button" class="btn my-btn border-2">-</button>
                 </div>
-                <div class="like-counter text-center ">{{ question.like_count }}</div>
             </div>
+            <div class="like-counter text-center w-100 ">{{ question.rating }}</div>
         </div>
         <div class="col-10">
             <div class="question-header">
@@ -25,11 +25,11 @@
             </p>
             <div class="row">
                 <div class="col-3">
-                    <a class="link font-20" href="{% url 'question' question.id %}">answers({{ question.tags_count }})</a>
+                    <a class="link font-20" href="{% url 'question' question.id %}">answers({{ question.number_of_answers }})</a>
                 </div>
-                <div class="col-9 word-spasing-1-5">
+                <div class="col-9 word-spacing-1-5">
                     <span class="font-20">Tags:</span>
-                    {% for tag in question.tags %}
+                    {% for tag in question.tags.all|slice:":10" %}
                         <a class="link font-20" href="{% url 'questions_by_tag' tag %}">{{ tag }}</a>
                     {% endfor %}
                 </div>

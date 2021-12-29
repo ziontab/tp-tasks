@@ -3,41 +3,43 @@
     <div class="row">
         <div class="col-2">
             <div class="my-header font-20">
-                {{ answer.author }}
+                {{ answer.profile_id }}
             </div>
             <div class="text-center ">
-                <img class="question-avatar"  src="{% static "img/avatar.png" %}" alt="avatar">
+                <img class="question-avatar" src="{{ answer.profile_id.avatar.url }}" alt="avatar">
             </div>
-            <div class="like-dislike w-75 mx-auto">
+            <div class="like-dislike w-100 mx-auto text-center">
                 <div class="btn-group " role="group">
                     <button type="button" class="btn my-btn border-2">+</button>
                     <button type="button" class="btn my-btn border-2">-</button>
                 </div>
-                <div class="like-counter text-center ">{{ answer.like_count }}</div>
             </div>
+            <div class="like-counter text-center w-100 ">{{ answer.rating }}</div>
         </div>
         <div class="col-10">
             <p class="font-20 align-middle">
                 {{ answer.text }}
             </p>
             <div class="form-check">
-                {% if answer.correct and question.author == user.nick %}
-                    <input type="checkbox" name="is-right-checkbox-1" value="" id="is-right-checkbox-1" checked>
-                {% elif answer.correct and question.author != user.nick %}
-                    <input type="checkbox" name="is-right-checkbox-1" value="" id="is-right-checkbox-1" checked
+                {% if answer.is_correct and question.author == user_id %}
+                    <input type="checkbox" class="is-right-checkbox" name="is-right-checkbox-{{ answer.id }}" value=""
+                           id="is-right-checkbox-{{ answer.id }}" checked>
+                {% elif answer.is_correct and question.author != user_id %}
+                    <input type="checkbox" class="is-right-checkbox" name="is-right-checkbox-{{ answer.id }}" value=""
+                           id="is-right-checkbox-{{ answer.id }}" checked
                            disabled>
-                {% elif not answer.correct and question.author == user.nick %}
-                    <input type="checkbox" name="is-right-checkbox-1" value="" id="is-right-checkbox-1">
-                {% elif not answer.correct and question.author != user.nick %}
-                    <input type="checkbox" name="is-right-checkbox-1" value="" id="is-right-checkbox-1"
+                {% elif not answer.is_correct and question.author == user_id %}
+                    <input type="checkbox" class="is-right-checkbox" name="is-right-checkbox-{{ answer.id }}" value=""
+                           id="is-right-checkbox-{{ answer.id }}">
+                {% elif not answer.is_correct and question.author != user_id %}
+                    <input type="checkbox" class="is-right-checkbox" name="is-right-checkbox-{{ answer.id }}" value=""
+                           id="is-right-checkbox-{{ answer.id }}"
                            disabled>
                 {% endif %}
-                <label for="is-right-checkbox-1">
+                <label for="is-right-checkbox-{{ answer.id }}">
                     correct
                 </label>
             </div>
         </div>
     </div>
 </div>
-
-{

@@ -15,7 +15,7 @@
                 <button class="btn my-btn" type="submit">Search</button>
             </form>
         </div>
-        {% if is_auth %}
+        {% if user.is_authenticated %}
             <div class="col-2 text-center">
                 <a class="btn my-btn w-75 border-2" type="submit" href="{% url 'ask' %}" >Ask!</a>
             </div>
@@ -23,7 +23,7 @@
                 <img class="avatar" src="{% static "img/avatar.png" %}" alt="avatar">
             </div>
             <div class="col-1 font-30 nick">
-                {{ user.nick }}
+                {{ profile.user_id }}
             </div>
             <div class=col-1>
                 <div>

@@ -178,7 +178,7 @@ body {
     color: #9B8366;
 }
 
-.word-spasing-1-5 {
+.word-spacing-1-5 {
     word-spacing: 1.5em;
 }
 
@@ -210,21 +210,21 @@ body {
 
 .answer {}
 
-#is-right-checkbox {
+.is-right-checkbox {
     position: absolute;
     z-index: -1;
     opacity: 0;
 }
 
 /* для элемента label связанного с .custom-radio */
-#is-right-checkbox+label {
+.is-right-checkbox+label {
     font-size: 20px;
     color: #876DAE;
     font-weight: 800;
 }
 
 /* создание в label псевдоэлемента  before со следующими стилями */
-#is-right-checkbox+label::before {
+.is-right-checkbox+label::before {
     content: '';
     display: inline-block;
     width: 1em;
@@ -240,18 +240,18 @@ body {
 }
 
 /* стили при наведении курсора на радио */
-#is-right-checkbox:not(:disabled):not(:checked)+label:hover::before {
+.is-right-checkbox:not(:disabled):not(:checked)+label:hover::before {
     border: 3px solid #C9B5CD;
 }
 
 /* стили для радиокнопки, находящейся в фокусе */
-#is-right-checkbox:focus+label::before {
+.is-right-checkbox:focus+label::before {
     box-shadow: 0 0 0 0.25rem rgba(245, 255, 250, 0.25);
 }
 
 
 /* стили для радиокнопки, находящейся в состоянии checked */
-#is-right-checkbox:checked+label::before {
+.is-right-checkbox:checked+label::before {
     border-color: #C9B5CD;
     background-color: #C9B5CD;
 }
@@ -261,7 +261,7 @@ body {
 #question-body,
 #question,
 #tags-input,
-#avatar-input,
+#avatar-input
     {
     border: 2px solid #876DAE;
     border-radius: 10px;

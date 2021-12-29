@@ -2,7 +2,7 @@
 {% block title %} Tag {% endblock %}
 {% block content %}
     <div class="row">
-        <h2 class="my-header">Questions by tag {{ tag_name }}</h2>
+        <h2 class="my-header">Questions by tag {{ tag.tag }}</h2>
     </div>
 
     {% for question in questions %}
