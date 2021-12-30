@@ -7,20 +7,18 @@
         {% csrf_token %}
         <div class="row mt-3 mx-auto">
             <div class="col-12 mx-auto form-floating">
-                <input type="email" class="form-control" id="email-input" maxlength="100" placeholder="name@example.com"
-                       name="email" required>
-                <div class="requirements">Invalid email. Example is "name@example.com".</div>
-                <label for="email-input">Email address</label>
+                {{ form.username }}
+                <div class="requirements">Invalid nickname. Example is "My_NiCkNaMe55".</div>
+                <label for="{{ form.username.id_for_label }}">Your nickname</label>
             </div>
         </div>
         <div class="row mt-3 mx-auto">
             <div class="col-12 mx-auto form-floating">
-                <input type="password" name="password" maxlength="100" class="form-control" id="password-input"
-                       placeholder="Password" required pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$">
-                <label for="password-input">Password</label>
+                {{ form.password }}
                 <div class="requirements">Invalid password. it must contain one upper and one lowercase letter and at
-                    least one number and be 6-100 characters long <br> Example is "aA1fera".
+                    least one number and be 8-100 characters long <br> Example is "aA1fera**".
                 </div>
+                <label for="{{ form.password.id_for_label }}">Password</label>
             </div>
         </div>
         <div class="row mb-2 mt-2 mx-auto">
@@ -30,7 +28,9 @@
                 </div>
             </div>
             <div class="col-4">
-                <button class="btn my-btn link border-3 w-100 m-0" type="submit">Sign in!</button>
+                {% buttons %}
+                    <button class="btn my-btn link border-3 w-100 m-0" type="submit">Sign in!</button>
+                {% endbuttons %}
             </div>
         </div>
     </form>

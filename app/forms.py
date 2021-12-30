@@ -8,12 +8,19 @@ from django import forms
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(required=True,
-                             widget=forms.EmailInput,
-                             label='Email')
+    username = forms.CharField(required=True,
+                               widget=forms.TextInput(
+                                   attrs={'class': 'form-control', 'maxlength': 100, 'placeholder': 'My_NiCkNaMe55',
+                                          'required': True, 'id': 'username-input',
+                                          'required pattern': '^[-a-zA-Z0-9_+.@]+$'}),
+                               label='Login')
     password = forms.CharField(required=True,
-                               widget=forms.PasswordInput,
+                               widget=forms.PasswordInput(
+                                   attrs={'class': 'form-control', 'maxlength': 100,
+                                          'required': True, 'id': 'password-input',
+                                          'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$'}),
                                label='Password')
+    # placeholder="Password" required pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$"
 
 # class SignupForm(forms.ModelForm):
 #     password2 = forms.CharField(required=True,

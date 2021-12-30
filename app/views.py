@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from app.forms import *
+from app.models import *
 
 best_members = Profile.objects.sample_profile(count=20)
 
@@ -67,14 +68,19 @@ def login(request):
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
     if request.method == 'GET':
+        print('71')
         form = LoginForm()
     elif request.method == 'POST':
+        print('74')
         form = LoginForm(data=request.POST)
         if form.is_valid():
+            print('77')
             user = auth.authenticate(**form.cleaned_data)
             if not user:
+                print('80')
                 form.add_error(None, 'User not found')
             else:
+                print('83')
                 auth.login(request, user)
                 return redirect(request.POST.get('next', '/'))
     return render(request, 'login.html', {'form': form,

@@ -275,7 +275,7 @@ body {
 #email-input:valid~.requirements,
 #password-input:valid~.requirements,
 #password-match-input:valid~.requirements,
-#nick-input:valid~.requirements,
+#username-input:valid+.requirements,
 #avatar-input:valid~#avatar-input-error,
 #avatar-input:valid~#avatar-lable {
     opacity: 0;
@@ -297,7 +297,7 @@ body {
 #question-body,
 #tags-input,
 #input-answer,
-#nick-input,
+#username-input,
 #avatar-input {
     background-color: #C9B5CD;
     border: none;
@@ -310,7 +310,7 @@ body {
 #question-body:focus,
 #tags-input:focus,
 #input-answer:focus,
-#nick-input:focus,
+#username-input:focus,
 #avatar-input:focus {
     background-color: #FFD5A4;
     color: #362C46;
