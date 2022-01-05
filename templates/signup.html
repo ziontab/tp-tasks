@@ -1,43 +1,44 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% block title %} Signup {% endblock %}
 {% block content %}
     <h2 class="my-header">Please sign up!</h2>
     <form class="was-validated row question-form col-6 mx-auto">
+        {% csrf_token %}
         <div class="row mt-3 mx-auto">
             <div class="col-12 mx-auto form-floating">
-                <input type="email" name="email" maxlength="100" class="form-control" id="email-input"
-                       placeholder="name@example.com" required>
+                {{ form.email }}
                 <div class="requirements">Invalid email. Example is "name@example.com".</div>
-                <label for="email-input">Email address</label>
+                <label for="{{ form.email.id_for_label }}">Email address</label>
             </div>
         </div>
         <div class="row mt-3 mx-auto">
             <div class="col-12 mx-auto form-floating">
-                <input type="text" class="form-control" name="nick" maxlength="100" id="nick-input"
-                       placeholder="NiCk_NaMe123" pattern="^\w+$" required>
-                <div class="requirements">Invalid nick. Example is "Natati_Skv123". <br> It cannot be empty or consist
-                    only of spaces. <br> Nick name can consist of one word containing only letters of the Latin
-                    alphabet, numbers, underscore.
-                </div>
-                <label for="nick-input">Your nick name</label>
+                {{ form.username }}
+                <div class="requirements">Invalid nickname. Example is "My_NiCkNaMe55".</div>
+                <label for="{{ form.username.id_for_label }}">Your nickname</label>
             </div>
         </div>
         <div class="row mt-3 mx-auto">
             <div class="col-12 mx-auto form-floating">
-                <input type="password" name="password" maxlength="100" class="form-control" id="password-input"
-                       placeholder="Password" required pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$">
-                <label for="password-input">Password</label>
+                {{ form.password }}
                 <div class="requirements">Invalid password. it must contain one upper and one lowercase letter and at
-                    least one number and be at least 6 characters long <br> Example is "aA1fera".
+                    least one number and be 8-100 characters long <br> Example is "aA1fera**".
                 </div>
+                <label for="{{ form.password.id_for_label }}">Password</label>
             </div>
         </div>
         <div class="row mt-3 mx-auto">
             <div class="col-12 mx-auto form-floating">
-                <input type="password" name="password-mach" maxlength="100" class="form-control"
-                       id="password-match-input" placeholder="Password" required pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$">
-                <label for="password-mach-input">Repeat password</label>
-                <div class="requirements">The password does not match.</div>
+                {{ form.repeat_password }}
+                <div class="requirements">The password does not match. </div>
+                <label for="{{ form.repeat_password.id_for_label }}">Password</label>
+
+{#                #}
+{#                <input type="password" name="password-mach" maxlength="100" class="form-control"#}
+{#                       id="password-match-input" placeholder="Password" required pattern="^(?=.*\d)(?=.*[A-Z]).{6,}$">#}
+{#                <label for="password-mach-input">Repeat password</label>#}
+{#                <div class="requirements">The password does not match.</div>#}
             </div>
         </div>
         <div class="row mt-3 mb-3 mx-auto">
@@ -58,3 +59,4 @@
         </div>
     </form>
 {% endblock %}
+

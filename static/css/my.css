@@ -274,7 +274,7 @@ body {
 #tags-input:valid+.requirements,
 #email-input:valid~.requirements,
 #password-input:valid~.requirements,
-#password-match-input:valid~.requirements,
+#repeat-password-input:valid~.requirements,
 #username-input:valid+.requirements,
 #avatar-input:valid~#avatar-input-error,
 #avatar-input:valid~#avatar-lable {
@@ -292,7 +292,7 @@ body {
 
 #email-input,
 #password-input,
-#password-match-input,
+#repeat-password-input,
 #question,
 #question-body,
 #tags-input,
@@ -305,7 +305,7 @@ body {
 
 #email-input:focus,
 #password-input:focus,
-#password-match-input:focus,
+#repeat-password-input:focus,
 #question:focus,
 #question-body:focus,
 #tags-input:focus,
