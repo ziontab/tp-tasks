@@ -58,9 +58,19 @@ def question(request, question_id):
 
 def signup(request):
     popular_tags = Tag.objects.popular_tags()
-    return render(request, 'signup.html', {'popular_tags': popular_tags,
-                                           'best_members': best_members
-                                           })
+    if request.method == 'GET':
+        form = SignupForm()
+    else:
+        form = SignupForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            user = form.save()
+            auth.login(request, user)
+            return redirect(request.POST.get('next', '/'))
+    return render(request, 'signup.html', {
+        'form': form,
+        'popular_tags': popular_tags,
+        'best_members': best_members
+    })
 
 
 def login(request):
@@ -68,19 +78,14 @@ def login(request):
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
     if request.method == 'GET':
-        print('71')
         form = LoginForm()
     elif request.method == 'POST':
-        print('74')
         form = LoginForm(data=request.POST)
         if form.is_valid():
-            print('77')
             user = auth.authenticate(**form.cleaned_data)
             if not user:
-                print('80')
                 form.add_error(None, 'User not found')
             else:
-                print('83')
                 auth.login(request, user)
                 return redirect(request.POST.get('next', '/'))
     return render(request, 'login.html', {'form': form,
