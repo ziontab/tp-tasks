@@ -3,7 +3,9 @@
 {% block title %} Settings {% endblock %}
 {% block content %}
     <h2 class="my-header">Settings</h2>
-    <form class="was-validated row question-form col-6 mx-auto">
+    <form class="was-validated row question-form col-6 mx-auto"  action="{% url 'settings' %}" method="post"
+          enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="row mt-3 mx-auto">
             <div class="col-12 mx-auto form-floating">
                 {{ form.email }}
@@ -38,17 +40,17 @@
             </div>
         </div>
         <div class="row mt-3 mb-3 mx-auto">
-            <input type="file" name="avatar" accept="image/*" class=" form-control" id="avatar-input" required>
-            <label id="avatar-label" class="w-50 input-group-text mx-auto btn my-btn border-3 link"
-                   for="avatar-input">Upload new avatar</label>
-            <div id="avatar-input-error" class="requirements text-center ">Naw avatar was not uploaded.</div>
+            {{ form.avatar }}
+            <label for="{{ form.avatar.id_for_label }}"
+                  class="w-50 input-group-text mx-auto btn my-btn border-3 link">Upload new avatar</label>
+            <div id="avatar-input-error" class="requirements text-center ">New avatar was not uploaded.</div>
         </div>
         <div class="row mb-1 mx-auto">
             <div class="col-8">
             </div>
             <div class="col-4">
                 {% buttons %}
-                    <button class="btn my-btn link border-3 w-100 m-0" type="submit">Sign up!</button>
+                    <button class="btn my-btn link border-3 w-100 m-0" type="submit">Save!</button>
                 {% endbuttons %}
             </div>
         </div>

@@ -129,7 +129,7 @@ class SignupForm(forms.ModelForm):
         return user
 
 
-class SettingsForm(forms.ModelForm):
+class SettingsForm(forms.Form):
     repeat_password = forms.CharField(required=False,
                                       widget=PasswordInput(attrs={
                                           'type': 'password',
@@ -137,96 +137,128 @@ class SettingsForm(forms.ModelForm):
                                           'maxlength': 100,
                                           'placeholder': 'My_NiCkNaMe55',
                                           'id': 'repeat-password-input',
-                                          'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$',
+                                          # 'required pattern': '^((?=.*\d)(?=.*[A-Z]).{8,}){0,1}$',
                                       }),
                                       label='Password check')
 
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password']
+    username = forms.CharField(required=False,
+                               widget=TextInput(
+                                   attrs={'class': 'form-control',
+                                          'maxlength': 100,
+                                          'placeholder': 'My_NiCkNaMe55',
+                                          'required': False,
+                                          'id': 'username-input',
+                                          'value': '{{ user.username }}',
+                                          # 'required pattern': '^[-a-zA-Z0-9_+.@]+$',
+                                          }),
+                               label='Login'
+                               )
+    email = forms.EmailField(required=False,
+                             widget=TextInput(attrs={
+                                 'class': 'form-control',
+                                 'maxlength': 100,
+                                 'required': False,
+                                 'id': 'email-input',
+                                 'placeholder': 'name@example.com',
+                                 'type': 'email',
+                                 'value': '{{user.email}}',
+                             }),
+                             label='Email',
+                             )
 
-        widgets = {
-            'username': TextInput(
-                attrs={'class': 'form-control',
-                       'maxlength': 100,
-                       'placeholder': 'My_NiCkNaMe55',
-                       'required': False,
-                       'id': 'username-input',
-                       'value': '{{ user.username }}',
-                       'required pattern': '^[-a-zA-Z0-9_+.@]+$'}),
-            'password': PasswordInput(
-                attrs={'class': 'form-control',
-                       'maxlength': 100,
-                       'type': 'password',
-                       'placeholder': 'My_NiCkNaMe55',
-                       'required': False,
-                       'id': 'password-input',
-                       'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$'}),
+    password = forms.CharField(required=False,
+                               widget=PasswordInput(attrs={
+                                   'type': 'password',
+                                   'class': 'form-control',
+                                   'maxlength': 100,
+                                   'placeholder': 'My_NiCkNaMe55',
+                                   'id': 'password-input',
+                                   # 'required pattern': '^((?=.*\d)(?=.*[A-Z]).{8,}){0,1}$',
+                               }),
+                               label='Password check')
 
-            'email': TextInput(attrs={
-                'class': 'form-control',
-                'maxlength': 100,
-                'required': False,
-                'id': 'email-input',
-                'placeholder': 'name@example.com',
-                'type': 'email',
-                'value': '{{user.email}}',
-            }),
-        }
-
-        labels = {
-            'username': 'Login',
-            'password': 'Password',
-            'email': 'Email',
-        }
+    avatar = forms.FileField(required=False,
+                             widget=FileInput(attrs={
+                                 'class': 'form-control',
+                                 'id': 'avatar-input',
+                                 'type': 'file',
+                                 'name': 'avatar',
+                                 'accept': 'image/*',
+                             }),
+                             label='Avatar')
 
     def __init__(self, user=None, **kwargs):
         self.user = user
+        # self.profile = profile
         super(SettingsForm, self).__init__(**kwargs)
 
-    def clean(self):
-        if not 'password' in self.cleaned_data or not 'password2' in self.cleaned_data:
-            raise forms.ValidationError('Password is too short (minimum 1 characters)')
-        if self.cleaned_data['password'] != self.cleaned_data['password2']:
-            self.add_error('password', 'Passwords do not match!')
-            self.add_error('password2', 'Passwords do not match!')
-            raise forms.ValidationError('Passwords do not match!')
-
     def clean_username(self):
-        if self.user_id.username != self.cleaned_data['username']:
+        if not self.cleaned_data['username']:
+            return self.cleaned_data['username']
+        print("---------------------")
+        print(self.user.username)
+        print(self.cleaned_data['username'])
+        if self.user.username != self.cleaned_data['username']:
             if User.objects.filter(username=self.cleaned_data['username']).exists():
                 self.add_error(None, 'This username is already in use')
                 raise forms.ValidationError('This username is already in use')
         return self.cleaned_data['username']
 
     def clean_email(self):
+        if not self.cleaned_data['email']:
+            return self.user.email
         if self.user.email != self.cleaned_data['email']:
             if User.objects.filter(email=self.cleaned_data['email']).exists():
                 self.add_error(None, 'This email is already in use')
                 raise forms.ValidationError('This email is already in use')
         return self.cleaned_data['email']
 
+    def clean_password(self):
+        if not self.cleaned_data['password'] or not self.cleaned_data['repeat_password']:
+            return self.cleaned_data['password']
+        if self.cleaned_data['password'] != self.cleaned_data['repeat_password']:
+            self.add_error('repeat_password', 'Passwords do not match!')
+            return ""
+        return self.cleaned_data['password']
+
     def save(self, **kwargs):
         self.user.username = self.cleaned_data['username']
         self.user.email = self.cleaned_data['email']
 
-        self.user.set_password(self.cleaned_data['password'])
+        # self.profile.avatar = self
+        print('XXXXXXXXXXXxx')
+        print(self.cleaned_data['password'])
+        if self.cleaned_data['password']:
+            self.user.set_password(self.cleaned_data['password'])
 
         self.user.save()
 
+        # TODO: можно один save()?
+        print('7')
+        # TODO: проверить, мб можно?
+        # profile = Profile.objects.get(user_id=self.user)
+        profile = Profile.objects.get(user_id__username=self.cleaned_data['username'])
+        print('9')
+        print(profile)
+        if self.cleaned_data['avatar'] is not None:
+            print('11')
+            profile.avatar = self.cleaned_data['avatar']
+            print('13')
+            profile.save()
+        print('15')
+
         return self.user
 
-
-class ImageForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['avatar']
-
-        labels = {
-            'avatar': 'Upload avatar',
-        }
-
+# class ImageForm(forms.ModelForm):
+#     class Meta:
+#         model = Profile
+#         fields = ['avatar']
 #
+#         labels = {
+#             'avatar': 'Upload avatar',
+#         }
+#
+# #
 # class AskForm(forms.ModelForm):
 #     tags = forms.CharField(required=False,
 #                            widget=forms.TextInput(attrs={

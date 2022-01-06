@@ -7,7 +7,6 @@ from app.forms import *
 from app.models import *
 from django.contrib.auth import logout
 
-
 best_members = Profile.objects.sample_profile(count=20)
 
 
@@ -109,30 +108,28 @@ def logout(request):
     return redirect(reverse('index'))
 
 
-
-
 @login_required
 def settings(request):
+    print(request.GET)
+    print(request.POST)
     popular_tags = Tag.objects.popular_tags()
     form_updated = False
     if request.method == 'GET':
-        form = SettingsForm(initial={'username': request.user.username, 'email': request.user.email})
-        avatar = ImageForm()
+        form = SettingsForm(
+            initial={'username': request.user.username, 'email': request.user.email, 'password': request.user.password})
     else:
-        form = SettingsForm(user=request.user, data=request.POST)
-        avatar = ImageForm(data=request.POST, files=request.FILES, instance=request.user.profile)
-        if form.is_valid() and avatar.is_valid():
+        form = SettingsForm(user=request.user, data=request.POST, files=request.FILES)
+        if form.is_valid():
             user = form.save()
-            avatar.save()
             form_updated = True
-            login(request, user)
+            auth.login(request, user)
     return render(request, 'settings.html', {
         'form': form,
         'form_updated': form_updated,
         'popular_tags': popular_tags,
         'best_members': best_members,
         'user': request.user,
-        'avatar': avatar,
+        # 'avatar': request.user.profile.avatar,
     })
 
 
