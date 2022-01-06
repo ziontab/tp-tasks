@@ -13,12 +13,18 @@ class LoginForm(forms.ModelForm):
         fields = ['username', 'password']
         widgets = {
             'username': TextInput(
-                attrs={'class': 'form-control', 'maxlength': 100, 'placeholder': 'My_NiCkNaMe55',
-                       'required': True, 'id': 'username-input',
+                attrs={'class': 'form-control',
+                       'maxlength': 100,
+                       'placeholder': 'My_NiCkNaMe55',
+                       'required': True,
+                       'id': 'username-input',
                        'required pattern': '^[-a-zA-Z0-9_+.@]+$'}),
             'password': PasswordInput(
-                attrs={'class': 'form-control', 'maxlength': 100,
-                       'required': True, 'id': 'password-input',
+                attrs={'class': 'form-control',
+                       'maxlength': 100,
+                       'placeholder': 'My_NiCkNaMe55',
+                       'required': True,
+                       'id': 'password-input',
                        'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$'})
         }
 
@@ -27,6 +33,13 @@ class LoginForm(forms.ModelForm):
             'password': 'Password'
         }
 
+    def clean(self):
+        pass
+
+    # def clean_username(self):
+    #     print('34')
+    #     return
+
 
 class SignupForm(forms.ModelForm):
     repeat_password = forms.CharField(required=True,
@@ -34,12 +47,20 @@ class SignupForm(forms.ModelForm):
                                           'type': 'password',
                                           'class': 'form-control',
                                           'maxlength': 100,
+                                          'placeholder': 'My_NiCkNaMe55',
                                           'id': 'repeat-password-input',
-                                          'required': True,
                                           'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$',
                                       }),
                                       label='Password check')
-    avatar = forms.FileField(required=False,
+
+    avatar = forms.FileField(required=True,
+                             widget=FileInput(attrs={
+                                 'class': 'form-control',
+                                 'id': 'avatar-input',
+                                 'type': 'file',
+                                 'name': 'avatar',
+                                 'accept': 'image/*',
+                             }),
                              label='Avatar')
 
     class Meta:
@@ -48,16 +69,25 @@ class SignupForm(forms.ModelForm):
 
         widgets = {
             'username': TextInput(
-                attrs={'class': 'form-control', 'maxlength': 100, 'placeholder': 'My_NiCkNaMe55',
-                       'required': True, 'id': 'username-input',
+                attrs={'class': 'form-control',
+                       'maxlength': 100,
+                       'placeholder': 'My_NiCkNaMe55',
+                       'required': True,
+                       'id': 'username-input',
                        'required pattern': '^[-a-zA-Z0-9_+.@]+$'}),
             'password': PasswordInput(
-                attrs={'class': 'form-control', 'maxlength': 100,
-                       'required': True, 'id': 'password-input',
+                attrs={'class': 'form-control',
+                       'maxlength': 100,
+                       'type': 'password',
+                       'placeholder': 'My_NiCkNaMe55',
+                       'required': True,
+                       'id': 'password-input',
                        'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$'}),
             'email': TextInput(attrs={
-                'class': 'form-control', 'maxlength': 100,
-                'required': True, 'id': 'email-input',
+                'class': 'form-control',
+                'maxlength': 100,
+                'required': True,
+                'id': 'email-input',
                 'placeholder': 'name@example.com',
                 'type': 'email',
             }),

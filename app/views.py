@@ -20,6 +20,7 @@ def new_questions(request):
     return render(request, 'index.html', {'questions': curr_questions,
                                           'paginated_elements': curr_questions,
                                           'popular_tags': popular_tags,
+                                          'user': request.user,
                                           'best_members': best_members})
 
 
@@ -29,6 +30,7 @@ def hot_questions(request):
     return render(request, 'index.html', {'questions': curr_questions,
                                           'paginated_elements': curr_questions,
                                           'popular_tags': popular_tags,
+                                          'user': request.user,
                                           'best_members': best_members})
 
 
@@ -40,7 +42,8 @@ def questions_by_tag(request, tag_name):
                                                      'popular_tags': popular_tags,
                                                      'best_members': best_members,
                                                      'tag': tag,
-                                                     'paginated_elements': curr_questions
+                                                     'paginated_elements': curr_questions,
+                                                     'user': request.user,
                                                      })
 
 
@@ -52,11 +55,15 @@ def question(request, question_id):
                                              'answers': curr_answers,
                                              'popular_tags': popular_tags,
                                              'best_members': best_members,
-                                             'paginated_elements': curr_answers
+                                             'paginated_elements': curr_answers,
+                                             'user': request.user,
                                              })
 
 
 def signup(request):
+    print('________________________________________')
+    print(request.GET)
+    print(request.POST)
     popular_tags = Tag.objects.popular_tags()
     if request.method == 'GET':
         form = SignupForm()
@@ -69,7 +76,8 @@ def signup(request):
     return render(request, 'signup.html', {
         'form': form,
         'popular_tags': popular_tags,
-        'best_members': best_members
+        'best_members': best_members,
+        'user': request.user,
     })
 
 
@@ -77,25 +85,35 @@ def login(request):
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
+    print('82')
     if request.method == 'GET':
+        print('84')
         form = LoginForm()
+        print('86')
     elif request.method == 'POST':
+        print('88')
         form = LoginForm(data=request.POST)
         if form.is_valid():
             user = auth.authenticate(**form.cleaned_data)
+            print('92')
             if not user:
+                print('94')
                 form.add_error(None, 'User not found')
             else:
+                print('97')
                 auth.login(request, user)
                 return redirect(request.POST.get('next', '/'))
+    print('100')
     return render(request, 'login.html', {'form': form,
                                           'best_members': best_members,
+                                          'user': request.user,
                                           'popular_tags': popular_tags})
 
 
 def settings(request):
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'settings.html', {'popular_tags': popular_tags,
+                                             'user': request.user,
                                              'best_members': best_members
                                              })
 
@@ -103,5 +121,6 @@ def settings(request):
 def ask(request):
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'new_question.html', {'popular_tags': popular_tags,
+                                                 'user': request.user,
                                                  'best_members': best_members
                                                  })

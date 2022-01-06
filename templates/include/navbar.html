@@ -20,10 +20,10 @@
                 <a class="btn my-btn w-75 border-2" type="submit" href="{% url 'ask' %}" >Ask!</a>
             </div>
             <div class="col-1 text-center ">
-                <img class="avatar" src="{% static "img/avatar.png" %}" alt="avatar">
+                <img class="avatar" src= "{{ user.avatar }}" alt="avatar">
             </div>
             <div class="col-1 font-30 nick">
-                {{ profile.user_id }}
+                {{ user.username }}
             </div>
             <div class=col-1>
                 <div>
