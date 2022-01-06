@@ -103,19 +103,18 @@ class SignupForm(forms.ModelForm):
         if not 'password' in self.cleaned_data or not 'repeat_password' in self.cleaned_data:
             raise forms.ValidationError('Password is too short (minimum 1 characters)')
         if self.cleaned_data['password'] != self.cleaned_data['repeat_password']:
-            self.add_error('password', 'Passwords do not match!')
             self.add_error('repeat_password', 'Passwords do not match!')
             raise forms.ValidationError('Passwords do not match!')
 
     def clean_username(self):
         if User.objects.filter(username=self.cleaned_data['username']).exists():
-            self.add_error(None, 'This username is already in use')
+            # self.add_error('username', 'This username is already in use')
             raise forms.ValidationError('This username is already in use')
         return self.cleaned_data['username']
 
     def clean_email(self):
         if User.objects.filter(email=self.cleaned_data['email']).exists():
-            self.add_error(None, 'This email is already in use')
+            # self.add_error('email', 'This email is already in use')
             raise forms.ValidationError('This email is already in use')
         return self.cleaned_data['email']
 

@@ -15,28 +15,28 @@
                 <button class="btn my-btn" type="submit">Search</button>
             </form>
         </div>
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
             <div class="col-2 text-center">
-                <a class="btn my-btn w-75 border-2" type="submit" href="{% url 'ask' %}" >Ask!</a>
+                <a class="btn my-btn w-75 border-2" type="submit" href="{% url 'ask' %}">Ask!</a>
             </div>
             <div class="col-1 text-center ">
-                <img class="avatar" src= "{{ user.avatar }}" alt="avatar">
+                <img class="avatar" src="{{ request.user.profile.avatar.url }}" alt="avatar">
             </div>
             <div class="col-1 font-30 nick">
-                {{ user.username }}
+                {{ request.user.username }}
             </div>
             <div class=col-1>
                 <div>
-                    <a class="nav-link font-20"  href="{% url 'settings' %}">settings</a>
+                    <a class="nav-link font-20" href="{% url 'settings' %}">settings</a>
                 </div>
                 <div>
-                    <a class="nav-link font-20" href="{% url 'login' %}">log out</a>
+                    <a class="nav-link font-20" href="{% url 'logout' %}">log out</a>
                 </div>
             </div>
         {% else %}
             <div class="col-2"></div>
             <div class="col-2">
-                <a type="button" class="btn my-btn" href="{% url 'login'  %}">Login</a>
+                <a type="button" class="btn my-btn" href="{% url 'login' %}">Login</a>
                 <a type="button" class="btn my-btn" href="{% url 'signup' %}">Sign up</a>
             </div>
         {% endif %}

@@ -5,6 +5,8 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from app.forms import *
 from app.models import *
+from django.contrib.auth import logout
+
 
 best_members = Profile.objects.sample_profile(count=20)
 
@@ -108,6 +110,12 @@ def login(request):
                                           'best_members': best_members,
                                           'user': request.user,
                                           'popular_tags': popular_tags})
+
+
+@login_required
+def logout(request):
+    auth.logout(request)
+    return redirect(reverse('index'))
 
 
 def settings(request):
