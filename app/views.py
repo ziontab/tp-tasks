@@ -63,7 +63,6 @@ def question(request, question_id):
 
 
 def signup(request):
-    print('________________________________________')
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
@@ -87,25 +86,17 @@ def login(request):
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
-    print('82')
     if request.method == 'GET':
-        print('84')
         form = LoginForm()
-        print('86')
     elif request.method == 'POST':
-        print('88')
         form = LoginForm(data=request.POST)
         if form.is_valid():
             user = auth.authenticate(**form.cleaned_data)
-            print('92')
             if not user:
-                print('94')
                 form.add_error(None, 'User not found')
             else:
-                print('97')
                 auth.login(request, user)
                 return redirect(request.POST.get('next', '/'))
-    print('100')
     return render(request, 'login.html', {'form': form,
                                           'best_members': best_members,
                                           'user': request.user,
@@ -118,12 +109,31 @@ def logout(request):
     return redirect(reverse('index'))
 
 
+
+
+@login_required
 def settings(request):
     popular_tags = Tag.objects.popular_tags()
-    return render(request, 'settings.html', {'popular_tags': popular_tags,
-                                             'user': request.user,
-                                             'best_members': best_members
-                                             })
+    form_updated = False
+    if request.method == 'GET':
+        form = SettingsForm(initial={'username': request.user.username, 'email': request.user.email})
+        avatar = ImageForm()
+    else:
+        form = SettingsForm(user=request.user, data=request.POST)
+        avatar = ImageForm(data=request.POST, files=request.FILES, instance=request.user.profile)
+        if form.is_valid() and avatar.is_valid():
+            user = form.save()
+            avatar.save()
+            form_updated = True
+            login(request, user)
+    return render(request, 'settings.html', {
+        'form': form,
+        'form_updated': form_updated,
+        'popular_tags': popular_tags,
+        'best_members': best_members,
+        'user': request.user,
+        'avatar': avatar,
+    })
 
 
 def ask(request):

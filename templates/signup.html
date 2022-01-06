@@ -9,7 +9,6 @@
         <div class="row mt-3 mx-auto">
             <div class="col-12 mx-auto form-floating">
                 {{ form.email }}
-{#                <div class="requirements"> {{ form.errors.email }} </div>#}
                 <div class="requirements">Invalid email. Example is "name@example.com".</div>
                 <label for="{{ form.email.id_for_label }}">Email address</label>
             </div>
@@ -18,7 +17,6 @@
             <div class="col-12 mx-auto form-floating">
                 {{ form.username }}
                 <div class="requirements">Invalid nickname. Example is "My_NiCkNaMe55".</div>
-{#                <div class="requirements"> {{ form.errors.username }} </div>#}
                 <label for="{{ form.username.id_for_label }}">Your nickname</label>
             </div>
         </div>
@@ -28,7 +26,6 @@
                 <div class="requirements">Invalid password. it must contain one upper and one lowercase letter and at
                     least one number and be 8-100 characters long <br> Example is "aA1fera**".
                 </div>
-{#                <div class="requirements"> {{ form.errors.password }} </div>#}
                 <label for="{{ form.password.id_for_label }}">Password</label>
             </div>
         </div>
@@ -37,7 +34,6 @@
                 {{ form.repeat_password }}
                 <div class="requirements"> {{ form.errors.repeat_password }} </div>
                 <label for="{{ form.repeat_password.id_for_label }}">Repeat password</label>
-
             </div>
         </div>
         <div class="row mt-3 mb-3 mx-auto">
@@ -49,18 +45,7 @@
         </div>
         <div class="row mb-1 mx-auto">
             <div class="col-8">
-                <div class="error-msg text-end">
-                    {% for error in form.non_field_errors %}
-                        <p> {{ error }} </p>
-                    {% endfor %}
 
-                    {% for field in form %}
-                        {% if field.errors %}
-                            <li>{{ field.label }}: {{ field.errors|striptags }}</li>
-                        {% endif %}
-                    {% endfor %}
-{#                    {{ form.errors }}#}
-                </div>
             </div>
             <div class="col-4">
                 {% buttons %}
@@ -68,13 +53,18 @@
                 {% endbuttons %}
             </div>
         </div>
+        <div class="row mb-1 mx-auto">
+            <div class="error-msg text-end">
+                {% for error in form.non_field_errors %}
+                    <p> {{ error }} </p>
+                {% endfor %}
+
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </form>
 {% endblock %}
-
-{#подвинуть ошибки под кнопку#}
-
-{#                    {% for field in form %}#}
-{#                        {% if field.errors %}#}
-{#                            <li>{{ field.label }}: {{ field.errors|striptags }}</li>#}
-{#                        {% endif %}#}
-{#                    {% endfor %}#}

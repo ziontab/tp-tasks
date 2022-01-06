@@ -275,7 +275,7 @@ body {
 #email-input:valid~.requirements,
 #password-input:valid~.requirements,
 #repeat-password-input:valid~.requirements,
-#username-input:valid+.requirements,
+#username-input:valid~.requirements,
 #avatar-input:valid~#avatar-input-error,
 #avatar-input:valid~#avatar-label {
     opacity: 0;

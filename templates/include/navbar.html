@@ -15,15 +15,15 @@
                 <button class="btn my-btn" type="submit">Search</button>
             </form>
         </div>
-        {% if request.user.is_authenticated %}
+        {% if user.is_authenticated %}
             <div class="col-2 text-center">
                 <a class="btn my-btn w-75 border-2" type="submit" href="{% url 'ask' %}">Ask!</a>
             </div>
             <div class="col-1 text-center ">
-                <img class="avatar" src="{{ request.user.profile.avatar.url }}" alt="avatar">
+                <img class="avatar" src="{{ user.profile.avatar.url }}" alt="avatar">
             </div>
             <div class="col-1 font-30 nick">
-                {{ request.user.username }}
+                {{ user.username }}
             </div>
             <div class=col-1>
                 <div>
