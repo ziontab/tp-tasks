@@ -310,9 +310,9 @@ class AskForm(forms.ModelForm):
 
     def clean_tags(self):
         self.tags = self.cleaned_data['tags'].split()
-        if len(self.tags) > 3:
-            self.add_error(None, 'use no more than 3 tags!')
-            raise forms.ValidationError('use no more than 3 tags!')
+        if len(self.tags) > 25:
+            self.add_error(None, 'Use no more than 25 tags')
+            raise forms.ValidationError('Use no more than 25 tags')
         return self.tags
 
     def save(self, **kwargs):
