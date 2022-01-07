@@ -22,17 +22,20 @@ def new_questions(request):
                                           'paginated_elements': curr_questions,
                                           'popular_tags': popular_tags,
                                           'user': request.user,
-                                          'best_members': best_members})
+                                          'best_members': best_members,
+                                          'redirect_after_logout': reverse('index'),
+                                          })
 
 
 def hot_questions(request):
     curr_questions = paginate(Question.objects.hot(), request, 5)
     popular_tags = Tag.objects.popular_tags()
-    return render(request, 'index.html', {'questions': curr_questions,
+    return render(request, 'hot_questions.html', {'questions': curr_questions,
                                           'paginated_elements': curr_questions,
                                           'popular_tags': popular_tags,
-                                          'user': request.user,
-                                          'best_members': best_members})
+                                          'best_members': best_members,
+                                          'redirect_after_logout': reverse('hot_questions'),
+                                          })
 
 
 def questions_by_tag(request, tag_name):
@@ -44,7 +47,8 @@ def questions_by_tag(request, tag_name):
                                                      'best_members': best_members,
                                                      'tag': tag,
                                                      'paginated_elements': curr_questions,
-                                                     'user': request.user,
+                                                     'redirect_after_logout': reverse('questions_by_tag',
+                                                                                      kwargs={'tag_name': tag}),
                                                      })
 
 
@@ -57,7 +61,8 @@ def question(request, question_id):
                                              'popular_tags': popular_tags,
                                              'best_members': best_members,
                                              'paginated_elements': curr_answers,
-                                             'user': request.user,
+                                             'redirect_after_logout': reverse('question',
+                                                                              kwargs={'question_id': question_id}),
                                              })
 
 
@@ -102,11 +107,23 @@ def login(request):
                                           'popular_tags': popular_tags})
 
 
-@login_required
+@login_required(login_url='login')
 def logout(request):
+    print(request)
+    print(request.GET)
     auth.logout(request)
+    if (request.method == 'GET'):
+        return_page = request.GET.get('next')
+        if return_page:
+            return redirect(return_page)
     return redirect(reverse('index'))
 
+
+# @login_required
+# def logout(request):
+#     auth.logout(request)
+#     return redirect(reverse('index'))
+#
 
 @login_required
 def settings(request):
