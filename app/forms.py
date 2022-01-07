@@ -52,9 +52,8 @@ class SignupForm(forms.ModelForm):
                                           'id': 'repeat-password-input',
                                           'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$',
                                       }),
-                                      label='Password check')
+                                      label='Repeat password ')
 
-    # TODO: use Imageform
     avatar = forms.FileField(required=True,
                              widget=FileInput(attrs={
                                  'class': 'form-control',
@@ -106,14 +105,12 @@ class SignupForm(forms.ModelForm):
 
     def clean_username(self):
         if User.objects.filter(username=self.cleaned_data['username']).exists():
-            # self.add_error('username', 'This username is already in use')
-            raise forms.ValidationError('This username is already in use')
+            self.add_error('username', 'This username is already in use')
         return self.cleaned_data['username']
 
     def clean_email(self):
         if User.objects.filter(email=self.cleaned_data['email']).exists():
-            # self.add_error('email', 'This email is already in use')
-            raise forms.ValidationError('This email is already in use')
+            self.add_error('email', 'This email is already in use')
         return self.cleaned_data['email']
 
     def clean_repeat_password(self):
@@ -149,15 +146,15 @@ class SignupForm(forms.ModelForm):
 
 class SettingsForm(forms.Form):
     repeat_password = forms.CharField(required=False,
+                                      empty_value="111",
                                       widget=PasswordInput(attrs={
                                           'type': 'password',
                                           'class': 'form-control',
                                           'maxlength': 100,
                                           'placeholder': 'My_NiCkNaMe55',
                                           'id': 'repeat-password-input',
-                                          # 'required pattern': '(^\s{0,}$)|(^.a$)|()',
                                       }),
-                                      label='Password check',
+                                      label='Repeat password',
                                       )
 
     username = forms.CharField(required=False,
@@ -168,7 +165,6 @@ class SettingsForm(forms.Form):
                                           'required': False,
                                           'id': 'username-input',
                                           'value': '{{ user.username }}',
-                                          'required pattern': '^[-a-zA-Z0-9_+.@]+$',
                                           }),
                                label='Login'
                                )
@@ -192,10 +188,9 @@ class SettingsForm(forms.Form):
                                    'maxlength': 100,
                                    'placeholder': 'My_NiCkNaMe55',
                                    'id': 'password-input',
-                                   'required pattern': '(^a$)|(^$)|($)|(^)|(^b$)',
-                                   # 'required pattern': '^((?=.*\d)(?=.*[A-Z]).{8,}){0,1}$',
                                }),
-                               label='Password check')
+                               label='Password',
+                               )
 
     avatar = forms.FileField(required=False,
                              widget=FileInput(attrs={
@@ -232,10 +227,12 @@ class SettingsForm(forms.Form):
     def clean_password(self):
         password = self.cleaned_data['password']
         repeat_password = self.cleaned_data['repeat_password']
+        print(password)
+        print(repeat_password)
         if not password or not repeat_password:
             return password
         if password != repeat_password:
-            self.add_error('repeat_password', 'Passwords do not match!')
+            self.add_error('password', 'Passwords do not match!')
             return ""
 
         try:
@@ -262,63 +259,54 @@ class SettingsForm(forms.Form):
 
         return self.user
 
-# class ImageForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ['avatar']
-#
-#         labels = {
-#             'avatar': 'Upload avatar',
-#         }
-#
-# #
-# class AskForm(forms.ModelForm):
-#     tags = forms.CharField(required=False,
-#                            widget=forms.TextInput(attrs={
-#                                'class': 'form-control',
-#                            }),
-#                            label='Tags')
-#
-#     class Meta:
-#         model = Question
-#         fields = ['title', 'text']
-#
-#         widgets = {
-#             'title': TextInput(attrs={
-#                 'class': 'form-control',
-#             }),
-#             'text': Textarea(attrs={
-#                 'class': 'form-control',
-#                 'rows': '7',
-#             }),
-#         }
-#
-#         labels = {
-#             'title': 'Title',
-#             'text': 'Text',
-#         }
-#
-#     def __init__(self, author=None, **kwargs):
-#         self._author = author
-#         super(AskForm, self).__init__(**kwargs)
-#
-#     def clean_tags(self):
-#         self.tags = self.cleaned_data['tags'].split()
-#         if len(self.tags) > 3:
-#             self.add_error(None, 'use no more than 3 tags!')
-#             raise forms.ValidationError('use no more than 3 tags!')
-#         return self.tags
-#
-#     def save(self, **kwargs):
-#         post = Question()
-#         post.profile_id = self._author
-#         post.title = self.cleaned_data['title']
-#         post.text = self.cleaned_data['text']
-#         post.save()
-#
-#         for tag in self.tags:
-#             if not Tag.objects.filter(tag=tag).exists():
-#                 Tag.objects.create(tag=tag)
-#         post.tags.set(Tag.objects.create_question(self.tags))
-#
-#         return post
+
+class AskForm(forms.ModelForm):
+    tags = forms.CharField(required=False,
+                           widget=forms.TextInput(attrs={
+                               'class': 'form-control',
+                           }),
+                           label='Tags')
+
+    class Meta:
+        model = Question
+        fields = ['title', 'text']
+
+        widgets = {
+            'title': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'text': Textarea(attrs={
+                'class': 'form-control',
+                'rows': '7',
+            }),
+        }
+
+        labels = {
+            'title': 'Title',
+            'text': 'Text',
+        }
+
+    def __init__(self, author=None, **kwargs):
+        self._author = author
+        super(AskForm, self).__init__(**kwargs)
+
+    def clean_tags(self):
+        self.tags = self.cleaned_data['tags'].split()
+        if len(self.tags) > 3:
+            self.add_error(None, 'use no more than 3 tags!')
+            raise forms.ValidationError('use no more than 3 tags!')
+        return self.tags
+
+    def save(self, **kwargs):
+        post = Question()
+        post.profile_id = self._author
+        post.title = self.cleaned_data['title']
+        post.text = self.cleaned_data['text']
+        post.save()
+
+        for tag in self.tags:
+            if not Tag.objects.filter(tag=tag).exists():
+                Tag.objects.create(tag=tag)
+        post.tags.set(Tag.objects.create_question(self.tags))
+
+        return post

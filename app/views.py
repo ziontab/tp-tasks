@@ -113,7 +113,6 @@ def settings(request):
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
-    form_updated = False
     if request.method == 'GET':
         form = SettingsForm(
             initial={'username': request.user.username, 'email': request.user.email, 'password': request.user.password})
@@ -121,15 +120,12 @@ def settings(request):
         form = SettingsForm(user=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             user = form.save()
-            form_updated = True
             auth.login(request, user)
     return render(request, 'settings.html', {
         'form': form,
-        'form_updated': form_updated,
         'popular_tags': popular_tags,
         'best_members': best_members,
         'user': request.user,
-        # 'avatar': request.user.profile.avatar,
     })
 
 
