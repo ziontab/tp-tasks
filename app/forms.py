@@ -1,3 +1,4 @@
+import django
 from django import forms
 
 from django.forms import ModelForm, TextInput, PasswordInput, DateTimeInput, Textarea, FileInput
@@ -5,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from app.models import *
 from django.forms import PasswordInput
+from django.contrib.auth.password_validation import validate_password
+from django.core import validators
+from django import forms
 
 
 class LoginForm(forms.ModelForm):
@@ -25,7 +29,8 @@ class LoginForm(forms.ModelForm):
                        'placeholder': 'My_NiCkNaMe55',
                        'required': True,
                        'id': 'password-input',
-                       'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$'})
+                       'required pattern': '^(?=.*\d)(?=.*[A-Z]).{8,}$',
+                       })
         }
 
         labels = {
@@ -97,11 +102,7 @@ class SignupForm(forms.ModelForm):
         }
 
     def clean(self):
-        if not 'password' in self.cleaned_data or not 'repeat_password' in self.cleaned_data:
-            raise forms.ValidationError('Password is too short (minimum 1 characters)')
-        if self.cleaned_data['password'] != self.cleaned_data['repeat_password']:
-            self.add_error('repeat_password', 'Passwords do not match!')
-            # raise forms.ValidationError('Passwords do not match!')
+        pass
 
     def clean_username(self):
         if User.objects.filter(username=self.cleaned_data['username']).exists():
@@ -114,6 +115,23 @@ class SignupForm(forms.ModelForm):
             # self.add_error('email', 'This email is already in use')
             raise forms.ValidationError('This email is already in use')
         return self.cleaned_data['email']
+
+    def clean_repeat_password(self):
+        password = self.cleaned_data['password']
+        repeat_password = self.cleaned_data['repeat_password']
+        if not password or not repeat_password:
+            return password
+        if password != repeat_password:
+            self.add_error('repeat_password', 'Passwords do not match!')
+            return ""
+
+        try:
+            django.contrib.auth.password_validation.validate_password(password)
+        except forms.ValidationError as error:
+            self.add_error('password', 'Invalid password. it must contain one upper and one lowercase letter and at '
+                                       'least one number and be 8-100 characters long')
+            return ""
+        return password
 
     def save(self, **kwargs):
         username = self.cleaned_data['username']
@@ -137,9 +155,10 @@ class SettingsForm(forms.Form):
                                           'maxlength': 100,
                                           'placeholder': 'My_NiCkNaMe55',
                                           'id': 'repeat-password-input',
-                                          # 'required pattern': '^((?=.*\d)(?=.*[A-Z]).{8,}){0,1}$',
+                                          # 'required pattern': '(^\s{0,}$)|(^.a$)|()',
                                       }),
-                                      label='Password check')
+                                      label='Password check',
+                                      )
 
     username = forms.CharField(required=False,
                                widget=TextInput(
@@ -149,7 +168,7 @@ class SettingsForm(forms.Form):
                                           'required': False,
                                           'id': 'username-input',
                                           'value': '{{ user.username }}',
-                                          # 'required pattern': '^[-a-zA-Z0-9_+.@]+$',
+                                          'required pattern': '^[-a-zA-Z0-9_+.@]+$',
                                           }),
                                label='Login'
                                )
@@ -173,6 +192,7 @@ class SettingsForm(forms.Form):
                                    'maxlength': 100,
                                    'placeholder': 'My_NiCkNaMe55',
                                    'id': 'password-input',
+                                   'required pattern': '(^a$)|(^$)|($)|(^)|(^b$)',
                                    # 'required pattern': '^((?=.*\d)(?=.*[A-Z]).{8,}){0,1}$',
                                }),
                                label='Password check')
@@ -189,15 +209,11 @@ class SettingsForm(forms.Form):
 
     def __init__(self, user=None, **kwargs):
         self.user = user
-        # self.profile = profile
         super(SettingsForm, self).__init__(**kwargs)
 
     def clean_username(self):
         if not self.cleaned_data['username']:
             return self.cleaned_data['username']
-        print("---------------------")
-        print(self.user.username)
-        print(self.cleaned_data['username'])
         if self.user.username != self.cleaned_data['username']:
             if User.objects.filter(username=self.cleaned_data['username']).exists():
                 self.add_error(None, 'This username is already in use')
@@ -214,38 +230,35 @@ class SettingsForm(forms.Form):
         return self.cleaned_data['email']
 
     def clean_password(self):
-        if not self.cleaned_data['password'] or not self.cleaned_data['repeat_password']:
-            return self.cleaned_data['password']
-        if self.cleaned_data['password'] != self.cleaned_data['repeat_password']:
+        password = self.cleaned_data['password']
+        repeat_password = self.cleaned_data['repeat_password']
+        if not password or not repeat_password:
+            return password
+        if password != repeat_password:
             self.add_error('repeat_password', 'Passwords do not match!')
             return ""
-        return self.cleaned_data['password']
+
+        try:
+            django.contrib.auth.password_validation.validate_password(password)
+        except forms.ValidationError as error:
+            self.add_error('password', 'Invalid password. it must contain one upper and one lowercase letter and at '
+                                       'least one number and be 8-100 characters long')
+            return ""
+        return password
 
     def save(self, **kwargs):
         self.user.username = self.cleaned_data['username']
         self.user.email = self.cleaned_data['email']
 
-        # self.profile.avatar = self
-        print('XXXXXXXXXXXxx')
-        print(self.cleaned_data['password'])
         if self.cleaned_data['password']:
             self.user.set_password(self.cleaned_data['password'])
 
         self.user.save()
 
-        # TODO: можно один save()?
-        print('7')
-        # TODO: проверить, мб можно?
-        # profile = Profile.objects.get(user_id=self.user)
-        profile = Profile.objects.get(user_id__username=self.cleaned_data['username'])
-        print('9')
-        print(profile)
+        profile = Profile.objects.get(user_id=self.user)
         if self.cleaned_data['avatar'] is not None:
-            print('11')
             profile.avatar = self.cleaned_data['avatar']
-            print('13')
             profile.save()
-        print('15')
 
         return self.user
 
