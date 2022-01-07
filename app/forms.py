@@ -261,9 +261,15 @@ class SettingsForm(forms.Form):
 
 
 class AskForm(forms.ModelForm):
-    tags = forms.CharField(required=False,
+    tags = forms.CharField(required=True,
+                           max_length=100,
                            widget=forms.TextInput(attrs={
-                               'class': 'form-control',
+                               'class': 'form-control is-valid m-0',
+                               'placeholder': 'food cooking chocolate',
+                               'type': 'text',
+                               'title': 'maximum length 200 characters, it cannot be empty',
+                               'pattern': '^(\s*[a-zA-Z]+[\w\-\d]*\s*)+$',
+                               'id': 'tags-input',
                            }),
                            label='Tags')
 
@@ -273,17 +279,29 @@ class AskForm(forms.ModelForm):
 
         widgets = {
             'title': TextInput(attrs={
-                'class': 'form-control',
+                'type': 'text',
+                'class': 'form-control is-valid m-0',
+                'id': 'question',
+                'name': 'new_question',
+                'placeholder': 'How are you?',
+                'maxlength': 100,
+                'title': 'maximum length 200 characters, it cannot be empty',
+                'pattern': '^(\s*[\w\p{P}]+\s*)+$',
             }),
+
             'text': Textarea(attrs={
-                'class': 'form-control',
-                'rows': '7',
+                'class': 'form-control m-0 is-invalid',
+                'id': 'question-body',
+                'placeholder': 'enter more details here...',
+                'maxlength': 300,
+                'title': 'maximum length 300 characters, it cannot be empty',
+                # 'rows': '7',
             }),
         }
 
         labels = {
-            'title': 'Title',
-            'text': 'Text',
+            'title': 'Your question',
+            'text': 'More details',
         }
 
     def __init__(self, author=None, **kwargs):
@@ -298,15 +316,15 @@ class AskForm(forms.ModelForm):
         return self.tags
 
     def save(self, **kwargs):
-        post = Question()
-        post.profile_id = self._author
-        post.title = self.cleaned_data['title']
-        post.text = self.cleaned_data['text']
-        post.save()
+        published_question = Question()
+        published_question.profile_id = self._author
+        published_question.title = self.cleaned_data['title']
+        published_question.text = self.cleaned_data['text']
+        published_question.save()
 
         for tag in self.tags:
             if not Tag.objects.filter(tag=tag).exists():
                 Tag.objects.create(tag=tag)
-        post.tags.set(Tag.objects.create_question(self.tags))
+        published_question.tags.set(Tag.objects.create_question(self.tags))
 
-        return post
+        return published_question

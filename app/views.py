@@ -140,26 +140,30 @@ def settings(request):
     })
 
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def ask(request):
+    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    print(request.GET)
+    print(request.POST)
     popular_tags = Tag.objects.popular_tags()
     if request.method == 'GET':
         form = AskForm()
     elif request.method == 'POST':
         form = AskForm(request.user.profile, data=request.POST)
         if form.is_valid():
-            post = form.save()
-            # return redirect(reverse('index'))
-            return redirect(reverse('question', kwargs={'pk': post.pk}))
-    return render(request, 'ask.html', {
+            published_question = form.save()
+            return redirect(reverse('question', kwargs={'question_id': published_question.pk}))
+            # return redirect(reverse('question', kwargs={'pk': post.pk}))
+    return render(request, 'new_question.html', {
         'form': form,
         'popular_tags': popular_tags,
+        'best_members': best_members,
     })
 
 
-def ask(request):
-    popular_tags = Tag.objects.popular_tags()
-    return render(request, 'new_question.html', {'popular_tags': popular_tags,
-                                                 'user': request.user,
-                                                 'best_members': best_members
-                                                 })
+# def ask(request):
+#     popular_tags = Tag.objects.popular_tags()
+#     return render(request, 'new_question.html', {'popular_tags': popular_tags,
+#                                                  'user': request.user,
+#                                                  'best_members': best_members
+#                                                  })
