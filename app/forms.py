@@ -259,54 +259,54 @@ class SettingsForm(forms.Form):
 
         return self.user
 
-#
-# class AskForm(forms.ModelForm):
-#     tags = forms.CharField(required=False,
-#                            widget=forms.TextInput(attrs={
-#                                'class': 'form-control',
-#                            }),
-#                            label='Tags')
-#
-#     class Meta:
-#         model = Question
-#         fields = ['title', 'text']
-#
-#         widgets = {
-#             'title': TextInput(attrs={
-#                 'class': 'form-control',
-#             }),
-#             'text': Textarea(attrs={
-#                 'class': 'form-control',
-#                 'rows': '7',
-#             }),
-#         }
-#
-#         labels = {
-#             'title': 'Title',
-#             'text': 'Text',
-#         }
-#
-#     def __init__(self, author=None, **kwargs):
-#         self._author = author
-#         super(AskForm, self).__init__(**kwargs)
-#
-#     def clean_tags(self):
-#         self.tags = self.cleaned_data['tags'].split()
-#         if len(self.tags) > 3:
-#             self.add_error(None, 'use no more than 3 tags!')
-#             raise forms.ValidationError('use no more than 3 tags!')
-#         return self.tags
-#
-#     def save(self, **kwargs):
-#         post = Question()
-#         post.profile_id = self._author
-#         post.title = self.cleaned_data['title']
-#         post.text = self.cleaned_data['text']
-#         post.save()
-#
-#         for tag in self.tags:
-#             if not Tag.objects.filter(tag=tag).exists():
-#                 Tag.objects.create(tag=tag)
-#         post.tags.set(Tag.objects.create_question(self.tags))
-#
-#         return post
+
+class AskForm(forms.ModelForm):
+    tags = forms.CharField(required=False,
+                           widget=forms.TextInput(attrs={
+                               'class': 'form-control',
+                           }),
+                           label='Tags')
+
+    class Meta:
+        model = Question
+        fields = ['title', 'text']
+
+        widgets = {
+            'title': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'text': Textarea(attrs={
+                'class': 'form-control',
+                'rows': '7',
+            }),
+        }
+
+        labels = {
+            'title': 'Title',
+            'text': 'Text',
+        }
+
+    def __init__(self, author=None, **kwargs):
+        self._author = author
+        super(AskForm, self).__init__(**kwargs)
+
+    def clean_tags(self):
+        self.tags = self.cleaned_data['tags'].split()
+        if len(self.tags) > 3:
+            self.add_error(None, 'use no more than 3 tags!')
+            raise forms.ValidationError('use no more than 3 tags!')
+        return self.tags
+
+    def save(self, **kwargs):
+        post = Question()
+        post.profile_id = self._author
+        post.title = self.cleaned_data['title']
+        post.text = self.cleaned_data['text']
+        post.save()
+
+        for tag in self.tags:
+            if not Tag.objects.filter(tag=tag).exists():
+                Tag.objects.create(tag=tag)
+        post.tags.set(Tag.objects.create_question(self.tags))
+
+        return post

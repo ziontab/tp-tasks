@@ -31,11 +31,11 @@ def hot_questions(request):
     curr_questions = paginate(Question.objects.hot(), request, 5)
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'hot_questions.html', {'questions': curr_questions,
-                                          'paginated_elements': curr_questions,
-                                          'popular_tags': popular_tags,
-                                          'best_members': best_members,
-                                          'redirect_after_logout': reverse('hot_questions'),
-                                          })
+                                                  'paginated_elements': curr_questions,
+                                                  'popular_tags': popular_tags,
+                                                  'best_members': best_members,
+                                                  'redirect_after_logout': reverse('hot_questions'),
+                                                  })
 
 
 def questions_by_tag(request, tag_name):
@@ -112,20 +112,14 @@ def logout(request):
     print(request)
     print(request.GET)
     auth.logout(request)
-    if (request.method == 'GET'):
+    if request.method == 'GET':
         return_page = request.GET.get('next')
         if return_page:
             return redirect(return_page)
     return redirect(reverse('index'))
 
 
-# @login_required
-# def logout(request):
-#     auth.logout(request)
-#     return redirect(reverse('index'))
-#
-
-@login_required
+@login_required(login_url='login')
 def settings(request):
     print(request.GET)
     print(request.POST)
@@ -143,6 +137,23 @@ def settings(request):
         'popular_tags': popular_tags,
         'best_members': best_members,
         'user': request.user,
+    })
+
+
+@login_required(login_url='login')
+def ask(request):
+    popular_tags = Tag.objects.popular_tags()
+    if request.method == 'GET':
+        form = AskForm()
+    elif request.method == 'POST':
+        form = AskForm(request.user.profile, data=request.POST)
+        if form.is_valid():
+            post = form.save()
+            # return redirect(reverse('index'))
+            return redirect(reverse('question', kwargs={'pk': post.pk}))
+    return render(request, 'ask.html', {
+        'form': form,
+        'popular_tags': popular_tags,
     })
 
 
