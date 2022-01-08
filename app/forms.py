@@ -1,13 +1,10 @@
 import django
-from django import forms
 
-from django.forms import ModelForm, TextInput, PasswordInput, DateTimeInput, Textarea, FileInput
+from django.forms import  TextInput,  Textarea, FileInput
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from app.models import *
 from django.forms import PasswordInput
 from django.contrib.auth.password_validation import validate_password
-from django.core import validators
 from django import forms
 
 
@@ -284,7 +281,7 @@ class AskForm(forms.ModelForm):
                 'id': 'question',
                 'name': 'new_question',
                 'placeholder': 'How are you?',
-                'maxlength': 100,
+                'maxlength': 150,
                 'title': 'maximum length 200 characters, it cannot be empty',
                 'pattern': '^(\s*[\w\p{P}]+\s*)+$',
             }),
@@ -293,7 +290,7 @@ class AskForm(forms.ModelForm):
                 'class': 'form-control m-0 is-invalid',
                 'id': 'question-body',
                 'placeholder': 'enter more details here...',
-                'maxlength': 300,
+                'maxlength': 1000,
                 'title': 'maximum length 300 characters, it cannot be empty',
                 'rows': '7',
             }),
@@ -340,7 +337,7 @@ class AnswerForm(forms.ModelForm):
                 'class': 'form-control m-0 is-invalid',
                 'id': 'input-answer',
                 'placeholder': 'enter your answer here...',
-                'maxlength': 300,
+                'maxlength': 1000,
                 'title': 'maximum length 300 characters, the answer cannot be empty',
                 'rows': '3',
                 'required': True,

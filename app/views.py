@@ -1,4 +1,4 @@
-from django.core.paginator import  Paginator
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import auth
@@ -52,11 +52,12 @@ def questions_by_tag(request, tag_name):
 
 
 def question(request, question_id):
+    answer_count_on_page = 5
     print(request.GET)
     print(request.POST)
     curr_question = get_object_or_404(Question, pk=question_id)
     if request.method == 'GET':
-        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request, 5)
+        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request, answer_count_on_page)
         popular_tags = Tag.objects.popular_tags()
         return render(request, 'question.html', {'question': curr_question,
                                                  'answers': curr_answers,
@@ -70,14 +71,19 @@ def question(request, question_id):
 
     if request.method == 'POST' and request.user.is_authenticated:
         answer_form = AnswerForm(data=request.POST)
-        Answer.objects.create(
+        curr_answer = Answer.objects.create(
             text=answer_form.data['text'],
             profile_id=Profile.objects.get(user_id=request.user),
             question_id=curr_question
         )
         curr_question.number_of_answers += 1
         curr_question.save()
-        return redirect(reverse('question', kwargs={'question_id': curr_question.pk}))
+        print(curr_answer)
+        curr_answer_index = Answer.objects.all().filter(question_id=question_id).filter(rating__gte=0,
+                                                                                        date_create__lt=curr_answer.date_create).count()
+        return redirect(reverse('question', kwargs={
+            'question_id': curr_question.pk}) + '?page=' + str(
+            curr_answer_index // answer_count_on_page + 1) + '#is-right-checkbox-' + str(curr_answer.pk))
 
 
 def signup(request):
@@ -171,4 +177,3 @@ def ask(request):
         'popular_tags': popular_tags,
         'best_members': best_members,
     })
-
