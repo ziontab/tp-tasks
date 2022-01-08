@@ -351,11 +351,6 @@ class AnswerForm(forms.ModelForm):
             'text': 'More details',
         }
 
-    # def __init__(self, author=None, **kwargs):
-    #     self._author = author
-    #     # TODO:  а зачем это?
-    #     super(AnswerForm, self).__init__(**kwargs)
-
     def save(self, **kwags):
         published_answer = Answer()
         published_answer.profile_id = self._author
