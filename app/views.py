@@ -110,6 +110,9 @@ def login(request):
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
+    redirect_page = request.GET.get('next')
+    if not redirect_page:
+        redirect_page = 'index'
     if request.method == 'GET':
         form = LoginForm()
     elif request.method == 'POST':
@@ -120,10 +123,11 @@ def login(request):
                 form.add_error(None, 'User not found')
             else:
                 auth.login(request, user)
-                return redirect(request.POST.get('next', '/'))
+                return redirect(redirect_page)
     return render(request, 'login.html', {'form': form,
                                           'best_members': best_members,
                                           'user': request.user,
+                                          'redirect_after_logout': redirect_page,
                                           'popular_tags': popular_tags})
 
 
