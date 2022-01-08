@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block title %} Question {% endblock %}
 {% load static %}
+{% load bootstrap4 %}
+
 {% block content %}
     <div class="question-preview">
         <div class="row">
@@ -12,12 +14,12 @@
                     <img class="question-avatar" src="{{ question.profile_id.avatar.url }}" alt="avatar">
                 </div>
                 <div class="like-dislike w-100 mx-auto text-center">
-                <div class="btn-group " role="group">
-                    <button type="button" class="btn my-btn border-2">+</button>
-                    <button type="button" class="btn my-btn border-2">-</button>
+                    <div class="btn-group " role="group">
+                        <button type="button" class="btn my-btn border-2">+</button>
+                        <button type="button" class="btn my-btn border-2">-</button>
+                    </div>
                 </div>
-            </div>
-            <div class="like-counter text-center w-100 ">{{ question.rating }}</div>
+                <div class="like-counter text-center w-100 ">{{ question.rating }}</div>
             </div>
             <div class="col-10">
                 <div class="question-header">
@@ -42,6 +44,23 @@
         </div>
     </div>
     <hr>
+    <div class="m-20px">
+        <form class="was-validated" action="{% url 'question' question.id %}" method="post">
+            {% csrf_token %}
+            {{ ask_form.text }}
+            {#            <textarea rows="5" class="form-control m-0 is-invalid" id="input-answer"#}
+            {#                      placeholder="enter your answer here..."#}
+            {#                      maxlength="300" title="maximum length 300 characters, the answer cannot be empty"#}
+            {#                      required></textarea>#}
+            {% if user.is_authenticated %}
+            {% buttons %}
+                <button class="btn my-btn link mt-2 mb-5 border-3" type="submit">Answer!</button>
+            {% endbuttons %}
+            {% else %}
+                <a type="button" class="btn my-btn link mt-2 mb-5 border-3" href="{% url 'login' %}">Login to answer</a>
+            {% endif %}
+        </form>
+    </div>
     <hr>
     {% for answer in answers %}
         {% include 'include/answer.html' %}

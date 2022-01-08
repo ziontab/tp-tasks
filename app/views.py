@@ -1,11 +1,10 @@
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import  Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from app.forms import *
 from app.models import *
-from django.contrib.auth import logout
 
 best_members = Profile.objects.sample_profile(count=20)
 
@@ -53,17 +52,32 @@ def questions_by_tag(request, tag_name):
 
 
 def question(request, question_id):
+    print(request.GET)
+    print(request.POST)
     curr_question = get_object_or_404(Question, pk=question_id)
-    curr_answers = paginate(Answer.objects.by_question(pk=question_id), request, 5)
-    popular_tags = Tag.objects.popular_tags()
-    return render(request, 'question.html', {'question': curr_question,
-                                             'answers': curr_answers,
-                                             'popular_tags': popular_tags,
-                                             'best_members': best_members,
-                                             'paginated_elements': curr_answers,
-                                             'redirect_after_logout': reverse('question',
-                                                                              kwargs={'question_id': question_id}),
-                                             })
+    if request.method == 'GET':
+        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request, 5)
+        popular_tags = Tag.objects.popular_tags()
+        return render(request, 'question.html', {'question': curr_question,
+                                                 'answers': curr_answers,
+                                                 'popular_tags': popular_tags,
+                                                 'best_members': best_members,
+                                                 'paginated_elements': curr_answers,
+                                                 'ask_form': AskForm(),
+                                                 'redirect_after_logout': reverse('question',
+                                                                                  kwargs={'question_id': question_id}),
+                                                 })
+
+    if request.method == 'POST' and request.user.is_authenticated:
+        answer_form = AnswerForm(data=request.POST)
+        Answer.objects.create(
+            text=answer_form.data['text'],
+            profile_id=Profile.objects.get(user_id=request.user),
+            question_id=curr_question
+        )
+        curr_question.number_of_answers += 1
+        curr_question.save()
+        return redirect(reverse('question', kwargs={'question_id': curr_question.pk}))
 
 
 def signup(request):
@@ -140,9 +154,8 @@ def settings(request):
     })
 
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def ask(request):
-    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
@@ -153,17 +166,9 @@ def ask(request):
         if form.is_valid():
             published_question = form.save()
             return redirect(reverse('question', kwargs={'question_id': published_question.pk}))
-            # return redirect(reverse('question', kwargs={'pk': post.pk}))
     return render(request, 'new_question.html', {
         'form': form,
         'popular_tags': popular_tags,
         'best_members': best_members,
     })
 
-
-# def ask(request):
-#     popular_tags = Tag.objects.popular_tags()
-#     return render(request, 'new_question.html', {'popular_tags': popular_tags,
-#                                                  'user': request.user,
-#                                                  'best_members': best_members
-#                                                  })

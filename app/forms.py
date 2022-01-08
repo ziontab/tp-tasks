@@ -295,7 +295,7 @@ class AskForm(forms.ModelForm):
                 'placeholder': 'enter more details here...',
                 'maxlength': 300,
                 'title': 'maximum length 300 characters, it cannot be empty',
-                # 'rows': '7',
+                'rows': '7',
             }),
         }
 
@@ -328,3 +328,38 @@ class AskForm(forms.ModelForm):
         published_question.tags.set(Tag.objects.create_question(self.tags))
 
         return published_question
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['text']
+
+        widgets = {
+            'text': Textarea(attrs={
+                'class': 'form-control m-0 is-invalid',
+                'id': 'input-answer',
+                'placeholder': 'enter your answer here...',
+                'maxlength': 300,
+                'title': 'maximum length 300 characters, the answer cannot be empty',
+                'rows': '3',
+                'required': True,
+            }),
+        }
+
+        labels = {
+            'text': 'More details',
+        }
+
+    # def __init__(self, author=None, **kwargs):
+    #     self._author = author
+    #     # TODO:  а зачем это?
+    #     super(AnswerForm, self).__init__(**kwargs)
+
+    def save(self, **kwags):
+        published_answer = Answer()
+        published_answer.profile_id = self._author
+        published_answer.text = self.cleaned_data['text']
+        published_answer.save()
+
+        return published_answer
