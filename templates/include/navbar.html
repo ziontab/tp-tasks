@@ -1,12 +1,14 @@
 {% load static %}
 <nav class="navbar  my-nav">
     <div class="container-fluid">
-        <div class="col-2">
-            <img class="brand" src="{% static "img/brand.svg" %}">
+        <div class="col-1">
+            <a href="{% url 'hot_questions' %}">
+                <img class="brand" src="{% static "img/brand.svg" %}">
+            </a>
             <span class="brand-text">me</span>
         </div>
-        <div class="col-1">
-            <a class="nav-link font-30" href="{% url 'index' %}">Home</a>
+        <div class="col-2 text-center">
+            <a class="nav-link font-30" href="{% url 'index' %}">New questions</a>
         </div>
         <div class="col-4">
             <form class="d-flex">
