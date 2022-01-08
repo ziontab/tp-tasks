@@ -224,8 +224,6 @@ class SettingsForm(forms.Form):
     def clean_password(self):
         password = self.cleaned_data['password']
         repeat_password = self.cleaned_data['repeat_password']
-        print(password)
-        print(repeat_password)
         if not password or not repeat_password:
             return password
         if password != repeat_password:

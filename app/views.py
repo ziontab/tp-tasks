@@ -113,6 +113,7 @@ def login(request):
     redirect_page = request.GET.get('next')
     if not redirect_page:
         redirect_page = 'index'
+
     if request.method == 'GET':
         form = LoginForm()
     elif request.method == 'POST':
@@ -133,8 +134,8 @@ def login(request):
 
 @login_required(login_url='login')
 def logout(request):
-    print(request)
     print(request.GET)
+    print(request.POST)
     auth.logout(request)
     if request.method == 'GET':
         return_page = request.GET.get('next')
