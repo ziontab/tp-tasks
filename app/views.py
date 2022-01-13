@@ -18,7 +18,8 @@ def paginate(objects_list, request, limit):
 
 @require_GET
 def new_questions(request):
-    curr_questions = paginate(Question.objects.all(), request, 5)
+    limit = request.GET.get('limit', 5)
+    curr_questions = paginate(Question.objects.all(), request, limit)
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'index.html', {'questions': curr_questions,
                                           'paginated_elements': curr_questions,
@@ -31,7 +32,8 @@ def new_questions(request):
 
 @require_GET
 def hot_questions(request):
-    curr_questions = paginate(Question.objects.hot(), request, 5)
+    limit = request.GET.get('limit', 5)
+    curr_questions = paginate(Question.objects.hot(), request, limit)
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'hot_questions.html', {'questions': curr_questions,
                                                   'paginated_elements': curr_questions,
@@ -43,7 +45,8 @@ def hot_questions(request):
 @require_GET
 def questions_by_tag(request, tag_name):
     tag = get_object_or_404(Tag, tag=tag_name)
-    curr_questions = paginate(Question.objects.by_tag(tag_name), request, 5)
+    limit = request.GET.get('limit', 5)
+    curr_questions = paginate(Question.objects.by_tag(tag_name), request, limit)
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'questions_by_tag.html', {'questions': curr_questions,
                                                      'popular_tags': popular_tags,
@@ -55,12 +58,12 @@ def questions_by_tag(request, tag_name):
 
 
 def question(request, question_id):
-    answer_count_on_page = 5
     print(request.GET)
     print(request.POST)
+    limit = request.GET.get('limit', 5)
     curr_question = get_object_or_404(Question, pk=question_id)
     if request.method == 'GET':
-        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request, answer_count_on_page)
+        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request, limit)
         popular_tags = Tag.objects.popular_tags()
         return render(request, 'question.html', {'question': curr_question,
                                                  'answers': curr_answers,
@@ -82,7 +85,7 @@ def question(request, question_id):
         curr_answer_index = Answer.objects.all().filter(question_id=question_id).filter(rating__gte=0,
                                                                                         date_create__lt=curr_answer.date_create).count()
         return redirect(curr_question.get_url() + '?page=' + str(
-            curr_answer_index // answer_count_on_page + 1) + '#is-right-checkbox-' + str(curr_answer.pk))
+            curr_answer_index // limit + 1) + '#is-right-checkbox-' + str(curr_answer.pk))
 
 
 def signup(request):

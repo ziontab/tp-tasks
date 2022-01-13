@@ -196,6 +196,12 @@ body {
     color: #362C46;
 }
 
+.disabled-link {
+  color: grey;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+}
 
 .my-pagination {
     padding: 20px;

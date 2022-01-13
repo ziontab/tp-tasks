@@ -5,13 +5,13 @@
             <ul class="pagination my-pagination">
 
                 {% if paginated_elements.has_previous %}
-                    <li class="page-item enabled">
+                    <li class="page-item ">
                         <a class="my-btn link ml-1 p-1 border-radius-5 border-3"
                            href="?page={{ paginated_elements.previous_page_number }}">Previous</a>
                     </li>
                 {% else %}
-                    <li class="page-item disabled">
-                        <a class="my-btn link ml-1 p-1 border-radius-5 border-3" href="#">Previous</a>
+                    <li class="page-item ">
+                        <a class="my-btn link ml-1 p-1 border-radius-5 border-3 disabled-link" href="#">No previous</a>
                     </li>
                 {% endif %}
 
@@ -20,27 +20,22 @@
                     <li class="page-item"><a class="my-btn link m-0 p-1 border-3"
                                              href="?page={{ paginated_elements.previous_page_number }}">{{ paginated_elements.previous_page_number }}</a>
                     </li>
+                    <li class="page-item"><a class="my-btn link m-0 p-1 border-3"
+                                             href="?page={{ paginated_elements.number }}">{{ paginated_elements.number }}</a>
+                    </li>
+
+                    {% if paginated_elements.has_next %}
+                        <li class="page-item"><a class="my-btn link m-0 p-1 border-3"
+                                                 href="?page={{ paginated_elements.next_page_number }}">{{ paginated_elements.next_page_number }}</a>
+                            {% else %}
+                        <li class="page-item"><a class="my-btn link m-0 p-1 border-3 disabled-link"
+                                                 href="#">&nbsp;&nbsp;</a>
+                    {% endif %}
                 {% else %}
                     <li class="page-item"><a class="my-btn link m-0 p-1 border-3" href="?page=1">1</a></li>
-                {% endif %}
-
-
-                {% if paginated_elements.number != 1 %}
-                    <li class="page-item"><a class="my-btn link m-0 p-1 border-3"
-                                             href="?page={{ paginated_elements.number }}">{{ paginated_elements.number }}</a></li>
-                {% else %}
                     <li class="page-item"><a class="my-btn link m-0 p-1 border-3" href="?page=2">2</a></li>
-                {% endif %}
-
-
-                {% if paginated_elements.next_page_number >= 3 %}
-                    <li class="page-item"><a class="my-btn link m-0 p-1 border-3"
-                                             href="?page={{ paginated_elements.next_page_number }}">{{ paginated_elements.next_page_number }}</a>
-                    </li>
-                {% else %}
                     <li class="page-item"><a class="my-btn link m-0 p-1 border-3" href="?page=3">3</a></li>
                 {% endif %}
-
 
                 {% if paginated_elements.has_next %}
                     <li class="page-item enabled">
@@ -49,7 +44,7 @@
                     </li>
                 {% else %}
                     <li class="page-item disabled">
-                        <a class="my-btn link mr-1 p-1 border-radius-5 border-3" href="#">Next</a>
+                        <a class="my-btn link mr-1 p-1 border-radius-5 border-3 disabled-link" href="#">No next</a>
                     </li>
                 {% endif %}
 

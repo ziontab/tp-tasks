@@ -89,6 +89,8 @@ class Question(models.Model):
     def get_tags(self):
         return self.tags
 
+    # def get_user_mind(self): получить мнение пользователя по вопросу: лайк/дизлайк/ничего
+
     class Meta:
         verbose_name = 'Question'
         verbose_name_plural = 'Questions'
