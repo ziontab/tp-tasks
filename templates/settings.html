@@ -3,7 +3,7 @@
 {% block title %} Settings {% endblock %}
 {% block content %}
     <h2 class="my-header">Settings</h2>
-    <form class="was-validated row question-form col-6 mx-auto"  action="{% url 'settings' %}" method="post"
+    <form class="was-validated row question-form col-6 mx-auto" action="{% url 'settings' %}" method="post"
           enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row mt-3 mx-auto">
@@ -42,20 +42,21 @@
         <div class="row mt-3 mb-3 mx-auto">
             {{ form.avatar }}
             <label for="{{ form.avatar.id_for_label }}"
-                  class="w-50 input-group-text mx-auto btn my-btn border-3 link">Upload new avatar</label>
+                   class="w-50 input-group-text mx-auto btn my-btn border-3 link">Upload new avatar</label>
             <div id="avatar-input-error" class="requirements text-center ">New avatar was not uploaded.</div>
         </div>
-        <div class="row mb-1 mx-auto">
-            <div class="col-8">
+
+        {% if is_change_saved %}
+            <div class="row mb-1 mx-auto changes_saved text-end">
+            <span class="brand-text">
+
+                Changes saved
+            </span>
             </div>
-            <div class="col-4">
-                {% buttons %}
-                    <button class="btn my-btn link border-3 w-100 m-0" type="submit">Save!</button>
-                {% endbuttons %}
-            </div>
-        </div>
+        {% endif %}
+
         <div class="row mb-1 mx-auto">
-            <div class="error-msg text-end">
+            <div class="error-msg text-center">
                 {% for error in form.non_field_errors %}
                     <p> {{ error }} </p>
                 {% endfor %}
@@ -65,6 +66,16 @@
                         <li>{{ field.label }}: {{ field.errors|striptags }}</li>
                     {% endif %}
                 {% endfor %}
+            </div>
+        </div>
+
+        <div class="row mb-1 mx-auto">
+            <div class="col-8">
+            </div>
+            <div class="col-4">
+                {% buttons %}
+                    <button class="btn my-btn link border-3 w-100 m-0" type="submit">Save!</button>
+                {% endbuttons %}
             </div>
         </div>
     </form>

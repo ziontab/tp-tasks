@@ -1,8 +1,9 @@
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.urls import resolve
 from django.views.decorators.http import require_GET
 
 from app.forms import *
@@ -58,6 +59,7 @@ def hot_questions(request):
                                                   'redirect_after_logout': reverse('hot_questions'),
                                                   })
 
+
 @require_GET
 def questions_by_tag(request, tag_name):
     tag = get_object_or_404(Tag, tag=tag_name)
@@ -76,17 +78,6 @@ def question(request, question_id):
     print(request.GET)
     print(request.POST)
     curr_question = get_object_or_404(Question, pk=question_id)
-    if request.method == 'GET':
-        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request)
-        popular_tags = Tag.objects.popular_tags()
-        return render(request, 'question.html', {'question': curr_question,
-                                                 'answers': curr_answers,
-                                                 'popular_tags': popular_tags,
-                                                 'best_members': best_members,
-                                                 'paginated_elements': curr_answers,
-                                                 'ask_form': AskForm(),
-                                                 'redirect_after_logout': curr_question.get_url(),
-                                                 })
 
     if request.method == 'POST' and request.user.is_authenticated:
         answer_form = AnswerForm(data=request.POST)
@@ -109,20 +100,33 @@ def question(request, question_id):
 
         return redirect(curr_question.get_url() + '?page=' + str(
             curr_answer_index // limit + 1) + '#is-right-checkbox-' + str(curr_answer.pk))
+    else:
+        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request)
+        popular_tags = Tag.objects.popular_tags()
+        return render(request, 'question.html', {'question': curr_question,
+                                                 'answers': curr_answers,
+                                                 'popular_tags': popular_tags,
+                                                 'best_members': best_members,
+                                                 'paginated_elements': curr_answers,
+                                                 'ask_form': AskForm(),
+                                                 'redirect_after_logout': curr_question.get_url(),
+                                                 })
 
 
 def signup(request):
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
-    if request.method == 'GET':
-        form = SignupForm()
-    else:
+
+    if request.method == 'POST':
         form = SignupForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             user = form.save()
             auth.login(request, user)
             return redirect(request.POST.get('next', '/'))
+    else:
+        form = SignupForm()
+
     return render(request, 'signup.html', {
         'form': form,
         'popular_tags': popular_tags,
@@ -131,17 +135,20 @@ def signup(request):
     })
 
 
+
+
 def login(request):
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
-    redirect_page = request.GET.get('next')
-    if not redirect_page:
+
+    redirect_page = request.GET.get('next', 'index')
+    try:
+        resolve(redirect_page)
+    except Http404:
         redirect_page = 'index'
 
-    if request.method == 'GET':
-        form = LoginForm()
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
             user = auth.authenticate(**form.cleaned_data)
@@ -150,6 +157,9 @@ def login(request):
             else:
                 auth.login(request, user)
                 return redirect(redirect_page)
+    else:
+        form = LoginForm()
+
     return render(request, 'login.html', {'form': form,
                                           'best_members': best_members,
                                           'user': request.user,
@@ -163,9 +173,15 @@ def logout(request):
     print(request.GET)
     print(request.POST)
     auth.logout(request)
-    return_page = request.GET.get('next')
-    if return_page:
-        return redirect(return_page)
+
+    redirect_page = request.GET.get('next', 'index')
+    try:
+        resolve(redirect_page)
+    except Http404:
+        redirect_page = 'index'
+
+    if redirect_page:
+        return redirect(redirect_page)
     return redirect(reverse('index'))
 
 
@@ -174,19 +190,23 @@ def settings(request):
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
-    if request.method == 'GET':
-        form = SettingsForm(
-            initial={'username': request.user.username, 'email': request.user.email, 'password': request.user.password})
-    else:
+    is_change_saved = request.GET.get('saved', '')
+    if request.method == 'POST':
         form = SettingsForm(user=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             user = form.save()
             auth.login(request, user)
+            return HttpResponseRedirect(reverse('settings') + '?saved=True')
+    else:
+        form = SettingsForm(
+            initial={'username': request.user.username, 'email': request.user.email, 'password': request.user.password})
+
     return render(request, 'settings.html', {
         'form': form,
         'popular_tags': popular_tags,
         'best_members': best_members,
         'user': request.user,
+        'is_change_saved': is_change_saved,
     })
 
 
@@ -195,13 +215,15 @@ def ask(request):
     print(request.GET)
     print(request.POST)
     popular_tags = Tag.objects.popular_tags()
-    if request.method == 'GET':
-        form = AskForm()
-    elif request.method == 'POST':
+
+    if request.method == 'POST':
         form = AskForm(request.user.profile, data=request.POST)
         if form.is_valid():
             published_question = form.save()
-            return redirect(published_question.get_url())
+            return HttpResponseRedirect(published_question.get_url())
+    else:
+        form = AskForm()
+        
     return render(request, 'new_question.html', {
         'form': form,
         'popular_tags': popular_tags,

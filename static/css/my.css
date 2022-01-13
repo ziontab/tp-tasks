@@ -262,6 +262,11 @@ body {
     background-color: #C9B5CD;
 }
 
+.changes_saved{
+    display: block;
+    color: #387548;
+    font-size: 50px;
+}
 
 #input-answer,
 #question-body,

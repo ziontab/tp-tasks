@@ -1,6 +1,6 @@
 import django
 
-from django.forms import  TextInput,  Textarea, FileInput
+from django.forms import TextInput, Textarea, FileInput
 from django.contrib.auth.models import User
 from app.models import *
 from django.forms import PasswordInput
@@ -98,7 +98,22 @@ class SignupForm(forms.ModelForm):
         }
 
     def clean(self):
-        pass
+        password = self.cleaned_data['password']
+        repeat_password = self.cleaned_data['repeat_password']
+        if not password or not repeat_password:
+            return
+        if password != repeat_password:
+            self.add_error('repeat_password', 'Passwords do not match!')
+            return
+
+        try:
+            django.contrib.auth.password_validation.validate_password(password)
+        except forms.ValidationError as error:
+            self.add_error('password', 'Invalid password. it must contain one upper and one lowercase letter and at '
+                                       'least one number and be 8-100 characters long')
+            return
+
+        return self.cleaned_data
 
     def clean_username(self):
         if User.objects.filter(username=self.cleaned_data['username']).exists():
@@ -110,28 +125,9 @@ class SignupForm(forms.ModelForm):
             self.add_error('email', 'This email is already in use')
         return self.cleaned_data['email']
 
-    def clean_repeat_password(self):
-        password = self.cleaned_data['password']
-        repeat_password = self.cleaned_data['repeat_password']
-        if not password or not repeat_password:
-            return password
-        if password != repeat_password:
-            self.add_error('repeat_password', 'Passwords do not match!')
-            return ""
-
-        try:
-            django.contrib.auth.password_validation.validate_password(password)
-        except forms.ValidationError as error:
-            self.add_error('password', 'Invalid password. it must contain one upper and one lowercase letter and at '
-                                       'least one number and be 8-100 characters long')
-            return ""
-        return password
-
     def save(self, **kwargs):
-        username = self.cleaned_data['username']
-        email = self.cleaned_data['email']
-        password = self.cleaned_data['password']
-        user = User.objects.create_user(username, email, password)
+        user = User.objects.create_user(self.cleaned_data['username'], self.cleaned_data['email'],
+                                        self.cleaned_data['password'])
 
         profile = Profile.objects.create(user_id=user)
         if self.cleaned_data['avatar'] is not None:
@@ -221,22 +217,23 @@ class SettingsForm(forms.Form):
                 raise forms.ValidationError('This email is already in use')
         return self.cleaned_data['email']
 
-    def clean_password(self):
+    def clean(self):
         password = self.cleaned_data['password']
         repeat_password = self.cleaned_data['repeat_password']
         if not password or not repeat_password:
-            return password
+            return
         if password != repeat_password:
-            self.add_error('password', 'Passwords do not match!')
-            return ""
+            self.add_error('repeat_password', 'Passwords do not match!')
+            return
 
         try:
             django.contrib.auth.password_validation.validate_password(password)
         except forms.ValidationError as error:
             self.add_error('password', 'Invalid password. it must contain one upper and one lowercase letter and at '
                                        'least one number and be 8-100 characters long')
-            return ""
-        return password
+            return
+
+        return self.cleaned_data
 
     def save(self, **kwargs):
         self.user.username = self.cleaned_data['username']
@@ -346,10 +343,10 @@ class AnswerForm(forms.ModelForm):
             'text': 'More details',
         }
 
-    def save(self, **kwags):
-        published_answer = Answer()
-        published_answer.profile_id = self._author
-        published_answer.text = self.cleaned_data['text']
-        published_answer.save()
+    def __init__(self, author=None, **kwargs):
+        self._author = author
+        super(AnswerForm, self).__init__(**kwargs)
 
-        return published_answer
+    def save(self, **kwags):
+        self.cleaned_data['author'] = self._author
+        return Answer.objects.create(**self.cleaned_data)
