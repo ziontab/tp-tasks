@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
@@ -9,17 +9,34 @@ from app.forms import *
 from app.models import *
 
 best_members = Profile.objects.sample_profile(count=20)
+default_obj_page_limit = 5
+max_obj_page_limit = 100
 
 
-def paginate(objects_list, request, limit):
+def paginate(objects_list, request):
+    try:
+        limit = int(request.GET.get('limit', default_obj_page_limit))
+    except ValueError:
+        limit = default_obj_page_limit
+    if limit > max_obj_page_limit:
+        limit = max_obj_page_limit
+    if limit < 1:
+        limit = default_obj_page_limit
+
+    try:
+        page_num = int(request.GET.get('page', 1))
+    except ValueError:
+        raise Http404
+
+    if page_num < 1:
+        page_num = 1
     paginator = Paginator(objects_list, limit)
-    return paginator.get_page(request.GET.get('page'))
+    return paginator.get_page(page_num)
 
 
 @require_GET
 def new_questions(request):
-    limit = request.GET.get('limit', 5)
-    curr_questions = paginate(Question.objects.all(), request, limit)
+    curr_questions = paginate(Question.objects.all(), request)
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'index.html', {'questions': curr_questions,
                                           'paginated_elements': curr_questions,
@@ -32,8 +49,7 @@ def new_questions(request):
 
 @require_GET
 def hot_questions(request):
-    limit = request.GET.get('limit', 5)
-    curr_questions = paginate(Question.objects.hot(), request, limit)
+    curr_questions = paginate(Question.objects.hot(), request)
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'hot_questions.html', {'questions': curr_questions,
                                                   'paginated_elements': curr_questions,
@@ -45,8 +61,7 @@ def hot_questions(request):
 @require_GET
 def questions_by_tag(request, tag_name):
     tag = get_object_or_404(Tag, tag=tag_name)
-    limit = request.GET.get('limit', 5)
-    curr_questions = paginate(Question.objects.by_tag(tag_name), request, limit)
+    curr_questions = paginate(Question.objects.by_tag(tag_name), request)
     popular_tags = Tag.objects.popular_tags()
     return render(request, 'questions_by_tag.html', {'questions': curr_questions,
                                                      'popular_tags': popular_tags,
@@ -60,10 +75,9 @@ def questions_by_tag(request, tag_name):
 def question(request, question_id):
     print(request.GET)
     print(request.POST)
-    limit = request.GET.get('limit', 5)
     curr_question = get_object_or_404(Question, pk=question_id)
     if request.method == 'GET':
-        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request, limit)
+        curr_answers = paginate(Answer.objects.by_question(pk=question_id), request)
         popular_tags = Tag.objects.popular_tags()
         return render(request, 'question.html', {'question': curr_question,
                                                  'answers': curr_answers,
@@ -84,6 +98,15 @@ def question(request, question_id):
         curr_question.save()
         curr_answer_index = Answer.objects.all().filter(question_id=question_id).filter(rating__gte=0,
                                                                                         date_create__lt=curr_answer.date_create).count()
+        try:
+            limit = int(request.GET.get('limit', default_obj_page_limit))
+        except ValueError:
+            limit = default_obj_page_limit
+        if limit > max_obj_page_limit:
+            limit = max_obj_page_limit
+        if limit < 1:
+            limit = default_obj_page_limit
+
         return redirect(curr_question.get_url() + '?page=' + str(
             curr_answer_index // limit + 1) + '#is-right-checkbox-' + str(curr_answer.pk))
 
