@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_GET
+
 from app.forms import *
 from app.models import *
 
@@ -14,6 +16,7 @@ def paginate(objects_list, request, limit):
     return paginator.get_page(request.GET.get('page'))
 
 
+@require_GET
 def new_questions(request):
     curr_questions = paginate(Question.objects.all(), request, 5)
     popular_tags = Tag.objects.popular_tags()
@@ -26,6 +29,7 @@ def new_questions(request):
                                           })
 
 
+@require_GET
 def hot_questions(request):
     curr_questions = paginate(Question.objects.hot(), request, 5)
     popular_tags = Tag.objects.popular_tags()
@@ -36,7 +40,7 @@ def hot_questions(request):
                                                   'redirect_after_logout': reverse('hot_questions'),
                                                   })
 
-
+@require_GET
 def questions_by_tag(request, tag_name):
     tag = get_object_or_404(Tag, tag=tag_name)
     curr_questions = paginate(Question.objects.by_tag(tag_name), request, 5)
@@ -76,9 +80,7 @@ def question(request, question_id):
             profile_id=Profile.objects.get(user_id=request.user),
             question_id=curr_question
         )
-        curr_question.number_of_answers += 1
         curr_question.save()
-        print(curr_answer)
         curr_answer_index = Answer.objects.all().filter(question_id=question_id).filter(rating__gte=0,
                                                                                         date_create__lt=curr_answer.date_create).count()
         return redirect(reverse('question', kwargs={
@@ -133,14 +135,14 @@ def login(request):
 
 
 @login_required(login_url='login')
+@require_GET
 def logout(request):
     print(request.GET)
     print(request.POST)
     auth.logout(request)
-    if request.method == 'GET':
-        return_page = request.GET.get('next')
-        if return_page:
-            return redirect(return_page)
+    return_page = request.GET.get('next')
+    if return_page:
+        return redirect(return_page)
     return redirect(reverse('index'))
 
 
