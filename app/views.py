@@ -50,8 +50,7 @@ def questions_by_tag(request, tag_name):
                                                      'best_members': best_members,
                                                      'tag': tag,
                                                      'paginated_elements': curr_questions,
-                                                     'redirect_after_logout': reverse('questions_by_tag',
-                                                                                      kwargs={'tag_name': tag}),
+                                                     'redirect_after_logout': tag.get_url(),
                                                      })
 
 
@@ -69,8 +68,7 @@ def question(request, question_id):
                                                  'best_members': best_members,
                                                  'paginated_elements': curr_answers,
                                                  'ask_form': AskForm(),
-                                                 'redirect_after_logout': reverse('question',
-                                                                                  kwargs={'question_id': question_id}),
+                                                 'redirect_after_logout': curr_question.get_url(),
                                                  })
 
     if request.method == 'POST' and request.user.is_authenticated:
@@ -83,8 +81,7 @@ def question(request, question_id):
         curr_question.save()
         curr_answer_index = Answer.objects.all().filter(question_id=question_id).filter(rating__gte=0,
                                                                                         date_create__lt=curr_answer.date_create).count()
-        return redirect(reverse('question', kwargs={
-            'question_id': curr_question.pk}) + '?page=' + str(
+        return redirect(curr_question.get_url() + '?page=' + str(
             curr_answer_index // answer_count_on_page + 1) + '#is-right-checkbox-' + str(curr_answer.pk))
 
 
@@ -178,7 +175,7 @@ def ask(request):
         form = AskForm(request.user.profile, data=request.POST)
         if form.is_valid():
             published_question = form.save()
-            return redirect(reverse('question', kwargs={'question_id': published_question.pk}))
+            return redirect(published_question.get_url())
     return render(request, 'new_question.html', {
         'form': form,
         'popular_tags': popular_tags,

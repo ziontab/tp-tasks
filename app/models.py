@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from random import sample
 
+from django.urls import reverse
+
 
 class ProfileManager(models.Manager):
     def sample_profile(self, count):
@@ -36,11 +38,15 @@ class TagManager(models.Manager):
     def popular_tags(self):
         return self.all().order_by('-rating')[:9]
 
+
 class Tag(models.Model):
     tag = models.CharField(unique=True, max_length=32, verbose_name='Tag')
     rating = models.IntegerField(default=0, verbose_name='Rating')
 
     objects = TagManager()
+
+    def get_url(self):
+        return reverse('questions_by_tag', kwargs={'tag_name': self.tag})
 
     def __str__(self):
         return self.tag
@@ -76,6 +82,9 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_url(self):
+        return reverse('question', kwargs={'question_id': self.id})
 
     def get_tags(self):
         return self.tags

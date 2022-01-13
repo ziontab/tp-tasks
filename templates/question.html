@@ -31,12 +31,12 @@
                 <div class="row">
                     <div class="col-3">
                         <a class="link font-20"
-                           href="{% url 'question' question.id %}">answers({{ question.number_of_answers }})</a>
+                           href="{{ question.get_url }}' question.id %}">answers({{ question.number_of_answers }})</a>
                     </div>
                     <div class="col-9 word-spacing-1-5">
                         <span class="font-20">Tags:</span>
                         {% for tag in question.tags.all %}
-                            <a class="link font-20" href="{% url 'questions_by_tag' tag %}">{{ tag }}</a>
+                            <a class="link font-20" href="{{ tag.get_url }}">{{ tag }}</a>
                         {% endfor %}
                     </div>
                 </div>
@@ -45,7 +45,7 @@
     </div>
     <hr>
     <div class="m-20px">
-        <form class="was-validated" action="{% url 'question' question.id %}" method="post">
+        <form class="was-validated" action="{{ question.get_url }}" method="post">
             {% csrf_token %}
             {{ ask_form.text }}
             {#            <textarea rows="5" class="form-control m-0 is-invalid" id="input-answer"#}
