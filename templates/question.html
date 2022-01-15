@@ -11,7 +11,7 @@
                     {{ question.profile_id }}
                 </div>
                 <div class="text-center ">
-                    <img class="question-avatar" src="{{ question.profile_id.avatar.url }}" alt="avatar">
+                    <img class="question-avatar" src="{{ MEDIA_URL }}{{ question.profile_id.avatar.url }}" alt="avatar">
                 </div>
                 <div class="like-dislike w-100 mx-auto text-center">
                     <div class="btn-group " role="group">
@@ -30,8 +30,7 @@
                 </p>
                 <div class="row">
                     <div class="col-3">
-                        <a class="link font-20"
-                           href="{{ question.get_url }}' question.id %}">answers({{ question.number_of_answers }})</a>
+                        <span class="link font-20" >answers({{ question.number_of_answers }})</span>
                     </div>
                     <div class="col-9 word-spacing-1-5">
                         <span class="font-20">Tags:</span>

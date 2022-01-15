@@ -135,8 +135,6 @@ def signup(request):
     })
 
 
-
-
 def login(request):
     print(request.GET)
     print(request.POST)

@@ -51,7 +51,7 @@ class SignupForm(forms.ModelForm):
                                       }),
                                       label='Repeat password ')
 
-    avatar = forms.FileField(required=True,
+    avatar = forms.FileField(required=False,
                              widget=FileInput(attrs={
                                  'class': 'form-control',
                                  'id': 'avatar-input',
@@ -314,7 +314,7 @@ class AskForm(forms.ModelForm):
         published_question.text = self.cleaned_data['text']
         published_question.save()
 
-        for tag in self.tags:
+        for tag in self.cleaned_data['tags']:
             if not Tag.objects.filter(tag=tag).exists():
                 Tag.objects.create(tag=tag)
         published_question.tags.set(Tag.objects.create_question(self.tags))

@@ -54,7 +54,7 @@ class Command(BaseCommand):
                         email=faker.email(),
                         password="1"
                     ),
-                    avatar="static/img/avatar_" + str(profile_counter % avatar_count) + ".jpg",
+                    avatar="img/avatar_" + str(profile_counter % avatar_count) + ".jpg",
                 )
                 profile_counter += 1
             except Exception:

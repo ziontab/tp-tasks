@@ -6,7 +6,7 @@
                 {{ question.profile_id }}
             </div>
             <div class="text-center ">
-                <img class="question-avatar" src="{{ question.profile_id.avatar.url }}" alt="avatar">
+                <img class="question-avatar" src="{{ MEDIA_URL }}{{ question.profile_id.avatar.url }}" alt="avatar">
             </div>
             <div class="like-dislike w-100 mx-auto text-center">
                 <div class="btn-group " role="group">
