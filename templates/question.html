@@ -15,11 +15,11 @@
                 </div>
                 <div class="like-dislike w-100 mx-auto text-center">
                     <div class="btn-group " role="group">
-                        <button type="button" class="btn my-btn border-2">+</button>
-                        <button type="button" class="btn my-btn border-2">-</button>
+                        <button id="like-question-{{ question.id }}" data-id="{{ question.id }}" type="button" class="btn my-btn border-2 js-vote-question">+</button>
+                        <button id="dislike-question-{{ question.id }}" data-id="{{ question.id }}" type="button" class="btn my-btn border-2 js-vote-question">-</button>
                     </div>
                 </div>
-                <div class="like-counter text-center w-100 ">{{ question.rating }}</div>
+                <div  id="rating-question-{{ question.id }}" class="like-counter text-center w-100 ">{{ question.rating }}</div>
             </div>
             <div class="col-10">
                 <div class="question-header">

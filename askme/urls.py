@@ -15,7 +15,7 @@ urlpatterns = [
                   path('login/', views.login, name='login'),
                   path('signup/', views.signup, name='signup'),
                   path('logout/', views.logout, name='logout'),
-                  # path('question_vote/', views.question_vote, name="question_vote"),
+                  path('question_vote/', views.question_vote, name="question_vote"),
                   # path('answer_vote/', views.answer_vote, name="answer_vote"),
                   path('answer_correct/', views.answer_correct, name='answer_correct'),
                   path('admin/', admin.site.urls),

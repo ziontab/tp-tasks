@@ -37,6 +37,7 @@ def login_required_ajax(view):
                 code="no_auth",
                 message=u'Login required',
             )
+
     return view2
 
 
@@ -262,12 +263,39 @@ def answer_correct(request):
     try:
         answer_id = request.POST['id']
         answer = Answer.objects.get(id=answer_id)
+        # if answer.question_id.profile_id == request.user.profile:
         if answer.question_id.profile_id == Profile.objects.get(user_id=request.user):
             answer.change_mind_correct()
             answer.save()
-            return HttpResponseAjax(id=answer_id)
+            return HttpResponseAjax()
     except Answer.DoesNotExist:
-        pass
+        return HttpResponseAjaxError(code='bad_params', message='this answer is in an invalid state or does not exist')
 
-    return HttpResponseAjaxError(code='bad_params', message='this answer is in an invalid state or does not exist')
 
+@login_required_ajax
+@require_POST
+def question_vote(request):
+    print(request.POST)
+    if request.POST['action'] == "like":
+        action = True
+    else:
+        action = False
+    try:
+        like = LikeQuestion.objects.get(profile_id=request.user.profile,
+                                        question_id=Question.objects.get(id=request.POST['id']))
+
+        if like.is_like == action:
+            return HttpResponseAjax(new_rating=like.delete())
+
+        like.change_mind()
+        like.save()
+        return HttpResponseAjax(new_rating=Question.objects.get(id=request.POST['id']).rating)
+
+    except LikeQuestion.DoesNotExist:
+        like = LikeQuestion.objects.create(profile_id=request.user.profile,
+                                           question_id=Question.objects.get(id=request.POST['id']),
+                                           is_like=action)
+        like.save()
+        return HttpResponseAjax(new_rating=Question.objects.get(id=request.POST['id']).rating)
+    except LikeQuestion.MultipleObjectsReturned:
+        return HttpResponseAjaxError(code='bad_params', message='Something is wrong with request. You can try again!')

@@ -193,7 +193,7 @@ class LikeQuestion(models.Model):
 class LikeAnswer(models.Model):
     answer_id = models.ForeignKey('Answer', on_delete=models.CASCADE, verbose_name='Answer')
     profile_id = models.ForeignKey('Profile', on_delete=models.CASCADE, verbose_name='Profile')
-    is_like = models.BooleanField(default=True, verbose_name='Like or dislike')
+    is_like = models.BooleanField(default=False, verbose_name='Like or dislike')
 
     def __str__(self):
         action = 'Disliked'
