@@ -1,10 +1,11 @@
 from django.core.paginator import Paginator
-from django.http import Http404, HttpResponseRedirect
+from django.db.models.base import Deferred
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.urls import resolve
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_POST
 
 from app.forms import *
 from app.models import *
@@ -12,6 +13,31 @@ from app.models import *
 best_members = Profile.objects.sample_profile(count=20)
 default_obj_page_limit = 5
 max_obj_page_limit = 100
+
+
+class HttpResponseAjax(JsonResponse):
+    def __init__(self, status='ok', **kwargs):
+        kwargs['status'] = status
+        super().__init__(kwargs)
+
+
+class HttpResponseAjaxError(HttpResponseAjax):
+    def __init__(self, code, message):
+        super().__init__(
+            status='error', code=code, message=message
+        )
+
+
+def login_required_ajax(view):
+    def view2(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return view(request, *args, **kwargs)
+        elif request.is_ajax():
+            return HttpResponseAjaxError(
+                code="no_auth",
+                message=u'Login required',
+            )
+    return view2
 
 
 def paginate(objects_list, request):
@@ -221,9 +247,27 @@ def ask(request):
             return HttpResponseRedirect(published_question.get_url())
     else:
         form = AskForm()
-        
+
     return render(request, 'new_question.html', {
         'form': form,
         'popular_tags': popular_tags,
         'best_members': best_members,
     })
+
+
+@login_required_ajax
+@require_POST
+def answer_correct(request):
+    print(request.POST)
+    try:
+        answer_id = request.POST['id']
+        answer = Answer.objects.get(id=answer_id)
+        if answer.question_id.profile_id == Profile.objects.get(user_id=request.user):
+            answer.change_mind_correct()
+            answer.save()
+            return HttpResponseAjax(id=answer_id)
+    except Answer.DoesNotExist:
+        pass
+
+    return HttpResponseAjaxError(code='bad_params', message='this answer is in an invalid state or does not exist')
+

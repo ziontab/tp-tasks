@@ -22,23 +22,28 @@
             </p>
             <div class="form-check">
                 {% if answer.is_correct and question.profile_id.user_id.username == user.username %}
-                    <input type="checkbox" class="is-right-checkbox" name="is-right-checkbox-{{ answer.id }}" value=""
+                    <input type="checkbox" data-id="{{ answer.id }}" class="is-right-checkbox js-answer-correct"
+                           name="is-right-checkbox-{{ answer.id }}" value=""
                            id="is-right-checkbox-{{ answer.id }}" checked>
                 {% elif answer.is_correct and question.profile_id.user_id.username != user.username %}
-                    <input type="checkbox" class="is-right-checkbox" name="is-right-checkbox-{{ answer.id }}" value=""
+                    <input type="checkbox" data-id="{{ answer.id }}" class="is-right-checkbox js-answer-correct"
+                           name="is-right-checkbox-{{ answer.id }}" value=""
                            id="is-right-checkbox-{{ answer.id }}" checked
                            disabled>
                 {% elif not answer.is_correct and question.profile_id.user_id.username == user.username %}
-                    <input type="checkbox" class="is-right-checkbox" name="is-right-checkbox-{{ answer.id }}" value=""
+                    <input type="checkbox" data-id="{{ answer.id }}" class="is-right-checkbox js-answer-correct"
+                           name="is-right-checkbox-{{ answer.id }}" value=""
                            id="is-right-checkbox-{{ answer.id }}">
                 {% elif not answer.is_correct and question.profile_id.user_id.username != user.username %}
-                    <input type="checkbox" class="is-right-checkbox" name="is-right-checkbox-{{ answer.id }}" value=""
+                    <input type="checkbox" data-id="{{ answer.id }}" class="is-right-checkbox js-answer-correct"
+                           name="is-right-checkbox-{{ answer.id }}" value=""
                            id="is-right-checkbox-{{ answer.id }}"
                            disabled>
                 {% endif %}
                 <label for="is-right-checkbox-{{ answer.id }}">
                     correct
                 </label>
+{#                <div   id="is-right-answ-error-msg-{{ answer.id }}" class="font-20 align-middle">Server error... Please try again</div>#}
             </div>
         </div>
     </div>
