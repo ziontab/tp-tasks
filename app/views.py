@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.db.models.base import Deferred
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
@@ -263,8 +262,7 @@ def answer_correct(request):
     try:
         answer_id = request.POST['id']
         answer = Answer.objects.get(id=answer_id)
-        # if answer.question_id.profile_id == request.user.profile:
-        if answer.question_id.profile_id == Profile.objects.get(user_id=request.user):
+        if answer.question_id.profile_id == request.user.profile:
             answer.change_mind_correct()
             answer.save()
             return HttpResponseAjax()
@@ -298,4 +296,33 @@ def question_vote(request):
         like.save()
         return HttpResponseAjax(new_rating=Question.objects.get(id=request.POST['id']).rating)
     except LikeQuestion.MultipleObjectsReturned:
+        return HttpResponseAjaxError(code='bad_params', message='Something is wrong with request. You can try again!')
+
+
+@login_required_ajax
+@require_POST
+def answer_vote(request):
+    print(request.POST)
+    if request.POST['action'] == "like":
+        action = True
+    else:
+        action = False
+    try:
+        like = LikeAnswer.objects.get(profile_id=request.user.profile,
+                                      answer_id=Answer.objects.get(id=request.POST['id']))
+
+        if like.is_like == action:
+            return HttpResponseAjax(new_rating=like.delete())
+
+        like.change_mind()
+        like.save()
+        return HttpResponseAjax(new_rating=Answer.objects.get(id=request.POST['id']).rating)
+
+    except LikeAnswer.DoesNotExist:
+        like = LikeAnswer.objects.create(profile_id=request.user.profile,
+                                         answer_id=Answer.objects.get(id=request.POST['id']),
+                                         is_like=action)
+        like.save()
+        return HttpResponseAjax(new_rating=Answer.objects.get(id=request.POST['id']).rating)
+    except LikeAnswer.MultipleObjectsReturned:
         return HttpResponseAjaxError(code='bad_params', message='Something is wrong with request. You can try again!')

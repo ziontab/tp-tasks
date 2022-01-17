@@ -10,11 +10,11 @@
             </div>
             <div class="like-dislike w-100 mx-auto text-center">
                 <div class="btn-group " role="group">
-                    <button type="button" class="btn my-btn border-2">+</button>
-                    <button type="button" class="btn my-btn border-2">-</button>
+                    <button id="like-answer-{{ answer.id }}" data-id="{{ answer.id }}" type="button" class="btn my-btn border-2 js-vote-answer">+</button>
+                    <button id="dislike-answer-{{ answer.id }}" data-id="{{ answer.id }}" type="button" class="btn my-btn border-2 js-vote-answer">-</button>
                 </div>
             </div>
-            <div class="like-counter text-center w-100 ">{{ answer.rating }}</div>
+            <div id="rating-answer-{{ answer.id }}" class="like-counter text-center w-100 ">{{ answer.rating }}</div>
         </div>
         <div class="col-10">
             <p class="font-20 align-middle">
@@ -43,7 +43,6 @@
                 <label for="is-right-checkbox-{{ answer.id }}">
                     correct
                 </label>
-{#                <div   id="is-right-answ-error-msg-{{ answer.id }}" class="font-20 align-middle">Server error... Please try again</div>#}
             </div>
         </div>
     </div>

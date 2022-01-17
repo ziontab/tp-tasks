@@ -65,5 +65,11 @@
         {% include 'include/answer.html' %}
     {% endfor %}
     {% include 'include/paginator.html' %}
+
+    <script src="{% static "js/jquery-3.6.0.min.js"%}"></script>
+    <script src="{% static "js/get_cookie.js"%} "></script>
+    <script src="{% static "js/is_answer_correct.js"%} "></script>
+    <script src="{% static "js/vote_question.js"%} "></script>
+    <script src="{% static "js/vote_answer.js"%} "></script>
 {% endblock %}
 
