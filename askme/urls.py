@@ -19,7 +19,7 @@ urlpatterns = [
                   path('answer_vote/', views.answer_vote, name="answer_vote"),
                   path('answer_correct/', views.answer_correct, name='answer_correct'),
                   path('admin/', admin.site.urls),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]
 
 if DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
