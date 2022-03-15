@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %} New {% endblock %}
+{% load bootstrap4 %}
+{% block content %}
+
+    <h2 class="my-header">New question</h2>
+    <form class="was-validated row question-form" action="{% url 'ask' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row mt-5">
+            <div class="col-3 text-end">
+                <label for="{{ form.title.id_for_label }}" class="my-header font-20 ">your question</label>
+            </div>
+            <div class="col-9">
+                {{ form.title }}
+{#                <input type="text" class="form-control is-valid m-0" id="question" name="new_question"#}
+{#                       placeholder="How are you?" maxlength="100"#}
+{#                       title="maximum length 200 characters, it cannot be empty" pattern="^(\s*[\w\p{P}]+\s*)+$"#}
+{#                       required>#}
+                <div class="requirements">maximum length 200 characters, it cannot be empty or consist only of
+                    spaces.<br> Your question can contain only letters of the Latin alphabet, numbers, and punctuation
+                    marks.
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-3 text-end">
+                <label for="{{ form.text.id_for_label }}" class="my-header font-20 ">more details</label>
+            </div>
+            <div class="col-9">
+                {{ form.text }}
+{#                <textarea class="form-control m-0 is-invalid" id="question-body" name="new_question_body"#}
+{#                          placeholder="enter more details here..." maxlength="300"#}
+{#                          title="maximum length 300 characters, it cannot be empty" required></textarea>#}
+                <div class="requirements">maximum length 300 characters, it cannot be empty</div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-3 text-end">
+                <label for="{{ form.tags.id_for_label }}" class="my-header font-20 ">tags separated by a space</label>
+            </div>
+            <div class="col-9">
+                {{ form.tags }}
+{#                <input type="text" class="form-control is-valid m-0" name="new_question_tags" id="tags-input"#}
+{#                       placeholder="food cooking chocolate" maxlength="100"#}
+{#                       title="maximum length 200 characters, it cannot be empty" pattern="^(\s*[a-zA-Z]+[\w\-\d]*\s*)+$"#}
+{#                       required>#}
+                <div class="requirements">maximum length 200 characters, it cannot be empty or consist only of spaces.
+                    <br> Tag name must start with letter and can consist of one word containing only letters of the
+                    Latin alphabet, numbers, underscore or hyphen.
+                </div>
+            </div>
+        </div>
+        <div class="row mb-1 mx-auto">
+            <div class="error-msg text-end">
+                {% for error in form.non_field_errors %}
+                    <p> {{ error }} </p>
+                {% endfor %}
+
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="text-center">
+            {% buttons %}
+                <button class="text-center btn my-btn link w-25 m-3 mx-auto border-3" type="submit">Ask!</button>
+            {% endbuttons %}
+        </div>
+    </form>
+{% endblock %}

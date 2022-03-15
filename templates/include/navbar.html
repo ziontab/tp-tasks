@@ -1,0 +1,46 @@
+{% load static %}
+<nav class="navbar  my-nav">
+    <div class="container-fluid">
+        <div class="col-1">
+            <a href="{% url 'hot_questions' %}">
+                <img class="brand" src="{% static "img/brand.svg" %}">
+            </a>
+            <span class="brand-text">me</span>
+        </div>
+        <div class="col-2 text-center">
+            <a class="nav-link font-30" href="{% url 'index' %}">New questions</a>
+        </div>
+        <div class="col-4">
+            <form class="d-flex">
+                <input class="form-control me-2 nav-link search font-30" maxlength="200" placeholder="Search"
+                       name="search">
+                <button class="btn my-btn" type="submit">Search</button>
+            </form>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="col-2 text-center">
+                <a class="btn my-btn w-75 border-2" type="submit" href="{% url 'ask' %}">Ask!</a>
+            </div>
+            <div class="col-1 text-center ">
+                <img class="avatar" src="{{ MEDIA_URL }}{{ user.profile.avatar.url }}" alt="avatar">
+            </div>
+            <div class="col-1 font-30 nick">
+                {{ user.username }}
+            </div>
+            <div class=col-1>
+                <div>
+                    <a class="nav-link font-20" href="{% url 'settings' %}">settings</a>
+                </div>
+                <div>
+                    <a class="nav-link font-20" href="{% url "logout" %}?next={{ redirect_after_logout }}">logout</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-2"></div>
+            <div class="col-2">
+                <a type="button" class="btn my-btn" href="{% url 'login' %}?next={{ redirect_after_logout }}">Login</a>
+                <a type="button" class="btn my-btn" href="{% url 'signup' %}">Sign up</a>
+            </div>
+        {% endif %}
+    </div>
+</nav>

@@ -1,0 +1,39 @@
+{% load static %}
+<div class="question-preview">
+    <div class="row">
+        <div class="col-2">
+            <div class="my-header font-20">
+                {{ question.profile_id }}
+            </div>
+            <div class="text-center ">
+                <img class="question-avatar" src="{{ MEDIA_URL }}{{ question.profile_id.avatar.url }}" alt="avatar">
+            </div>
+            <div class="like-dislike w-100 mx-auto text-center">
+                <div class="btn-group " role="group">
+                    <button id="like-question-{{ question.id }}" data-id="{{ question.id }}" type="button" class="btn my-btn border-2 js-vote-question">+</button>
+                    <button id="dislike-question-{{ question.id }}" data-id="{{ question.id }}" type="button" class="btn my-btn border-2 js-vote-question">-</button>
+                </div>
+            </div>
+            <div  id="rating-question-{{ question.id }}" class="like-counter text-center w-100 ">{{ question.rating }}</div>
+        </div>
+        <div class="col-10">
+            <div class="question-header">
+                <a class="question-header" href="{{ question.get_url }}">{{ question.title }}</a>
+            </div>
+            <p class="font-20">
+                {{ question.text|truncatewords:30 }}
+            </p>
+            <div class="row">
+                <div class="col-3">
+                    <a class="link font-20" href="{{ question.get_url }}">answers({{ question.number_of_answers }})</a>
+                </div>
+                <div class="col-9 word-spacing-1-5">
+                    <span class="font-20">Tags:</span>
+                    {% for tag in question.tags.all|slice:":10" %}
+                        <a class="link font-20" href="{{ tag.get_url }}">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

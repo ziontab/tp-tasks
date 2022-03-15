@@ -1,0 +1,49 @@
+{% load static %}
+<div class="answer">
+    <div class="row">
+        <div class="col-2">
+            <div class="my-header font-20">
+                {{ answer.profile_id }}
+            </div>
+            <div class="text-center ">
+                <img class="question-avatar" src="{{ MEDIA_URL }}{{ answer.profile_id.avatar.url }}" alt="avatar">
+            </div>
+            <div class="like-dislike w-100 mx-auto text-center">
+                <div class="btn-group " role="group">
+                    <button id="like-answer-{{ answer.id }}" data-id="{{ answer.id }}" type="button" class="btn my-btn border-2 js-vote-answer">+</button>
+                    <button id="dislike-answer-{{ answer.id }}" data-id="{{ answer.id }}" type="button" class="btn my-btn border-2 js-vote-answer">-</button>
+                </div>
+            </div>
+            <div id="rating-answer-{{ answer.id }}" class="like-counter text-center w-100 ">{{ answer.rating }}</div>
+        </div>
+        <div class="col-10">
+            <p class="font-20 align-middle">
+                {{ answer.text }}
+            </p>
+            <div class="form-check">
+                {% if answer.is_correct and question.profile_id.user_id.username == user.username %}
+                    <input type="checkbox" data-id="{{ answer.id }}" class="is-right-checkbox js-answer-correct"
+                           name="is-right-checkbox-{{ answer.id }}" value=""
+                           id="is-right-checkbox-{{ answer.id }}" checked>
+                {% elif answer.is_correct and question.profile_id.user_id.username != user.username %}
+                    <input type="checkbox" data-id="{{ answer.id }}" class="is-right-checkbox js-answer-correct"
+                           name="is-right-checkbox-{{ answer.id }}" value=""
+                           id="is-right-checkbox-{{ answer.id }}" checked
+                           disabled>
+                {% elif not answer.is_correct and question.profile_id.user_id.username == user.username %}
+                    <input type="checkbox" data-id="{{ answer.id }}" class="is-right-checkbox js-answer-correct"
+                           name="is-right-checkbox-{{ answer.id }}" value=""
+                           id="is-right-checkbox-{{ answer.id }}">
+                {% elif not answer.is_correct and question.profile_id.user_id.username != user.username %}
+                    <input type="checkbox" data-id="{{ answer.id }}" class="is-right-checkbox js-answer-correct"
+                           name="is-right-checkbox-{{ answer.id }}" value=""
+                           id="is-right-checkbox-{{ answer.id }}"
+                           disabled>
+                {% endif %}
+                <label for="is-right-checkbox-{{ answer.id }}">
+                    correct
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

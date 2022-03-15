@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %} Login {% endblock %}
+{% block content %}
+    <h2 class="my-header">Please sign in!</h2>
+    <form class="form was-validated row question-form col-6 mx-auto" action="{% url 'login' %}?next={{ redirect_after_logout }}" method="post">
+        {% csrf_token %}
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                {{ form.username }}
+                <div class="requirements">Invalid nickname. Example is "My_NiCkNaMe55".</div>
+{#                {{ redirect_after_logout }}#}
+                <label for="{{ form.username.id_for_label }}">Your nickname</label>
+            </div>
+        </div>
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                {{ form.password }}
+                <div class="requirements">Invalid password. it must contain one upper and one lowercase letter and at
+                    least one number and be 8-100 characters long <br> Example is "aA1fera**".
+                </div>
+                <label for="{{ form.password.id_for_label }}">Password</label>
+            </div>
+        </div>
+        <div class="row mb-2 mt-2 mx-auto">
+            <div class="col-8">
+                <div class="error-msg text-end">
+                    {% for error in form.non_field_errors %}
+                        <p> {{ error }} </p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-4">
+                {% buttons %}
+                    <button class="btn my-btn link border-3 w-100 m-0" type="submit">Sign in!</button>
+                {% endbuttons %}
+            </div>
+        </div>
+    </form>
+    <div class="text-center">
+        <a class="link font-20" href="{% url 'signup' %}?next={{ redirect_after_logout }}">Create a new account!</a>
+    </div>
+{% endblock %}
+
+
+
+{#{% block content %}#}
+{#	<div class="inline">#}
+{#		<p class="new_questions">#}
+{#			Log In#}
+{#		</p>#}
+{#	</div>#}
+{##}
+{#{% bootstrap_css %}#}
+{##}
+{#	<form action="{% url 'login' %}" method="post" class="form">#}
+{#		{% bootstrap_form form %}#}
+{#		{% buttons %}#}
+{#			<button type="submit" class="btn btn-primary">#}
+{#				LogIn#}
+{#			</button>#}
+{#		{% endbuttons %}#}
+{#	</form>#}
+{##}
+{##}
+{#{% endblock %}#}

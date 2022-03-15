@@ -1,0 +1,6 @@
+<h2 class="my-header">Popular tags</h2>
+<div class="tags-holder">
+    {% for tag in popular_tags %}
+        <a class="tag" href="{{ tag.get_url }}">{{ tag }}</a>
+    {% endfor %}
+</div>

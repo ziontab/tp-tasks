@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <nav aria-label="Page navigation example" id="paginator">
+            <ul class="pagination my-pagination">
+
+                {% if paginated_elements.has_previous %}
+                    <li class="page-item ">
+                        <a class="my-btn link ml-1 p-1 border-radius-5 border-3"
+                           href="?page={{ paginated_elements.previous_page_number }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item ">
+                        <a class="my-btn link ml-1 p-1 border-radius-5 border-3 disabled-link" href="#">Previous</a>
+                    </li>
+                {% endif %}
+
+                {% if paginated_elements.has_previous %}
+                    <li class="page-item"><a class="my-btn link m-0 p-1 border-3"
+                                             href="?page={{ paginated_elements.previous_page_number }}">{{ paginated_elements.previous_page_number }}</a>
+                    </li>
+                    <li class="page-item"><a class="my-btn link m-0 p-1 border-3"
+                                             href="?page={{ paginated_elements.number }}">{{ paginated_elements.number }}</a>
+                    </li>
+
+                    {% if paginated_elements.has_next %}
+                        <li class="page-item"><a class="my-btn link m-0 p-1 border-3"
+                                                 href="?page={{ paginated_elements.next_page_number }}">{{ paginated_elements.next_page_number }}</a>
+                            {% else %}
+                        <li class="page-item"><a class="my-btn link m-0 p-1 border-3 disabled-link"
+                                                 href="#">&nbsp;&nbsp;</a>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item"><a class="my-btn link m-0 p-1 border-3" href="?page=1">1</a></li>
+                    <li class="page-item"><a class="my-btn link m-0 p-1 border-3" href="?page=2">2</a></li>
+                    <li class="page-item"><a class="my-btn link m-0 p-1 border-3" href="?page=3">3</a></li>
+                {% endif %}
+
+                {% if paginated_elements.has_next %}
+                    <li class="page-item enabled">
+                        <a class="my-btn link mr-1 p-1 border-radius-5 border-3"
+                           href="?page={{ paginated_elements.next_page_number }}">Next</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="my-btn link mr-1 p-1 border-radius-5 border-3 disabled-link" href="#">Next</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </nav>
+    </div>
+    <div class="col-4"></div>
+</div>

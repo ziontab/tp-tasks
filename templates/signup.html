@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %} Signup {% endblock %}
+
+{% block content %}
+    <h2 class="my-header">Please sign up!</h2>
+    <form class="was-validated row question-form col-6 mx-auto" action="{% url 'signup' %}" method="post"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                {{ form.email }}
+                <div class="requirements">Invalid email. Example is "name@example.com".</div>
+                <label for="{{ form.email.id_for_label }}">Email address</label>
+            </div>
+        </div>
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                {{ form.username }}
+                <div class="requirements">Invalid nickname. Example is "My_NiCkNaMe55".</div>
+                <label for="{{ form.username.id_for_label }}">Your nickname</label>
+            </div>
+        </div>
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                {{ form.password }}
+                <div class="requirements">Invalid password. it must contain one upper and one lowercase letter and at
+                    least one number and be 8-100 characters long <br> Example is "aA1fera**".
+                </div>
+                <label for="{{ form.password.id_for_label }}">Password</label>
+            </div>
+        </div>
+        <div class="row mt-3 mx-auto">
+            <div class="col-12 mx-auto form-floating">
+                {{ form.repeat_password }}
+                <div class="requirements"> {{ form.errors.repeat_password }} </div>
+                <label for="{{ form.repeat_password.id_for_label }}">Repeat password</label>
+            </div>
+        </div>
+        <div class="row mt-3 mb-3 mx-auto">
+            {{ form.avatar }}
+            <label for="{{ form.avatar.id_for_label }}"
+                   class="w-50 input-group-text mx-auto btn my-btn border-3 link" >upload
+                the avatar</label>
+            <div id="avatar-input-error" class="requirements text-center ">The avatar was not uploaded.</div>
+        </div>
+        <div class="row mb-1 mx-auto">
+            <div class="col-8">
+
+            </div>
+            <div class="col-4">
+                {% buttons %}
+                    <button class="btn my-btn link border-3 w-100 m-0" type="submit">Sign up!</button>
+                {% endbuttons %}
+            </div>
+        </div>
+        <div class="row mb-1 mx-auto">
+            <div class="error-msg text-end">
+                {% for error in form.non_field_errors %}
+                    <p> {{ error }} </p>
+                {% endfor %}
+
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+{% endblock %}

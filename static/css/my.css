@@ -1,0 +1,349 @@
+/* https://colorscheme.ru/#4r21Ti2fLwtw0  */
+
+body {
+    background-color: #FFD5A4;
+    color: #362C46;
+    box-sizing: border-box;
+}
+
+.my-nav {
+    background-color: #362C46;
+}
+
+.brand {
+    height: 70px;
+    margin-left: 10px;
+}
+
+.brand-text {
+    font-weight: 900;
+    font-size: 30px;
+    color: #8E7AAA;
+}
+
+.my-nav {
+    padding: 2px;
+}
+
+
+
+.nav-link,
+.nav-link:visited {
+    font-weight: 900;
+    color: #C9AE8D;
+    text-decoration: none;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: #8E7AAA;
+}
+
+
+.my-btn {
+    border: 1px solid;
+    border-color: #C9B5CD;
+    font-weight: 900;
+    font-size: 30px;
+    color: #C9AE8D;
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.my-btn:hover {
+    color: #3D344A;
+    background-color: #C9B5CD;
+}
+
+.my-btn:focus {
+    color: #3D344A;
+    background-color: #C9B5CD;
+    box-shadow: 0 0 0 0.25rem rgba(245, 255, 250, 0.25);
+}
+
+.search {
+    background-color: #FFD5A4;
+    border: 0px;
+    color: #362C46;
+}
+
+.search:hover {
+    color: #3D344A;
+    background-color: #C9B5CD;
+}
+
+.search:focus {
+    color: #3D344A;
+    background-color: #C9B5CD;
+    box-shadow: 0 0 0 0.25rem rgba(245, 255, 250, 0.25);
+
+}
+
+.font-30 {
+    font-size: 30px;
+}
+
+.font-20 {
+    font-size: 20px;
+}
+
+.my-header {
+    text-align: center;
+    font-weight: 900;
+}
+
+.mgt-50 {
+    margin-top: 50px;
+}
+
+.tag {
+    font-size: 30px;
+    font-weight: 700;
+    color: #876DAE;
+    text-shadow: #BEAB95 2px 2px 0px;
+    text-decoration: none;
+}
+
+.tags-holder {
+    line-height: 2;
+    word-spacing: 1.5em;
+    text-align: center;
+}
+
+.tag:hover,
+.tag:focus {
+    font-size: 32px;
+    font-weight: 900;
+    color: #876DAE;
+}
+
+.avatar {
+    height: 65px;
+    width: 70px;
+    border-radius: 5px;
+}
+
+.nick {
+    color: #876DAE;
+}
+
+.question-preview,
+.answer,
+.question-form {
+    border: 2px solid #876DAE;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px;
+}
+
+.question-header {
+    color: #362C46;
+    font-size: 32px;
+    text-align: center;
+    font-weight: 900;
+    text-decoration: underline #876DAE;
+}
+
+.question-header:hover,
+.question-header:focus {
+    color: #876DAE;
+}
+
+.question-avatar {
+    height: 90%;
+    width: 90%;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.like-counter {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    display: inline-block;
+    line-height: 0;
+    vertical-align: middle;
+}
+
+
+.like-dislike {
+    height: 3em;
+}
+
+.like-dislike .my-btn {
+    height: 30px;
+    font-size: 20px;
+    line-height: 0;
+    color: #9B8366;
+}
+
+.word-spacing-1-5 {
+    word-spacing: 1.5em;
+}
+
+
+.link {
+    font-size: 25px;
+    font-weight: 700;
+    color: #876DAE;
+    text-decoration: none;
+}
+
+
+.link:hover,
+.link:focus {
+    color: #362C46;
+}
+
+.disabled-link {
+  color: grey;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+.my-pagination {
+    padding: 20px;
+    font-weight: 800;
+    color: #9B8366;
+    border: 10px;
+}
+
+.border-radius-5 {
+    border-radius: 5px;
+}
+
+.answer {}
+
+.is-right-checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+/* для элемента label связанного с .custom-radio */
+.is-right-checkbox+label {
+    font-size: 20px;
+    color: #876DAE;
+    font-weight: 800;
+}
+
+/* создание в label псевдоэлемента  before со следующими стилями */
+.is-right-checkbox+label::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #C9B5CD;
+    border-radius: 50%;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+}
+
+/* стили при наведении курсора на радио */
+.is-right-checkbox:not(:disabled):not(:checked)+label:hover::before {
+    border: 3px solid #C9B5CD;
+}
+
+/* стили для радиокнопки, находящейся в фокусе */
+.is-right-checkbox:focus+label::before {
+    box-shadow: 0 0 0 0.25rem rgba(245, 255, 250, 0.25);
+}
+
+
+/* стили для радиокнопки, находящейся в состоянии checked */
+.is-right-checkbox:checked+label::before {
+    border-color: #C9B5CD;
+    background-color: #C9B5CD;
+}
+
+.changes_saved{
+    display: block;
+    color: #387548;
+    font-size: 50px;
+}
+
+#input-answer,
+#question-body,
+#question,
+#tags-input,
+#avatar-input
+    {
+    border: 2px solid #876DAE;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px;
+}
+
+#question:valid+.requirements,
+#question-body:valid+.requirements,
+#tags-input:valid+.requirements,
+#email-input:valid~.requirements,
+#password-input:valid~.requirements,
+#repeat-password-input:valid~.requirements,
+#username-input:valid~.requirements,
+#avatar-input:valid~#avatar-input-error,
+#avatar-input:valid~#avatar-label {
+    opacity: 0;
+}
+
+
+#avatar-input:valid+label::after {
+    content: "Avatar was uploaded";
+    display: block;
+    color: #387548;
+    font-size: 20px;
+}
+
+
+#email-input,
+#password-input,
+#repeat-password-input,
+#question,
+#question-body,
+#tags-input,
+#input-answer,
+#username-input,
+#avatar-input {
+    background-color: #C9B5CD;
+    border: none;
+}
+
+#email-input:focus,
+#password-input:focus,
+#repeat-password-input:focus,
+#question:focus,
+#question-body:focus,
+#tags-input:focus,
+#input-answer:focus,
+#username-input:focus,
+#avatar-input:focus {
+    background-color: #FFD5A4;
+    color: #362C46;
+    font-weight: 700;
+}
+
+.requirements {
+    font-size: 15px;
+    color: #590705;
+}
+
+.m-20px {
+    margin: 20px;
+}
+
+.error-msg {
+    font-size: 20px;
+    font-weight: 700;
+    color: #590705;
+}
+
+
+#avatar-input[type="file"] {
+    display: none;
+}

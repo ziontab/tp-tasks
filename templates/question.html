@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %} Question {% endblock %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="question-preview">
+        <div class="row">
+            <div class="col-2">
+                <div class="my-header font-20">
+                    {{ question.profile_id }}
+                </div>
+                <div class="text-center ">
+                    <img class="question-avatar" src="{{ MEDIA_URL }}{{ question.profile_id.avatar.url }}" alt="avatar">
+                </div>
+                <div class="like-dislike w-100 mx-auto text-center">
+                    <div class="btn-group " role="group">
+                        <button id="like-question-{{ question.id }}" data-id="{{ question.id }}" type="button" class="btn my-btn border-2 js-vote-question">+</button>
+                        <button id="dislike-question-{{ question.id }}" data-id="{{ question.id }}" type="button" class="btn my-btn border-2 js-vote-question">-</button>
+                    </div>
+                </div>
+                <div  id="rating-question-{{ question.id }}" class="like-counter text-center w-100 ">{{ question.rating }}</div>
+            </div>
+            <div class="col-10">
+                <div class="question-header">
+                    <span class="question-header">{{ question.title }}</span>
+                </div>
+                <p class="font-20">
+                    {{ question.text }}
+                </p>
+                <div class="row">
+                    <div class="col-3">
+                        <span class="link font-20" >answers({{ question.number_of_answers }})</span>
+                    </div>
+                    <div class="col-9 word-spacing-1-5">
+                        <span class="font-20">Tags:</span>
+                        {% for tag in question.tags.all %}
+                            <a class="link font-20" href="{{ tag.get_url }}">{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="m-20px">
+        <form class="was-validated" action="{{ question.get_url }}" method="post">
+            {% csrf_token %}
+            {{ ask_form.text }}
+            {#            <textarea rows="5" class="form-control m-0 is-invalid" id="input-answer"#}
+            {#                      placeholder="enter your answer here..."#}
+            {#                      maxlength="300" title="maximum length 300 characters, the answer cannot be empty"#}
+            {#                      required></textarea>#}
+            {% if user.is_authenticated %}
+            {% buttons %}
+                <button class="btn my-btn link mt-2 mb-5 border-3" type="submit">Answer!</button>
+            {% endbuttons %}
+            {% else %}
+                <a type="button" class="btn my-btn link mt-2 mb-5 border-3" href="{% url 'login' %}">Login to answer</a>
+            {% endif %}
+        </form>
+    </div>
+    <hr>
+    {% for answer in answers %}
+        {% include 'include/answer.html' %}
+    {% endfor %}
+    {% include 'include/paginator.html' %}
+
+    <script src="{% static "js/jquery-3.6.0.min.js"%}"></script>
+    <script src="{% static "js/get_cookie.js"%} "></script>
+    <script src="{% static "js/is_answer_correct.js"%} "></script>
+    <script src="{% static "js/vote_question.js"%} "></script>
+    <script src="{% static "js/vote_answer.js"%} "></script>
+{% endblock %}
+

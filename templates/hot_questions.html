@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Hot {% endblock %}
+{% block content %}
+    <div class="row">
+            <h2 class="my-header">Hot questions</h2>
+    </div>
+
+    {% for question in questions %}
+        {% include 'include/question_preview.html' %}
+    {% endfor %}
+
+    {% include 'include/paginator.html'%}
+
+    <script src="{% static "js/jquery-3.6.0.min.js"%}"></script>
+    <script src="{% static "js/get_cookie.js"%} "></script>
+    <script src="{% static "js/vote_question.js"%} "></script>
+{% endblock %}
