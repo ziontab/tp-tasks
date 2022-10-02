@@ -9,11 +9,11 @@
 </p>
 
 ## Технопарк Mail.ru / Курс Web-технологии
-- Техническое задание ([Markdown](files/markdown/technical_details.md), [PDF](files/pdf/technical_details.pdf))
-- Домашнее задание 1 ([Markdown](files/markdown/task-1.md), [PDF](files/pdf/task-1.pdf))
-- Домашнее задание 2 ([Markdown](files/markdown/task-2.md), [PDF](files/pdf/task-2.pdf))
-- Домашнее задание 3 ([Markdown](files/markdown/task-3.md), [PDF](files/pdf/task-3.pdf))
-- Домашнее задание 4 ([Markdown](files/markdown/task-4.md), [PDF](files/pdf/task-4.pdf))
-- Домашнее задание 5 ([Markdown](files/markdown/task-5.md), [PDF](files/pdf/task-5.pdf))
-- Домашнее задание 6 ([Markdown](files/markdown/task-6.md), [PDF](files/pdf/task-6.pdf))
-- Домашнее задание 7 ([Markdown](files/markdown/task-7.md), [PDF](files/pdf/task-7.pdf))
+- [Техническое задание](files/markdown/technical_details.md)
+- [Домашнее задание 1](files/markdown/task-1.md)
+- [Домашнее задание 2](files/markdown/task-2.md)
+- [Домашнее задание 3](files/markdown/task-3.md)
+- [Домашнее задание 4](files/markdown/task-4.md)
+- [Домашнее задание 5](files/markdown/task-5.md)
+- [Домашнее задание 6](files/markdown/task-6.md)
+- [Домашнее задание 7](files/markdown/task-7.md)

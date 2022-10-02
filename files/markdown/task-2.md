@@ -71,8 +71,32 @@ def paginate(objects_list, request, per_page=10):
     return page
 ```
 
-### 7. Полезные ссылки
-- Туториал по [Django Views](https://docs.djangoproject.com/en/2.0/intro/tutorial03);
-- Документация по [шаблонам](https://docs.djangoproject.com/en/2.0/ref/templates/language);
-- [Наследование шаблонов](https://docs.djangoproject.com/en/2.0/ref/templates/language/#template-inheritance);
-- [Постраничный вывод (пагинация)](https://docs.djangoproject.com/en/2.0/topics/pagination).
+## 7. Баллы
+
+#### Максимальные баллы за ДЗ - 14 баллов
+
+Создать views и шаблоны для основных страниц - 6:
+
+- главная (список новых вопросов) - 1;
+- страница вопроса (список ответов) - 1;
+- страница добавления вопроса - 1;
+- форма регистрации - 1;
+- форма входа - 1;
+- форма добавления вопроса - 1.
+
+Создать urls.py для всех страниц - 4:
+
+- Собственно urls.py - 2;
+- Именованные маршруты (во всех шаблонах) - 2.
+
+Постраничное отображение - 4:
+
+- функция пагинации - 1;
+- шаблон для отрисовки пагинатора - 2;
+- корректная обработка “неправильных” параметров - 1.
+
+### 8. Полезные ссылки
+- Туториал по [Django Views](https://docs.djangoproject.com/en/4.1/intro/tutorial03/);
+- Документация по [шаблонам](https://docs.djangoproject.com/en/4.1/ref/templates/language/);
+- [Наследование шаблонов](https://docs.djangoproject.com/en/4.1/ref/templates/language/#template-inheritance);
+- [Постраничный вывод (пагинация)](https://docs.djangoproject.com/en/4.1/topics/pagination/).

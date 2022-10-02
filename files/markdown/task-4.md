@@ -28,9 +28,42 @@
 - Использовать встроенную в Django защиту от **CSRF**.
 - Для обработки и вывода форм использовать **django.forms**.
 
-### 5. Полезные ссылки
-- Документация по [системе авторизации](https://docs.djangoproject.com/en/2.0/topics/auth/default);
-- [Как войти залогинить пользователя](https://docs.djangoproject.com/en/2.0/topics/auth/default/#how-to-log-a-user-in);
-- [Как разлогинить пользователя](https://docs.djangoproject.com/en/2.0/topics/auth/default/#how-to-log-a-user-out);
-- [Как зарегистрировать пользователя](https://docs.djangoproject.com/en/2.0/topics/auth/default/#creating-users);
-- Туториал по [проектированию форм в Django](https://docs.djangoproject.com/en/2.0/intro/tutorial04).
+### 5. Баллы
+
+#### Максимальные баллы за ДЗ - 15 баллов
+
+Вход на сайт - 3:
+
+- общее - 1;
+- возврат на исходную страницу - 1;
+- отображение ошибок - 1.
+
+Регистрация на сайте - 3:
+
+- общее - 2;
+- отображение ошибок - 1.
+
+Выход с сайта - 1:
+
+- Отображение текущего пользователя в шапке - 1.
+
+Добавление вопроса - 4:
+
+- общее - 1;
+- добавление тегов - 1;
+- отображение ошибок - 1;
+- редирект на страницу вопроса - 1.
+
+Добавление ответа - 2:
+
+- общее - 1;
+- редирект на добавленный ответ - 1.
+
+Проверка метода запроса 1.
+
+### 6. Полезные ссылки
+- Документация по [системе авторизации](https://docs.djangoproject.com/en/4.1/topics/auth/default/);
+- [Как войти залогинить пользователя](https://docs.djangoproject.com/en/4.1/topics/auth/default/#how-to-log-a-user-in);
+- [Как разлогинить пользователя](https://docs.djangoproject.com/en/4.1/topics/auth/default/#how-to-log-a-user-out);
+- [Как зарегистрировать пользователя](https://docs.djangoproject.com/en/4.1/topics/auth/default/#creating-users);
+- Туториал по [проектированию форм в Django](https://docs.djangoproject.com/en/4.1/intro/tutorial04/).
