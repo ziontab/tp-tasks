@@ -43,7 +43,15 @@ a.save()
 
 Для страниц не существующих объектов нужно возвращать 404 страницу. В коде view (контроллеров) не должно быть дублирующегося кода. Использовать функцию пагинации созданную на предыдущем занятии.
 
-### 5. Полезные ссылки
+### 5. Использование СУБД
+В качестве СУБД по умолчанию в Django используется SQLite. Это встраиваемая СУБД, которая представляет собой файл в каталоге с вашим Django-проектом. Такое решение удобно для отладки, но не может использоваться "в продакшене".
+
+Требуется отказаться от стандартной СУБД SQLite в пользу иной реляционной СУБД на ваш выбор: MySQL или PostgreSQL. Для этого необходимо развернуть локально инстанс СУБД на вашей машине и внести небольшие изменения в конфигурацию проекта Django. См. документацию по ссылкам ниже.
+
+### 6. Полезные ссылки
 - Туториал по [проектированию моделей в Django](https://docs.djangoproject.com/en/2.0/intro/tutorial02/);
 - Подробная [документация по моделям](https://docs.djangoproject.com/en/2.0/topics/db/models/);
 - Скрипты - [Management Commands](https://docs.djangoproject.com/en/2.0/howto/custom-management-commands/).
+- Подключение MySQL к Django - [Databases - MySQL](https://docs.djangoproject.com/en/4.1/ref/databases/#mysql-notes)
+- Как поднять MySQL на своей машине с помощью Docker - [Basic Steps for MySQL Server Deployment with Docker](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/docker-mysql-getting-started.html)
+
