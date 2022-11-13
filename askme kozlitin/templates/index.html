@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sticky Footer Navbar Template · Bootstrap v5.2</title>
+
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/style.css" rel="stylesheet">
+  </head>
+  <body class="d-flex flex-column h-100">
+    
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">AskMe</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+        <a href="ask.html"><button type="button" class="btn btn-primary me-4 mb-2 mb-md-0">ASK!</button></a>
+        <form class="d-flex me-4 mb-2 mb-md-0" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
+        <div class="d-flex gap-3 py-3" aria-current="true">
+            <img src="https://github.com/twbs.png" alt="twbs" width="44" height="44" class="rounded-circle flex-shrink-0">
+            <ul class="list-group">
+                <p class="mb-1 text text-light">NickName</p>
+                <ul class="gap-3 list-group list-group-horizontal">
+                    <li><a href="settings.html">settings</a></li>
+                    <li><a href="register.html">log out</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Begin page content -->
+<main role="main" class="flex-shrink-0 container logged">
+
+    <div class="row">
+        <div class="col-md-8 blog-main">
+            <div class="py-3 border-bottom">
+                <h3>
+                    New questions
+                    <small><a class="link-danger" href="#">Hot questions</a></small>
+                </h3>
+            </div>
+
+        <div class="question row border border-dark rounded ">
+            <div class="d-flex gap-3 py-3" aria-current="true">
+                <div class="d-flex gap-3">
+                    <img src="https://github.com/twbs.png" alt="twbs" width="64" height="64" class="rounded-circle flex-shrink-0">
+                    <h1 class="col-11 mb-0"><a href="question.html">Question 1</a></h1>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <div class="rating col-1 justify-content-center">
+                    <div class="text text-center">
+                        <div class="btn-group" role="group" aria-label="Rating">
+                            <button type="button" class="btn btn-outline-danger btn-sm">-</button>
+                            <input type="text" readonly class="form-control-plaintext border-dark" id="staticRating" value="30">
+                            <button type="button" class="btn btn-outline-success btn-sm">+</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="col-11 mb-0 opacity-75">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut similique accusantium a consequuntur! Incidunt saepe nobis veritatis porro. Laudantium, ipsa repellendus! Reprehenderit nihil voluptatum accusantium totam similique, ducimus voluptates fuga debitis ullam facere fugiat quas libero sunt. Debitis quo excepturi expedita est, voluptatem repudiandae praesentium provident neque facilis non ipsum!</p>
+            </div>
+            
+            <div class="d-flex gap-3 py-3" aria-current="true">
+                <div class="col-1"></div>
+                <div class="col-3 text"><a href="question.html" class="link-primary">answers (3)</a></div>
+                <div class="col-8 text-left">
+                    <p class="font-italic">Tags:
+                        <a href="#" class="link-primary">tag 1</a>
+                        <a href="#" class="link-primary">tag 2</a>
+                        <a href="#" class="link-primary">tag 3</a>
+                        <a href="#" class="link-primary">tag 4</a>
+                        <a href="#" class="link-primary">tag 5</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /.question -->
+
+        <div class="question row border border-dark rounded">
+            <div class="d-flex gap-3 py-3" aria-current="true">
+                <div class="d-flex gap-3">
+                    <img src="https://github.com/twbs.png" alt="twbs" width="64" height="64" class="rounded-circle flex-shrink-0">
+                    <h1 class="col-11 mb-0"><a href="question.html">Question 2</a></h1>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <div class="rating col-1 justify-content-center">
+                    <div class="text text-center">
+                        <div class="btn-group" role="group" aria-label="Rating">
+                            <button type="button" class="btn btn-outline-danger btn-sm">-</button>
+                            <input type="text" readonly class="form-control-plaintext border-dark" id="staticRating" value="30">
+                            <button type="button" class="btn btn-outline-success btn-sm">+</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="col-11 mb-0 opacity-75">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut similique accusantium a consequuntur! Incidunt saepe nobis veritatis porro. Laudantium, ipsa repellendus! Reprehenderit nihil voluptatum accusantium totam similique, ducimus voluptates fuga debitis ullam facere fugiat quas libero sunt. Debitis quo excepturi expedita est, voluptatem repudiandae praesentium provident neque facilis non ipsum!</p>
+            </div>
+            
+            <div class="d-flex gap-3 py-3" aria-current="true">
+                <div class="col-1"></div>
+                <div class="col-3 text"><a href="question.html" class="link-primary">answers (3)</a></div>
+                <div class="col-8 text-left">
+                    <p class="font-italic">Tags:
+                        <a href="#" class="link-primary">tag 1</a>
+                        <a href="#" class="link-primary">tag 2</a>
+                        <a href="#" class="link-primary">tag 3</a>
+                        <a href="#" class="link-primary">tag 4</a>
+                        <a href="#" class="link-primary">tag 5</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /.question -->
+
+        <div class="question row border border-dark rounded">
+            <div class="d-flex gap-3 py-3" aria-current="true">
+                <div class="d-flex gap-3">
+                    <img src="https://github.com/twbs.png" alt="twbs" width="64" height="64" class="rounded-circle flex-shrink-0">
+                    <h1 class="col-11 mb-0"><a href="question.html">Question 3</a></h1>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <div class="rating col-1 justify-content-center">
+                    <div class="text text-center">
+                        <div class="btn-group" role="group" aria-label="Rating">
+                            <button type="button" class="btn btn-outline-danger btn-sm">-</button>
+                            <input type="text" readonly class="form-control-plaintext border-dark" id="staticRating" value="30">
+                            <button type="button" class="btn btn-outline-success btn-sm">+</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="col-11 mb-0 opacity-75">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut similique accusantium a consequuntur! Incidunt saepe nobis veritatis porro. Laudantium, ipsa repellendus! Reprehenderit nihil voluptatum accusantium totam similique, ducimus voluptates fuga debitis ullam facere fugiat quas libero sunt. Debitis quo excepturi expedita est, voluptatem repudiandae praesentium provident neque facilis non ipsum!</p>
+            </div>
+            
+            <div class="d-flex gap-3 py-3" aria-current="true">
+                <div class="col-1"></div>
+                <div class="col-3 text"><a href="question.html" class="link-primary">answers (3)</a></div>
+                <div class="col-8 text-left">
+                    <p class="font-italic">Tags:
+                        <a href="#" class="link-primary">tag 1</a>
+                        <a href="#" class="link-primary">tag 2</a>
+                        <a href="#" class="link-primary">tag 3</a>
+                        <a href="#" class="link-primary">tag 4</a>
+                        <a href="#" class="link-primary">tag 5</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /.question -->
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+
+        <div class="p-3">
+                <h4 class="font-italic">Popular Tags</h4>
+                <div class="d-flex flex-row">
+                    <div class="col text-left">
+                        <a href="#" class="link-primary">perl</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link-secondary">python</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link-success">TechnoPark</a>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-around">
+                    <div class="col text-left">
+                        <a href="#" class="link-danger">MySQL</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link-warning">django</a>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-around">
+                    <div class="col text-left">
+                        <a href="#" class="link-info">Mail.ru</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link">Voloshin</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link-dark">Firefox</a>
+                    </div>
+                </div>            
+        </div>
+
+        <div class="p-3">
+            <h4 class="font-italic">Best Members</h4>
+            <ol class="list-unstyled">
+            <li><a href="#">Mr.Freeman</a></li>
+            <li><a href="#">Dr.House</a></li>
+            <li><a href="#">Bender</a></li>
+            <li><a href="#">Queen Victoria</a></li>
+            <li><a href="#">V. Pupkin</a></li>
+            </ol>
+        </div>
+        </aside><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+  
+</main><!-- /.container -->
+
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <span class="text-muted">Place sticky footer content here.</span>
+  </div>
+</footer>
+
+      
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sticky Footer Navbar Template · Bootstrap v5.2</title>
+
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/style.css" rel="stylesheet">
+  </head>
+  <body class="d-flex flex-column h-100">
+    
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">AskMe</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+        <a href="ask.html"><button type="button" class="btn btn-primary me-4 mb-2 mb-md-0">ASK!</button></a>
+        <form class="d-flex me-4 mb-2 mb-md-0" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
+      <div class="text">
+        <div class="d-flex gap-3 py-3" aria-current="true">
+            <img src="https://github.com/twbs.png" alt="twbs" width="44" height="44" class="rounded-circle flex-shrink-0">
+            <ul class="list-group">
+                <p class="mb-1 text text-light">NickName</p>
+                <ul class="gap-3 list-group list-group-horizontal">
+                    <li><a href="settings.html">settings</a></li>
+                    <li><a href="register.html">log out</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Begin page content -->
+<main role="main" class="flex-shrink-0 container logged">
+
+    <div class="py-3 row">
+        <div class="col-md-8 blog-main">
+                <h2 class="py-3 mb-3 border-bottom">Settings: User</h2>
+                <form class="needs-validation" novalidate>
+                  <div class="row py-3 g-3">
+                    
+                    <div class="form-group row py-1 g-2">
+                        <div class="col-sm-2">
+                            <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputLogin" placeholder="User">
+                        </div>
+                    </div>
+        
+                    <div class="form-group row py-1 g-2">
+                        <div class="col-sm-2">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="user@mail.ru">
+                        </div>
+                    </div>
+
+                    <div class="form-group row py-1 g-2">
+                        <div class="col-sm-2">
+                            <label for="inputNickName" class="col-sm-2 col-form-label">NickName</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNickName" placeholder="UserNickName">
+                        </div>
+                    </div>
+
+                    <div class="form-group row py-1 g-2">
+                        <div class="col-sm-2">
+                            <label for="inputNickName" class="col-sm-2 col-form-label">Upload Avatar</label>
+                        </div>
+                        <div class="col-sm-10 custom-file">
+                            <img src="https://github.com/twbs.png" alt="Avatar" class="img-thumbnail">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                          </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group row py-1 g-2">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
+                    </div>
+                  </div>
+                </form>
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+
+        <div class="p-3">
+                <h4 class="font-italic">Popular Tags</h4>
+                <div class="d-flex flex-row">
+                    <div class="col text-left">
+                        <a href="#" class="link-primary">perl</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link-secondary">python</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link-success">TechnoPark</a>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-around">
+                    <div class="col text-left">
+                        <a href="#" class="link-danger">MySQL</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link-warning">django</a>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-around">
+                    <div class="col text-left">
+                        <a href="#" class="link-info">Mail.ru</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link">Voloshin</a>
+                    </div>
+                    <div class="col text-left">
+                        <a href="#" class="link-dark">Firefox</a>
+                    </div>
+                </div>            
+        </div>
+
+        <div class="p-3">
+            <h4 class="font-italic">Best Members</h4>
+            <ol class="list-unstyled">
+            <li><a href="#">Mr.Freeman</a></li>
+            <li><a href="#">Dr.House</a></li>
+            <li><a href="#">Bender</a></li>
+            <li><a href="#">Queen Victoria</a></li>
+            <li><a href="#">V. Pupkin</a></li>
+            </ol>
+        </div>
+        </aside><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+  
+</main><!-- /.container -->
+
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <span class="text-muted">Place sticky footer content here.</span>
+  </div>
+</footer>
+
+      
+  </body>
+</html>
