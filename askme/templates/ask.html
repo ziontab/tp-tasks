@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+        <title>AskMe</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+                <div>
+                    <a href="index.html" class="navbar-brand fs-2">
+                        <img src="../static/img/favicon-32x32.png">
+                        AskMe
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse fs-5" id="navbarContent">
+                    <ul class="general-section navbar-nav mb-auto col-4">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link">questions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ask.html" class="nav-link">ask</a>
+                        </li>
+                    </ul>
+                    <form action="" class="d-flex mb-auto justify-content-center">
+                        <input type="search" class="search-input form-control mb-auto mr-200" placeholder="Questions, tags, users">
+                        <button class="search-button btn btn-outline-warning">Search</button>
+                    </form>
+                    <ul class="user-section navbar-nav mb-auto justify-content-end col-5">
+                        <li class="nav-item">
+                            <a href="login.html" class="nav-link">sign in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="signup.html" class="nav-link">sign up</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main class="flex-shrink-0">
+            <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-9 container-fluid">
+                            <div class="col-10 container-fluid">
+                                <h2 class="text-center">New Question</h2>
+                                <form>
+                                    <span class="fs-2">Title</span>
+                                    <input type="text" name="question-title" class="form-control">
+                                </form>
+                                <p class="fs-2">Question</p>
+                                <textarea cols="110" rows="20" name="question-text"></textarea>
+                                <form>
+                                    <span class="fs-2">Tags</span>
+                                    <input type="text" name="question-tags" class="form-control">
+                                    <input type="submit" value="Ask!" class="btn btn-success mt-3">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <section class="tags mt-5 mb-5 bg-light">
+                                <h3>Most Popular Tags</h3>
+                                <div class="row">
+                                    <div class="col-4 fs-3">
+                                        <a href="" class="text-danger text-decoration-none">tag1</a>
+                                    </div>
+                                    <div class="col-4 fs-3">
+                                        <a href="" class="text-black text-decoration-none">tag2</a>
+                                    </div>
+                                    <div class="col-4 fs-3">
+                                        <a href="" class="text-primapy text-decoration-none">tag3</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 fs-3">
+                                        <a href="" class="text-primary text-decoration-none">tag4</a>
+                                    </div>
+                                    <div class="col-6 fs-3">
+                                        <a href="" class="text-success text-decoration-none">tag5</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 fs-3">
+                                        <a href="" class="text-warning text-decoration-none">tag6</a>
+                                    </div>
+                                    <div class="col-4 fs-3">
+                                        <a href="" class="text-info text-decoration-none">tag7</a>
+                                    </div>
+                                    <div class="col-4 fs-3">
+                                        <a href="" class="text-secondary text-decoration-none">tag8</a>
+                                    </div>
+                                </div>
+                            </section>
+                            <hr>
+                            <section class="users mt-5 bg-light">
+                                <h3>Best Members</h3>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="" class="list-group-item list-group-item-action fs-4">User1</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>100</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="" class="list-group-item list-group-item-action fs-4">User2</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>99</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="" class="list-group-item list-group-item-action fs-4">User3</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>87</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="" class="list-group-item list-group-item-action fs-4">User4</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>34</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="" class="list-group-item list-group-item-action fs-4">User5</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>1</h4>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+            </div>
+        </main>
+        <footer class="fixed-bottom bg-dark text-center">
+            <p class="text-secondary fs-5">2023</p>
+        </footer>
+        <script src="../static/js/bootstrap.min.js"></script>
+    </body>
+</html>

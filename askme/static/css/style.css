@@ -1,0 +1,47 @@
+body {
+    background-color: rgb(236, 192, 138);
+}
+
+
+.search-button, .search-input {
+    border-radius: 30px;
+}
+
+main {
+    margin-top: 80px;
+}
+
+.tags > .row {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+section {
+    border-radius: 20px;
+    text-decoration: none;
+    border: 3px solid black;
+    margin-right: 50px;
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 3px solid black;
+}
+
+textarea {
+    resize: none;
+    border-radius: 10px;
+    border: 3px solid black;
+}
+
+.question-user-avatar {
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.question-row {
+    border-radius: 20px;
+    border: 3px solid black;
+    margin-top: 15px;
+}
