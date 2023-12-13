@@ -8,9 +8,9 @@
 
 Для этого необходимо:
 
-- Настроить [nginx-push-stream-module](https://www.nginx.com/resources/wiki/modules/push_stream/) в nginx (comet). Обратите внимание: этот модуль не относиться к стандартным. Nginx c этим модулем придется [собирать самостоятельно](https://www.nginx.com/resources/wiki/modules/push_stream/#installation).
-- На странице вопроса добавить JavaScript опрашивающий comet сервер.
-- В форме добавления ответа добавить код, отправляющий сообщения в comet, например с помощью библиотеки requests.
+- Настроить сервер [Сentrifugo](https://centrifugal.dev/docs/getting-started/quickstart).
+- На странице вопроса добавить JavaScript опрашивающий Сentrifugo сервер. В состав Сentrifugo входят [JavaScript-библиотеки](https://centrifugal.dev/docs/transports/websocket), их необходимо использовать для создания корректного соединения с сервером Сentrifugo по протоколу websocket.
+- В форме добавления ответа добавить код, отправляющий сообщения в Сentrifugo, например с помощью библиотеки requests.
 
 ### 2. Кэширование и фоновый запуск
 Необходимо подготовить и вывести данные для правой колонки (лучшие пользователи, популярные теги). Популярные теги - это 10 тегов с самым большим количеством вопросов за последние 3 месяца. Лучшие пользователи - это 10 пользователей задавших самые популярные вопросы или давших самые популярные ответы за последнюю неделю.
@@ -30,9 +30,9 @@
 
 Real-time сообщения - 8:
 
-- настройка nginx+mod_push - 2;
-- подключение к mod_push c помощью jQuery - 3;
-- отправка сообщений в mod_push - 3.
+- настройка сервера Centrifugo - 3;
+- подключение клиентской части для работы с Сentrifugo - 3;
+- отправка новых ответов на вопрос через requests - 2.
 
 Блок популярные теги - 4:
 
@@ -52,7 +52,7 @@ Real-time сообщения - 8:
 - ожидание ввода всех символов пользователем - 1.
 
 ### 5. Полезные ссылки
-- Документация по [nginx-push-stream-module](https://www.nginx.com/resources/wiki/modules/push_stream/);
+- Документация по Centrifugo: [серверная часть](https://centrifugal.dev/docs/server/configuration) и [клиентская часть](https://centrifugal.dev/docs/transports/websocket);
 - [Библиотека requests для Python](http://docs.python-requests.org/en/latest/);
 - [Inclusion tags в Django](https://docs.djangoproject.com/en/4.1/howto/custom-template-tags/#inclusion-tags);
 - [Настройка кэширования в Django](https://docs.djangoproject.com/en/4.1/topics/cache/#filesystem-caching);
