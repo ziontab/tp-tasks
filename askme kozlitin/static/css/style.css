@@ -1,0 +1,15 @@
+.container {
+    padding: 60px 15px 0;
+}
+
+.logged {
+    padding-top: 120px;
+}
+
+.question, .answer, .question-main, .NewAnswer {
+    margin: 15px 0;
+}
+
+.btn-group {
+    margin-bottom: 5px;
+}
